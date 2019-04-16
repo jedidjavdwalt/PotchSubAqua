@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,8 +7,33 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  inventoryClicked = false;
+  typesClicked = false;
+  statusesClicked = false;
 
-  constructor() { }
+  constructor(
+    private router: Router,
+  ) { }
+
+  inventoryToggle() {
+    this.inventoryClicked = !this.inventoryClicked;
+  }
+
+  typesToggle() {
+    this.typesClicked = !this.typesClicked;
+  }
+
+  statusesToggle() {
+    this.statusesClicked = !this.statusesClicked;
+  }
+
+  navigateTypes() {
+    this.router.navigateByUrl('types');
+  }
+
+  navigateStatuses() {
+    this.router.navigateByUrl('statues');
+  }
 
   ngOnInit() {
   }

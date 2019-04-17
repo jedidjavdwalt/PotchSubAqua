@@ -22,21 +22,15 @@ export class DashboardComponent implements OnInit {
   u19Clicked = false;
   u15Clicked = false;
   u13Clicked = false;
-  // u10Clicked = navigate;
-  // beginnersClicked = navigate;
-  // playersAddClicked = navigate;
 
   ladiesClicked = false;
   menClicked = false;
 
   inventoryTypeClicked = false;
   inventoryStatusClicked = false;
-  // inventoryAddClicked = navigate;
-
 
   rentalsTypeClicked = false;
   rentalsStatusClicked = false;
-  // rentalsAddClicked = navigate;
 
   constructor(
     private router: Router,

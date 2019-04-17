@@ -6,6 +6,7 @@ import { AngularFireModule } from '@angular/fire';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { FormsModule } from '@angular/forms';
 
 import { environment } from '../environments/environment';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -47,6 +48,7 @@ import { AddComponent } from './components/add/add.component';
       stickEffects.StickEffects, finsEffects.FinsEffects
     ]),
     StoreDevtoolsModule.instrument(),
+    FormsModule,
   ],
   providers: [
     AngularFirestore,

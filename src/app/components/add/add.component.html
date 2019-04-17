@@ -12,46 +12,44 @@
       <h1>
         Add Inventory
       </h1>
-      <form class="needs-validation">
-        <div class="form-row pb-2">
-          <select class="form-control" required>
-            <option disabled>type</option>
-            <option>Mask</option>
-            <option>Snorkel</option>
-            <option>Glove</option>
-            <option>Stick</option>
-            <option>Fins</option>
-          </select>
-        </div>
 
-        <div class="form-row pb-2">
-          <input type="number" class="form-control" placeholder="number" required>
-        </div>
+      <div class="form-row pb-2">
+        <select class="form-control" [(ngModel)]="newInventory.type" required>
+          <option>Mask</option>
+          <option>Snorkel</option>
+          <option>Glove</option>
+          <option>Stick</option>
+          <option>Fins</option>
+        </select>
+      </div>
 
-        <div class="form-row pb-2">
-          <input type="text" class="form-control" placeholder="brand" required>
-        </div>
+      <div class="form-row pb-2">
+        <input type="number" class="form-control" [(ngModel)]="newInventory.number" placeholder="number" required>
+      </div>
 
-        <div class="form-row pb-2">
-          <input type="text" class="form-control" placeholder="color" required>
-        </div>
+      <div class="form-row pb-2">
+        <input type="text" class="form-control" [(ngModel)]="newInventory.brand" placeholder="brand" required>
+      </div>
 
-        <div class="form-row pb-2">
-          <input type="text" class="form-control" placeholder="description" required>
-        </div>
+      <div class="form-row pb-2">
+        <input type="text" class="form-control" [(ngModel)]="newInventory.color" placeholder="color" required>
+      </div>
 
-        <div class="form-row pb-2">
-          <select class="form-control" required>
-            <option disabled>status</option>
-            <option>Available</option>
-            <option>Rented</option>
-            <option>Missing</option>
-          </select>
-        </div>
-      </form>
+      <div class="form-row pb-2">
+        <input type="text" class="form-control" [(ngModel)]="newInventory.description" placeholder="description"
+          required>
+      </div>
 
-      <button class="btn btn-primary btn-block" (click)="addInventory()">
-        Add
+      <div class="form-row pb-2">
+        <select class="form-control" [(ngModel)]="newInventory.status" required>
+          <option>Available</option>
+          <option>Rented</option>
+          <option>Missing</option>
+        </select>
+      </div>
+
+      <button class="btn btn-primary btn-block" (click)="addInventoryClicked()">
+        Add Inventory
       </button>
     </div>
   </div>

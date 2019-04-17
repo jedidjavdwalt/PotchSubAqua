@@ -5,156 +5,189 @@
     <div class="col-4">
 
       <!-- players -->
-      <button class="btn btn-primary btn-block" (click)="activatePrimaryBtn('Players')" [class.active]="primaryBtn === 'Players'">
+      <button class="btn btn-primary btn-block" (click)="activatePrimaryBtn('Players')"
+        [class.active]="primaryBtn === 'Players'">
         Players
       </button>
 
       <ng-container *ngIf="primaryBtn === 'Players'">
-        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('U19')" [class.active]="secondaryBtn === 'U19'">
+        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('U19')"
+          [class.active]="secondaryBtn === 'U19'">
           U19
         </button>
 
         <ng-container *ngIf="secondaryBtn === 'U19'">
-          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Ladies')" [class.active]="tertiaryBtn === 'Ladies'">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Ladies')"
+            [class.active]="tertiaryBtn === 'Ladies'">
             Ladies
           </button>
 
-          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Men')" [class.active]="tertiaryBtn === 'Men'">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Men')"
+            [class.active]="tertiaryBtn === 'Men'">
             Men
           </button>
         </ng-container>
 
-        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('U15')" [class.active]="secondaryBtn === 'U15'">
+        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('U15')"
+          [class.active]="secondaryBtn === 'U15'">
           U15
         </button>
 
         <ng-container *ngIf="secondaryBtn === 'U15'">
-          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Ladies')" [class.active]="tertiaryBtn === 'Ladies'">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Ladies')"
+            [class.active]="tertiaryBtn === 'Ladies'">
             Ladies
           </button>
 
-          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Men')" [class.active]="tertiaryBtn === 'Men'">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Men')"
+            [class.active]="tertiaryBtn === 'Men'">
             Men
           </button>
         </ng-container>
 
-        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('U13')" [class.active]="secondaryBtn === 'U13'">
+        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('U13')"
+          [class.active]="secondaryBtn === 'U13'">
           U13
         </button>
 
         <ng-container *ngIf="secondaryBtn === 'U13'">
-          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Ladies')" [class.active]="tertiaryBtn === 'Ladies'">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Ladies')"
+            [class.active]="tertiaryBtn === 'Ladies'">
             Ladies
           </button>
 
-          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Men')" [class.active]="tertiaryBtn === 'Men'">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Men')"
+            [class.active]="tertiaryBtn === 'Men'">
             Men
           </button>
         </ng-container>
 
-        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('U10')" [class.active]="secondaryBtn === 'U10'">
+        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('U10')"
+          [class.active]="secondaryBtn === 'U10'">
           U10
         </button>
 
-        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('Beginners')" [class.active]="secondaryBtn === 'Beginners'">
+        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('Beginners')"
+          [class.active]="secondaryBtn === 'Beginners'">
           Beginners
         </button>
       </ng-container>
 
       <!-- inventory -->
-      <button class="btn btn-primary btn-block" (click)="activatePrimaryBtn('Inventory')"  [class.active]="primaryBtn === 'Inventory'">
+      <button class="btn btn-primary btn-block" (click)="activatePrimaryBtn('Inventory')"
+        [class.active]="primaryBtn === 'Inventory'">
         Inventory
       </button>
 
       <ng-container *ngIf="primaryBtn === 'Inventory'">
-        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('Status')"  [class.active]="secondaryBtn === 'Status'">
+        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('Status')"
+          [class.active]="secondaryBtn === 'Status'">
           Status
         </button>
 
         <ng-container *ngIf="secondaryBtn === 'Status'">
-          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Available'); displayInventoryStatus()" [class.active]="tertiaryBtn === 'Available'">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Available'); displayInventoryStatus()"
+            [class.active]="tertiaryBtn === 'Available'">
             Available
           </button>
 
-          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Rented'); displayInventoryStatus()" [class.active]="tertiaryBtn === 'Rented'">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Rented'); displayInventoryStatus()"
+            [class.active]="tertiaryBtn === 'Rented'">
             Rented
           </button>
         </ng-container>
 
-        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('Type')"  [class.active]="secondaryBtn === 'Type'">
+        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('Type')"
+          [class.active]="secondaryBtn === 'Type'">
           Type
         </button>
 
         <ng-container *ngIf="secondaryBtn === 'Type'">
-          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Mask'); displayInventoryType()" [class.active]="tertiaryBtn === 'Mask'">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Mask'); displayInventoryType()"
+            [class.active]="tertiaryBtn === 'Mask'">
             Mask
           </button>
 
-          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Snorkel'); displayInventoryType()" [class.active]="tertiaryBtn === 'Snorkel'">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Snorkel'); displayInventoryType()"
+            [class.active]="tertiaryBtn === 'Snorkel'">
             Snorkel
           </button>
 
-          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Glove'); displayInventoryType()" [class.active]="tertiaryBtn === 'Glove'">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Glove'); displayInventoryType()"
+            [class.active]="tertiaryBtn === 'Glove'">
             Glove
           </button>
 
-          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Stick'); displayInventoryType()" [class.active]="tertiaryBtn === 'Stick'">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Stick'); displayInventoryType()"
+            [class.active]="tertiaryBtn === 'Stick'">
             Stick
           </button>
 
-          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Fins'); displayInventoryType()" [class.active]="tertiaryBtn === 'Fins'">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Fins'); displayInventoryType()"
+            [class.active]="tertiaryBtn === 'Fins'">
             Fins
           </button>
         </ng-container>
 
-        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('Add'); addInventory()" [class.active]="secondaryBtn === 'Add'">
+        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('Add'); addInventory()"
+          [class.active]="secondaryBtn === 'Add'">
           Add
         </button>
       </ng-container>
 
       <!-- rentals -->
-      <button class="btn btn-primary btn-block" (click)="activatePrimaryBtn('Rentals')" [class.active]="primaryBtn === 'Rentals'">
+      <button class="btn btn-primary btn-block" (click)="activatePrimaryBtn('Rentals')"
+        [class.active]="primaryBtn === 'Rentals'">
         Rentals
       </button>
 
       <ng-container *ngIf="primaryBtn === 'Rentals'">
-        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('Status')" [class.active]="secondaryBtn === 'Status'">
+        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('Status')"
+          [class.active]="secondaryBtn === 'Status'">
           Status
         </button>
 
         <ng-container *ngIf="secondaryBtn === 'Status'">
-          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Payment')" [class.active]="tertiaryBtn === 'Payment'">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Payment')"
+            [class.active]="tertiaryBtn === 'Payment'">
             Payment
           </button>
 
-          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Refund')" [class.active]="tertiaryBtn === 'Refund'">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Refund')"
+            [class.active]="tertiaryBtn === 'Refund'">
             Refund
           </button>
 
-          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Return')" [class.active]="tertiaryBtn === 'Return'">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Return')"
+            [class.active]="tertiaryBtn === 'Return'">
             Return
           </button>
         </ng-container>
 
-        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('Type')" [class.active]="secondaryBtn === 'Type'">
+        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('Type')"
+          [class.active]="secondaryBtn === 'Type'">
           Type
         </button>
 
         <ng-container *ngIf="secondaryBtn === 'Type'">
-          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Day')" [class.active]="tertiaryBtn === 'Day'">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Day')"
+            [class.active]="tertiaryBtn === 'Day'">
             Day
           </button>
 
-          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Beginner')" [class.active]="tertiaryBtn === 'Beginner'">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Beginner')"
+            [class.active]="tertiaryBtn === 'Beginner'">
             Beginner
           </button>
 
-          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Season')" [class.active]="tertiaryBtn === 'Season'">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Season')"
+            [class.active]="tertiaryBtn === 'Season'">
             Season
           </button>
         </ng-container>
 
-        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('Add')" [class.active]="secondaryBtn === 'Add'">
+        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('Add')"
+          [class.active]="secondaryBtn === 'Add'">
           Add
         </button>
       </ng-container>
@@ -163,11 +196,17 @@
     <!-- detail -->
     <div class="col-8">
       <div class="row">
-        <div class="col-4 pb-2" *ngFor="let inventoryItem of inventoryItems">
-          <button class="btn btn-dark btn-block">
-            {{inventoryItem.number}}.{{inventoryItem.color}}
-          </button>
-        </div>
+        <ng-container *ngIf="showList">
+          <div class="col-4 pb-2" *ngFor="let inventoryItem of inventoryItems">
+            <button class="btn btn-dark btn-block">
+              {{inventoryItem.number}}.{{inventoryItem.color}}
+            </button>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="showAdd">
+          
+        </ng-container>
       </div>
     </div>
   </div>

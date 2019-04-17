@@ -18,6 +18,9 @@ export class DashboardComponent implements OnInit {
 
   inventoryItems = [];
 
+  showList = true;
+  showAdd = false;
+
   constructor(
     private router: Router,
     private store: Store<AppState>,
@@ -38,7 +41,18 @@ export class DashboardComponent implements OnInit {
     this.tertiaryBtn = btn;
   }
 
+  toggleShowList() {
+    this.showList = true;
+    this.showAdd = false;
+  }
+
+  toggleShowAdd() {
+    this.showList = false;
+    this.showAdd = true;
+  }
+
   displayInventoryStatus() {
+    this.toggleShowList();
     switch (this.tertiaryBtn) {
       case 'Available':
         alert('displayInventoryStatus: Available');
@@ -54,6 +68,7 @@ export class DashboardComponent implements OnInit {
   }
 
   displayInventoryType() {
+    this.toggleShowList();
     switch (this.tertiaryBtn) {
       case 'Mask':
         this.store.dispatch(new inventoryActions.RequestGetAllMasks());
@@ -81,6 +96,7 @@ export class DashboardComponent implements OnInit {
   }
 
   addInventory() {
+    this.toggleShowAdd();
     alert('addInventory');
   }
 

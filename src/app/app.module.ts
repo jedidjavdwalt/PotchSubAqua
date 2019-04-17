@@ -25,11 +25,13 @@ import * as finsEffects from '../app/store/effects/fins.effects';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { AddComponent } from './components/add/add.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
+    AddComponent,
   ],
   imports: [
     BrowserModule,

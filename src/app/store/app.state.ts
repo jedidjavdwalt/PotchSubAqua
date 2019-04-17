@@ -3,7 +3,9 @@ import { InventoryItem } from '../models/InventoryItem';
 export interface AppState {
 
     componentState: {
-        selectedType: string;
+        addPlayers: boolean;
+        addInventory: boolean;
+        addRentals: boolean;
     };
 
     maskState: {

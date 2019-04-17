@@ -88,9 +88,23 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  navigateAdd() {
-    console.log('navigateAdd');
+  addPlayers() {
+    this.store.dispatch(new componentActions.AddPlayers());
+    this.navigateAdd();
+  }
 
+  addInventory() {
+    this.store.dispatch(new componentActions.AddInventory());
+    this.navigateAdd();
+  }
+
+  addRentals() {
+    this.store.dispatch(new componentActions.AddRentals());
+    this.navigateAdd();
+  }
+
+  navigateAdd() {
+    this.router.navigateByUrl('add');
   }
 
   toggleInventoryClicked() {

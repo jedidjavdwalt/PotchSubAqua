@@ -7,11 +7,7 @@ import * as snorkelActions from '../../store/actions/snorkel.actions';
 import * as gloveActions from '../../store/actions/glove.actions';
 import * as stickActions from '../../store/actions/stick.actions';
 import * as finsActions from '../../store/actions/fins.actions';
-import * as maskSelectors from '../../store/selectors/mask.selectors';
-import * as snorkelSelectors from '../../store/selectors/snorkel.selectors';
-import * as gloveSelectors from '../../store/selectors/glove.selectors';
-import * as stickSelectors from '../../store/selectors/stick.selectors';
-import * as finsSelectors from '../../store/selectors/fins.selectors';
+import * as componentActions from '../../store/actions/component.actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,13 +17,6 @@ import * as finsSelectors from '../../store/selectors/fins.selectors';
 export class DashboardComponent implements OnInit {
   inventoryClicked = false;
   typesClicked = false;
-  statusesClicked = false;
-
-  allMasks = [];
-  allSnorkels = [];
-  allGloves = [];
-  allSticks = [];
-  allFins = [];
 
   constructor(
     private router: Router,
@@ -42,16 +31,9 @@ export class DashboardComponent implements OnInit {
     this.typesClicked = !this.typesClicked;
   }
 
-  statusesToggle() {
-    this.statusesClicked = !this.statusesClicked;
-  }
-
-  navigateTypes() {
-    this.router.navigateByUrl('types');
-  }
-
-  navigateStatuses() {
-    this.router.navigateByUrl('statuses');
+  navigateInventory(selectedType: string) {
+    this.store.dispatch(new componentActions.SelectType(selectedType));
+    this.router.navigateByUrl('inventory');
   }
 
   sliceAppState() {
@@ -60,15 +42,10 @@ export class DashboardComponent implements OnInit {
     this.store.dispatch(new gloveActions.RequestGetAllGloves());
     this.store.dispatch(new stickActions.RequestGetAllSticks());
     this.store.dispatch(new finsActions.RequestGetAllFins());
-
-    this.store.select(maskSelectors.allMasks).subscribe(allMasks => this.allMasks = allMasks);
-    this.store.select(snorkelSelectors.allSnorkels).subscribe(allSnorkels => this.allSnorkels = allSnorkels);
-    this.store.select(gloveSelectors.allGloves).subscribe(allGloves => this.allGloves = allGloves);
-    this.store.select(stickSelectors.allSticks).subscribe(allSticks => this.allSticks = allSticks);
-    this.store.select(finsSelectors.allFins).subscribe(allFins => this.allFins = allFins);
   }
 
   ngOnInit() {
+    this.sliceAppState();
   }
 
 }

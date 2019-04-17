@@ -15,6 +15,7 @@ import * as snorkelReducers from '../app/store/reducers/snorkel.reducers';
 import * as gloveReducers from '../app/store/reducers/glove.reducers';
 import * as stickReducers from '../app/store/reducers/stick.reducers';
 import * as finsReducers from '../app/store/reducers/fins.reducers';
+import * as componentReducers from '../app/store/reducers/component.reducers';
 
 import * as maskEffects from '../app/store/effects/mask.effects';
 import * as snorkelEffects from '../app/store/effects/snorkel.effects';
@@ -24,15 +25,13 @@ import * as finsEffects from '../app/store/effects/fins.effects';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { TypesComponent } from './components/types/types.component';
-import { StatusesComponent } from './components/statuses/statuses.component';
+import { InventoryComponent } from './components/inventory/inventory.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    TypesComponent,
-    StatusesComponent
+    InventoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +40,7 @@ import { StatusesComponent } from './components/statuses/statuses.component';
     AngularFireModule.initializeApp(environment.firebase),
     StoreModule.forRoot({
       maskState: maskReducers.maskReducer, snorkelState: snorkelReducers.snorkelReducer, gloveState: gloveReducers.gloveReducer,
-      stickState: stickReducers.stickReducer, finsState: finsReducers.finsReducer,
+      stickState: stickReducers.stickReducer, finsState: finsReducers.finsReducer, componentState: componentReducers.componentReducer,
     }),
     EffectsModule.forRoot([
       maskEffects.MaskEffects, snorkelEffects.SnorkelEffects, gloveEffects.GloveEffects,

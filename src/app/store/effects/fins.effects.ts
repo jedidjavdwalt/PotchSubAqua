@@ -20,7 +20,7 @@ export class FinsEffects {
         ofType(actions.REQUEST_GET_ALL_FINS),
         switchMap((action: actions.RequestGetAllFins) => {
             return this.angularFirestore.collection
-                ('inventory', ref => ref.where('type', '==', 'Fins').orderBy('number')).stateChanges();
+                ('/inventory/', ref => ref.where('type', '==', 'Fins')).stateChanges();
         }),
         mergeMap(actions => actions),
         map(action => {

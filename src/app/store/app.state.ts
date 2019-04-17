@@ -2,6 +2,10 @@ import { InventoryItem } from '../models/InventoryItem';
 
 export interface AppState {
 
+    componentState: {
+        selectedType: string;
+    };
+
     maskState: {
         allMasks: InventoryItem[];
     };

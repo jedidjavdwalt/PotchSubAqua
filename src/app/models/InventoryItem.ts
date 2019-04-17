@@ -1,13 +1,10 @@
-import { InventoryItemTypes } from './InventoryItemTypes';
-import { InventoryItemStatuses } from './InventoryItemStatuses';
-
 export class InventoryItem {
-    type: InventoryItemTypes;
+    type: string;
     number: number;
     brand: string;
     color: string;
     description: string;
-    status: InventoryItemStatuses;
+    status: string;
 
     constructor(data: InventoryItemData) {
         this.type = data.type;
@@ -31,10 +28,10 @@ export class InventoryItem {
 }
 
 export class InventoryItemData {
-    type: InventoryItemTypes;
+    type: string;
     number: number;
     brand: string;
     color: string;
     description: string;
-    status: InventoryItemStatuses;
+    status: string;
 }

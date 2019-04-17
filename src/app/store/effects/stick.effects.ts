@@ -20,7 +20,7 @@ export class StickEffects {
         ofType(actions.REQUEST_GET_ALL_STICKS),
         switchMap((action: actions.RequestGetAllSticks) => {
             return this.angularFirestore.collection
-                ('inventory', ref => ref.where('type', '==', 'Stick').orderBy('number')).stateChanges();
+                ('/inventory/', ref => ref.where('type', '==', 'Stick')).stateChanges();
         }),
         mergeMap(actions => actions),
         map(action => {

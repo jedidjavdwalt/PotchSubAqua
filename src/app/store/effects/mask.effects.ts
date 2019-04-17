@@ -20,7 +20,7 @@ export class MaskEffects {
         ofType(actions.REQUEST_GET_ALL_MASKS),
         switchMap((action: actions.RequestGetAllMasks) => {
             return this.angularFirestore.collection
-                ('inventory', ref => ref.where('type', '==', 'Mask').orderBy('number')).stateChanges();
+                ('/inventory/', ref => ref.where('type', '==', 'Mask')).stateChanges();
         }),
         mergeMap(actions => actions),
         map(action => {

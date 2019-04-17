@@ -20,7 +20,7 @@ export class GloveEffects {
         ofType(actions.REQUEST_GET_ALL_GLOVES),
         switchMap((action: actions.RequestGetAllGloves) => {
             return this.angularFirestore.collection
-                ('inventory', ref => ref.where('type', '==', 'Glove').orderBy('number')).stateChanges();
+                ('/inventory/', ref => ref.where('type', '==', 'Glove')).stateChanges();
         }),
         mergeMap(actions => actions),
         map(action => {

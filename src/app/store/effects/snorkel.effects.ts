@@ -20,7 +20,7 @@ export class SnorkelEffects {
         ofType(actions.REQUEST_GET_ALL_SNORKELS),
         switchMap((action: actions.RequestGetAllSnorkels) => {
             return this.angularFirestore.collection
-                ('inventory', ref => ref.where('type', '==', 'Snorkel').orderBy('number')).stateChanges();
+                ('/inventory/', ref => ref.where('type', '==', 'Snorkel')).stateChanges();
         }),
         mergeMap(actions => actions),
         map(action => {

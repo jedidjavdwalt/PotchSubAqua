@@ -8,36 +8,11 @@ export interface AppState {
         addRentals: boolean;
     };
 
-    maskState: {
-        allMasks: InventoryItem[];
-    };
-
-    snorkelState: {
-        allSnorkels: InventoryItem[];
-    };
-
-    gloveState: {
-        allGloves: InventoryItem[];
-    };
-
-    stickState: {
-        allSticks: InventoryItem[];
-    };
-
-    finsState: {
-        allFins: InventoryItem[];
-    };
-
-    availableState: {
-        allAvailable: InventoryItem[];
-    };
-
-    rentedState: {
-        allRented: InventoryItem[];
-    };
-
-    missingState: {
-        allMissing: InventoryItem[];
+    inventoryState: {
+        // availableInventory: boolean;
+        // rentedInventory: boolean;
+        // missingInventory: boolean;
+        inventoryItems: InventoryItem[];
     };
 
 }

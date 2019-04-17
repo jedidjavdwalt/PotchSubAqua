@@ -1,311 +1,171 @@
 <div class="container-fluid">
+  <div class="row pb-2 pt-2">
 
-  <div class="row text-center">
-    <div class="col-12">
-      <h1>
-        Dashboard
-      </h1>
-    </div>
-  </div>
-
-  <div class="row">
+    <!-- navigation -->
     <div class="col-4">
-      <button class="btn btn-primary btn-block" (click)="togglePlayersClicked()" [class.active]="playersClicked">
+
+      <!-- players -->
+      <button class="btn btn-primary btn-block" (click)="activatePrimaryBtn('Players')">
         Players
       </button>
-    </div>
 
-    <div class="col-4" *ngIf="playersClicked">
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-secondary btn-block" (click)="toggleU19Clicked()" [class.active]="u19Clicked">
-            U19
+      <ng-container *ngIf="primaryBtn === 'Players'">
+        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('U19')">
+          U19
+        </button>
+
+        <ng-container *ngIf="secondaryBtn === 'U19'">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Ladies')">
+            Ladies
           </button>
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-secondary btn-block" (click)="toggleU15Clicked()" [class.active]="u15Clicked">
-            U15
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Men')">
+            Men
           </button>
-        </div>
-      </div>
+        </ng-container>
 
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-secondary btn-block" (click)="toggleU13Clicked()" [class.active]="u13Clicked">
-            U13
+        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('U15')">
+          U15
+        </button>
+
+        <ng-container *ngIf="secondaryBtn === 'U15'">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Ladies')">
+            Ladies
           </button>
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-secondary btn-block" (click)="navigateList()">
-            U10
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Men')">
+            Men
           </button>
-        </div>
-      </div>
+        </ng-container>
 
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-secondary btn-block" (click)="navigateList()">
-            Beginners
+        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('U13')">
+          U13
+        </button>
+
+        <ng-container *ngIf="secondaryBtn === 'U13'">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Ladies')">
+            Ladies
           </button>
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-secondary btn-block" (click)="addPlayers()">
-            Add
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Men')">
+            Men
           </button>
-        </div>
-      </div>
-    </div>
+        </ng-container>
 
-    <div class="col-4" *ngIf="playersClicked && u19Clicked">
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-light btn-block">
-            U19 Ladies
-          </button>
-        </div>
-      </div>
+        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('U10')">
+          U10
+        </button>
 
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-light btn-block">
-            U19 Men
-          </button>
-        </div>
-      </div>
-    </div>
+        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('Beginners')">
+          Beginners
+        </button>
+      </ng-container>
 
-    <div class="col-4" *ngIf="playersClicked && u15Clicked">
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-light btn-block">
-            U15 Ladies
-          </button>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-light btn-block">
-            U15 Men
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-4" *ngIf="playersClicked && u13Clicked">
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-light btn-block">
-            U13 Ladies
-          </button>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-light btn-block">
-            U13 Men
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-4">
-      <button class="btn btn-primary btn-block" (click)="toggleInventoryClicked()" [class.active]="inventoryClicked">
+      <!-- inventory -->
+      <button class="btn btn-primary btn-block" (click)="activatePrimaryBtn('Inventory')">
         Inventory
       </button>
-    </div>
 
-    <div class="col-4" *ngIf="inventoryClicked">
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-secondary btn-block" (click)="toggleInventoryStatusClicked()"
-            [class.active]="inventoryStatusClicked">
-            Status
-          </button>
-        </div>
-      </div>
+      <ng-container *ngIf="primaryBtn === 'Inventory'">
+        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('Status')">
+          Status
+        </button>
 
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-secondary btn-block" (click)="toggleInventoryTypeClicked()"
-            [class.active]="inventoryTypeClicked">
-            Type
-          </button>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-secondary btn-block" (click)="addInventory()">
-            Add
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-4" *ngIf="inventoryClicked && inventoryStatusClicked">
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-light btn-block" (click)="navigateList()">
+        <ng-container *ngIf="secondaryBtn === 'Status'">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Available'); displayInventoryStatus()">
             Available
           </button>
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-light btn-block" (click)="navigateList()">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Rented'); displayInventoryStatus()">
             Rented
           </button>
-        </div>
-      </div>
+        </ng-container>
 
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-light btn-block" (click)="navigateList()">
-            Missing
-          </button>
-        </div>
-      </div>
-    </div>
+        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('Type')">
+          Type
+        </button>
 
-    <div class="col-4" *ngIf="inventoryClicked && inventoryTypeClicked">
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-light btn-block" (click)="navigateList()">
+        <ng-container *ngIf="secondaryBtn === 'Type'">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Mask'); displayInventoryType()">
             Mask
           </button>
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-light btn-block" (click)="navigateList()">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Snorkel'); displayInventoryType()">
             Snorkel
           </button>
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-light btn-block" (click)="navigateList()">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Glove'); displayInventoryType()">
             Glove
           </button>
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-light btn-block" (click)="navigateList()">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Stick'); displayInventoryType()">
             Stick
           </button>
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-light btn-block" (click)="navigateList()">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Fins'); displayInventoryType()">
             Fins
           </button>
-        </div>
-      </div>
-    </div>
-  </div>
+        </ng-container>
 
-  <div class="row">
-    <div class="col-4">
-      <button class="btn btn-primary btn-block" (click)="toggleRentalsClicked()" [class.active]="rentalsClicked">
+        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('Add'); addInventory()">
+          Add
+        </button>
+      </ng-container>
+
+      <!-- rentals -->
+      <button class="btn btn-primary btn-block" (click)="activatePrimaryBtn('Rentals')">
         Rentals
       </button>
-    </div>
 
-    <div class="col-4" *ngIf="rentalsClicked">
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-secondary btn-block" (click)="toggleRentalStatusClicked()"
-            [class.active]="rentalsStatusClicked">
-            Status
+      <ng-container *ngIf="primaryBtn === 'Rentals'">
+        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('Status')">
+          Status
+        </button>
+
+        <ng-container *ngIf="secondaryBtn === 'Status'">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Payment')">
+            Payment
           </button>
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-secondary btn-block" (click)="toggleRentalTypeClicked()"
-            [class.active]="rentalsTypeClicked">
-            Type
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Refund')">
+            Refund
           </button>
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-secondary btn-block" (click)="addRentals()">
-            Add
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Return')">
+            Return
           </button>
-        </div>
-      </div>
-    </div>
+        </ng-container>
 
-    <div class="col-4" *ngIf="rentalsClicked && rentalsStatusClicked">
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-light btn-block" (click)="navigateList()">
-            Admin Action Required
-          </button>
-        </div>
-      </div>
+        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('Type')">
+          Type
+        </button>
 
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-light btn-block" (click)="navigateList()">
-            Player Action Required
-          </button>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-light btn-block" (click)="navigateList()">
-            No Action Required
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-4" *ngIf="rentalsClicked && rentalsTypeClicked">
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-light btn-block" (click)="navigateList()">
+        <ng-container *ngIf="secondaryBtn === 'Type'">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Day')">
             Day
           </button>
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-light btn-block" (click)="navigateList()">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Beginner')">
             Beginner
           </button>
-        </div>
-      </div>
 
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-light btn-block" (click)="navigateList()">
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Season')">
             Season
+          </button>
+        </ng-container>
+
+        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('Add')">
+          Add
+        </button>
+      </ng-container>
+    </div>
+
+    <!-- detail -->
+    <div class="col-8">
+      <div class="row">
+        <div class="col-4 pb-2" *ngFor="let inventoryItem of inventoryItems">
+          <button class="btn btn-dark btn-block">
+            {{inventoryItem.brand}}
           </button>
         </div>
       </div>

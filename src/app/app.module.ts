@@ -11,18 +11,10 @@ import { FormsModule } from '@angular/forms';
 import { environment } from '../environments/environment';
 import { AngularFirestore } from '@angular/fire/firestore';
 
-import * as maskReducers from '../app/store/reducers/mask.reducers';
-import * as snorkelReducers from '../app/store/reducers/snorkel.reducers';
-import * as gloveReducers from '../app/store/reducers/glove.reducers';
-import * as stickReducers from '../app/store/reducers/stick.reducers';
-import * as finsReducers from '../app/store/reducers/fins.reducers';
-import * as componentReducers from '../app/store/reducers/component.reducers';
+import * as inventoryReducers from '../app/store/reducers/inventory.reducers';
+import * as componentReducers from './store/reducers/component.reducers';
 
-import * as maskEffects from '../app/store/effects/mask.effects';
-import * as snorkelEffects from '../app/store/effects/snorkel.effects';
-import * as gloveEffects from '../app/store/effects/glove.effects';
-import * as stickEffects from '../app/store/effects/stick.effects';
-import * as finsEffects from '../app/store/effects/fins.effects';
+import * as inventoryEffects from '../app/store/effects/inventory.effects';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -40,12 +32,11 @@ import { AddComponent } from './components/add/add.component';
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     StoreModule.forRoot({
-      maskState: maskReducers.maskReducer, snorkelState: snorkelReducers.snorkelReducer, gloveState: gloveReducers.gloveReducer,
-      stickState: stickReducers.stickReducer, finsState: finsReducers.finsReducer, componentState: componentReducers.componentReducer,
+      componentState: componentReducers.componentReducer,
+      inventoryState: inventoryReducers.inventoryReducer,
     }),
     EffectsModule.forRoot([
-      maskEffects.MaskEffects, snorkelEffects.SnorkelEffects, gloveEffects.GloveEffects,
-      stickEffects.StickEffects, finsEffects.FinsEffects
+      inventoryEffects.InventoryEffects,
     ]),
     StoreDevtoolsModule.instrument(),
     FormsModule,

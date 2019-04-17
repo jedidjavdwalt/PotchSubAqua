@@ -85,7 +85,10 @@ export class DashboardComponent implements OnInit {
   }
 
   sliceAppState() {
-    this.store.select(inventorySelectors.inventoryItems).subscribe(inventoryItems => this.inventoryItems = inventoryItems);
+    this.store.select(inventorySelectors.inventoryItems).subscribe(inventoryItems => {
+      this.inventoryItems = inventoryItems;
+      this.inventoryItems.sort((a, b) => (a.number > b.number) ? 1 : -1);
+    });
   }
 
   ngOnInit() {

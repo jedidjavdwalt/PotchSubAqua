@@ -1,4 +1,4 @@
-<div class="container-fluid my-2 py-2">
+<div class="container-fluid">
 
   <div class="row">
     <div class="col-4">
@@ -60,7 +60,7 @@
     <div class="col-4" *ngIf="playersClicked && u19Clicked">
       <div class="row">
         <div class="col-12">
-          <button class="btn btn-secondary btn-block">
+          <button class="btn btn-light btn-block">
             U19 Ladies
           </button>
         </div>
@@ -68,7 +68,7 @@
 
       <div class="row">
         <div class="col-12">
-          <button class="btn btn-secondary btn-block">
+          <button class="btn btn-light btn-block">
             U19 Men
           </button>
         </div>
@@ -78,7 +78,7 @@
     <div class="col-4" *ngIf="playersClicked && u15Clicked">
       <div class="row">
         <div class="col-12">
-          <button class="btn btn-secondary btn-block">
+          <button class="btn btn-light btn-block">
             U15 Ladies
           </button>
         </div>
@@ -86,7 +86,7 @@
 
       <div class="row">
         <div class="col-12">
-          <button class="btn btn-secondary btn-block">
+          <button class="btn btn-light btn-block">
             U15 Men
           </button>
         </div>
@@ -96,7 +96,7 @@
     <div class="col-4" *ngIf="playersClicked && u13Clicked">
       <div class="row">
         <div class="col-12">
-          <button class="btn btn-secondary btn-block">
+          <button class="btn btn-light btn-block">
             U13 Ladies
           </button>
         </div>
@@ -104,7 +104,7 @@
 
       <div class="row">
         <div class="col-12">
-          <button class="btn btn-secondary btn-block">
+          <button class="btn btn-light btn-block">
             U13 Men
           </button>
         </div>
@@ -122,15 +122,8 @@
     <div class="col-4" *ngIf="inventoryClicked">
       <div class="row">
         <div class="col-12">
-          <button class="btn btn-secondary btn-block">
-            Type
-          </button>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-secondary btn-block">
+          <button class="btn btn-secondary btn-block" (click)="toggleInventoryStatusClicked()"
+            [class.active]="inventoryStatusClicked">
             Status
           </button>
         </div>
@@ -138,8 +131,85 @@
 
       <div class="row">
         <div class="col-12">
-          <button class="btn btn-secondary btn-block">
+          <button class="btn btn-secondary btn-block" (click)="toggleInventoryTypeClicked()"
+            [class.active]="inventoryTypeClicked">
+            Type
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <button class="btn btn-secondary btn-block" (click)="navigateAdd()">
             Add
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-4" *ngIf="inventoryClicked && inventoryStatusClicked">
+      <div class="row">
+        <div class="col-12">
+          <button class="btn btn-light btn-block" (click)="navigateList()">
+            Available
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <button class="btn btn-light btn-block" (click)="navigateList()">
+            Rented
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <button class="btn btn-light btn-block" (click)="navigateList()">
+            Missing
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-4" *ngIf="inventoryClicked && inventoryTypeClicked">
+      <div class="row">
+        <div class="col-12">
+          <button class="btn btn-light btn-block" (click)="navigateList()">
+            Mask
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <button class="btn btn-light btn-block" (click)="navigateList()">
+            Snorkel
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <button class="btn btn-light btn-block" (click)="navigateList()">
+            Glove
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <button class="btn btn-light btn-block" (click)="navigateList()">
+            Stick
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <button class="btn btn-light btn-block" (click)="navigateList()">
+            Fins
           </button>
         </div>
       </div>
@@ -156,15 +226,8 @@
     <div class="col-4" *ngIf="rentalsClicked">
       <div class="row">
         <div class="col-12">
-          <button class="btn btn-secondary btn-block">
-            Type
-          </button>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-12">
-          <button class="btn btn-secondary btn-block">
+          <button class="btn btn-secondary btn-block" (click)="toggleRentalStatusClicked()"
+            [class.active]="rentalsStatusClicked">
             Status
           </button>
         </div>
@@ -172,12 +235,72 @@
 
       <div class="row">
         <div class="col-12">
-          <button class="btn btn-secondary btn-block">
+          <button class="btn btn-secondary btn-block" (click)="toggleRentalTypeClicked()"
+            [class.active]="rentalsTypeClicked">
+            Type
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <button class="btn btn-secondary btn-block" (click)="navigateAdd()">
             Add
           </button>
         </div>
       </div>
     </div>
-  </div>
 
+    <div class="col-4" *ngIf="rentalsClicked && rentalsStatusClicked">
+      <div class="row">
+        <div class="col-12">
+          <button class="btn btn-light btn-block" (click)="navigateList()">
+            Admin Action Required
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <button class="btn btn-light btn-block" (click)="navigateList()">
+            Player Action Required
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <button class="btn btn-light btn-block" (click)="navigateList()">
+            No Action Required
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-4" *ngIf="rentalsClicked && rentalsTypeClicked">
+      <div class="row">
+        <div class="col-12">
+          <button class="btn btn-light btn-block" (click)="navigateList()">
+            Day
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <button class="btn btn-light btn-block" (click)="navigateList()">
+            Beginner
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-12">
+          <button class="btn btn-light btn-block" (click)="navigateList()">
+            Season
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

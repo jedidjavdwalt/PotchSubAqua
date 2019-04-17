@@ -31,16 +31,27 @@ export class DashboardComponent implements OnInit {
 
   inventoryTypeClicked = false;
   inventoryStatusClicked = false;
-  inventoryAddClicked = false;
+  // inventoryAddClicked = navigate;
+
 
   rentalsTypeClicked = false;
   rentalsStatusClicked = false;
-  rentalsAddClicked = false;
+  // rentalsAddClicked = navigate;
 
   constructor(
     private router: Router,
     private store: Store<AppState>,
   ) { }
+
+  togglePlayersClicked() {
+    if (this.playersClicked) {
+      this.playersClicked = false;
+    } else {
+      this.playersClicked = true;
+      this.inventoryClicked = false;
+      this.rentalsClicked = false;
+    }
+  }
 
   toggleU19Clicked() {
     if (this.u19Clicked) {
@@ -82,16 +93,6 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  togglePlayersClicked() {
-    if (this.playersClicked) {
-      this.playersClicked = false;
-    } else {
-      this.playersClicked = true;
-      this.inventoryClicked = false;
-      this.rentalsClicked = false;
-    }
-  }
-
   toggleInventoryClicked() {
     if (this.inventoryClicked) {
       this.inventoryClicked = false;
@@ -102,6 +103,24 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  toggleInventoryStatusClicked() {
+    if (this.inventoryStatusClicked) {
+      this.inventoryStatusClicked = false;
+    } else {
+      this.inventoryStatusClicked = true;
+      this.inventoryTypeClicked = false;
+    }
+  }
+
+  toggleInventoryTypeClicked() {
+    if (this.inventoryTypeClicked) {
+      this.inventoryTypeClicked = false;
+    } else {
+      this.inventoryTypeClicked = true;
+      this.inventoryStatusClicked = false;
+    }
+  }
+
   toggleRentalsClicked() {
     if (this.rentalsClicked) {
       this.rentalsClicked = false;
@@ -109,6 +128,24 @@ export class DashboardComponent implements OnInit {
       this.rentalsClicked = true;
       this.playersClicked = false;
       this.inventoryClicked = false;
+    }
+  }
+
+  toggleRentalStatusClicked() {
+    if (this.rentalsStatusClicked) {
+      this.rentalsStatusClicked = false;
+    } else {
+      this.rentalsStatusClicked = true;
+      this.rentalsTypeClicked = false;
+    }
+  }
+
+  toggleRentalTypeClicked() {
+    if (this.rentalsTypeClicked) {
+      this.rentalsTypeClicked = false;
+    } else {
+      this.rentalsTypeClicked = true;
+      this.rentalsStatusClicked = false;
     }
   }
 

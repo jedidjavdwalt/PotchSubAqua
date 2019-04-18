@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import * as inventoryActions from '../../store/actions/inventory.actions';
 import * as inventorySelectors from '../../store/selectors/inventory.selectors';
 import { InventoryItem } from 'src/app/models/InventoryItem';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,10 +25,12 @@ export class DashboardComponent implements OnInit {
   shouldShowAdd = false;
 
   selectedInventoryItem = {} as InventoryItem;
+  newInventoryItem = {} as InventoryItem;
 
   constructor(
     private router: Router,
     private store: Store<AppState>,
+    private angularFirestore: AngularFirestore,
   ) { }
 
   activatePrimaryBtn(btn: string) {
@@ -110,7 +113,25 @@ export class DashboardComponent implements OnInit {
 
   displayAddInventory() {
     this.toggleShowAdd();
-    alert('addInventory');
+  }
+
+  clickAddInventory() {
+    if (!this.newInventoryItem.type ||
+      !this.newInventoryItem.number ||
+      !this.newInventoryItem.brand ||
+      !this.newInventoryItem.color ||
+      !this.newInventoryItem.description ||
+      !this.newInventoryItem.status) {
+      alert('You forgot to fill in some fields');
+    } else {
+      this.addInventory();
+      alert('Inventory added');
+    }
+  }
+
+  addInventory() {
+    this.angularFirestore.collection('inventory').add(this.newInventoryItem);
+    this.newInventoryItem = {} as InventoryItem;
   }
 
   displayInventoryDetail(selectedInventoryItem: InventoryItem) {

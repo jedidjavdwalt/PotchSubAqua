@@ -11,16 +11,14 @@ export class InventoryEffects {
     constructor(
         private actions$: Actions,
         private angularFirestore: AngularFirestore,
-    ) {
-
-    }
+    ) { }
 
     @Effect()
-    GetAllMasks$ = this.actions$.pipe(
-        ofType(actions.REQUEST_GET_ALL_MASKS),
-        switchMap((action: actions.RequestGetAllMasks) => {
+    GetInventoryItemByStatus$ = this.actions$.pipe(
+        ofType(actions.REQUEST_GET_INVENTORY_ITEMS_BY_STATUS),
+        switchMap((action: actions.RequestGetInventoryItemsByStatus) => {
             return this.angularFirestore.collection
-                ('/inventory/', ref => ref.where('type', '==', 'Mask')).stateChanges();
+                ('/inventory/', ref => ref.where('status', '==', action.payload)).stateChanges();
         }),
         mergeMap(actions => actions),
         map(action => {
@@ -32,59 +30,11 @@ export class InventoryEffects {
     );
 
     @Effect()
-    GetAllSnorkels$ = this.actions$.pipe(
-        ofType(actions.REQUEST_GET_ALL_SNORKELS),
-        switchMap((action: actions.RequestGetAllSnorkels) => {
+    GetInventoryItemByType$ = this.actions$.pipe(
+        ofType(actions.REQUEST_GET_INVENTORY_ITEMS_BY_TYPE),
+        switchMap((action: actions.RequestGetInventoryItemsByType) => {
             return this.angularFirestore.collection
-                ('/inventory/', ref => ref.where('type', '==', 'Snorkel')).stateChanges();
-        }),
-        mergeMap(actions => actions),
-        map(action => {
-            if (action.type === 'added') {
-                return new actions.GetInventoryItemSuccess(new InventoryItem(action.payload.doc.data() as InventoryItemData));
-            }
-            return new actions.ClearInventoryState();
-        })
-    );
-
-    @Effect()
-    GetAllGloves$ = this.actions$.pipe(
-        ofType(actions.REQUEST_GET_ALL_GLOVES),
-        switchMap((action: actions.RequestGetAllGloves) => {
-            return this.angularFirestore.collection
-                ('/inventory/', ref => ref.where('type', '==', 'Glove')).stateChanges();
-        }),
-        mergeMap(actions => actions),
-        map(action => {
-            if (action.type === 'added') {
-                return new actions.GetInventoryItemSuccess(new InventoryItem(action.payload.doc.data() as InventoryItemData));
-            }
-            return new actions.ClearInventoryState();
-        })
-    );
-
-    @Effect()
-    GetAllSticks$ = this.actions$.pipe(
-        ofType(actions.REQUEST_GET_ALL_STICKS),
-        switchMap((action: actions.RequestGetAllSticks) => {
-            return this.angularFirestore.collection
-                ('/inventory/', ref => ref.where('type', '==', 'Stick')).stateChanges();
-        }),
-        mergeMap(actions => actions),
-        map(action => {
-            if (action.type === 'added') {
-                return new actions.GetInventoryItemSuccess(new InventoryItem(action.payload.doc.data() as InventoryItemData));
-            }
-            return new actions.ClearInventoryState();
-        })
-    );
-
-    @Effect()
-    GetAllFins$ = this.actions$.pipe(
-        ofType(actions.REQUEST_GET_ALL_FINS),
-        switchMap((action: actions.RequestGetAllFins) => {
-            return this.angularFirestore.collection
-                ('/inventory/', ref => ref.where('type', '==', 'Fins')).stateChanges();
+                ('/inventory/', ref => ref.where('type', '==', action.payload)).stateChanges();
         }),
         mergeMap(actions => actions),
         map(action => {

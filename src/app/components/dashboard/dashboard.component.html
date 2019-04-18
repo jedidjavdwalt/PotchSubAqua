@@ -212,7 +212,7 @@
         <ng-container *ngIf="shouldShowList">
           <div class="col-4 pb-2" *ngFor="let inventoryItem of inventoryItems">
             <button class="btn btn-light btn-block" (click)="displayInventoryDetail(inventoryItem)">
-              {{inventoryItem.number}}.{{inventoryItem.color}}
+              {{inventoryItem.number}}.{{inventoryItem.color}} {{inventoryItem.type}}
             </button>
           </div>
         </ng-container>
@@ -338,7 +338,6 @@
                 <select class="form-control" [(ngModel)]="newInventoryItem.status" required>
                   <option>Available</option>
                   <option>Rented</option>
-                  <option>Missing</option>
                 </select>
               </div>
             </button>

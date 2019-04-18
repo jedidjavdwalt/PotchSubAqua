@@ -68,47 +68,12 @@ export class DashboardComponent implements OnInit {
 
   displayInventoryStatusList() {
     this.toggleShowList();
-    switch (this.tertiaryBtn) {
-      case 'Available':
-        alert('displayInventoryStatus: Available');
-        return;
-
-      case 'Rented':
-        alert('displayInventoryStatus: Rented');
-        return;
-
-      default:
-        return;
-    }
+    this.store.dispatch(new inventoryActions.RequestGetInventoryItemsByStatus(this.tertiaryBtn));
   }
 
   displayInventoryTypeList() {
     this.toggleShowList();
-
-    switch (this.tertiaryBtn) {
-      case 'Mask':
-        this.store.dispatch(new inventoryActions.RequestGetAllMasks());
-        return;
-
-      case 'Snorkel':
-        this.store.dispatch(new inventoryActions.RequestGetAllSnorkels());
-        return;
-
-      case 'Glove':
-        this.store.dispatch(new inventoryActions.RequestGetAllGloves());
-        return;
-
-      case 'Stick':
-        this.store.dispatch(new inventoryActions.RequestGetAllSticks());
-        return;
-
-      case 'Fins':
-        this.store.dispatch(new inventoryActions.RequestGetAllFins());
-        return;
-
-      default:
-        return;
-    }
+    this.store.dispatch(new inventoryActions.RequestGetInventoryItemsByType(this.tertiaryBtn));
   }
 
   displayAddInventory() {
@@ -129,76 +94,15 @@ export class DashboardComponent implements OnInit {
   }
 
   addInventory() {
-    switch (this.newInventoryItem.type) {
-      case 'Mask':
-        this.angularFirestore.collection('/inventory/').ref.where('type', '==', 'Mask')
-          .where('number', '==', this.newInventoryItem.number).get().then(snapShot => {
-            if (snapShot.size === 0) {
-              this.angularFirestore.collection('inventory').add(this.newInventoryItem);
-              alert('Mask added');
-            } else {
-              alert('Mask number already exists');
-            }
-          });
-        break;
-
-      case 'Snorkel':
-        this.angularFirestore.collection('/inventory/', ref => ref
-          .where('type', '==', 'Snorkel')
-          .where('number', '==', this.newInventoryItem.number)).ref.onSnapshot(snapShot => {
-            if (snapShot.size === 0) {
-              this.angularFirestore.collection('inventory').add(this.newInventoryItem);
-              alert('Snorkel added');
-            } else {
-              alert('Snorkel number already exists');
-            }
-          });
-        break;
-
-      case 'Glove':
-        this.angularFirestore.collection('/inventory/', ref => ref
-          .where('type', '==', 'Glove')
-          .where('number', '==', this.newInventoryItem.number)).ref.get().then(snapShot => {
-            if (snapShot.size === 0) {
-              this.angularFirestore.collection('inventory').add(this.newInventoryItem);
-              alert('Glove added');
-            } else {
-              alert('Glove number already exists');
-            }
-          });
-        break;
-
-      case 'Stick':
-        this.angularFirestore.collection('/inventory/', ref => ref
-          .where('type', '==', 'Stick')
-          .where('number', '==', this.newInventoryItem.number)).ref.get().then(snapShot => {
-            if (snapShot.size === 0) {
-              this.angularFirestore.collection('inventory').add(this.newInventoryItem);
-              alert('Stick added');
-            } else {
-              alert('Stick number already exists');
-            }
-          });
-        break;
-
-      case 'Fins':
-        this.angularFirestore.collection('/inventory/', ref => ref
-          .where('type', '==', 'Fins')
-          .where('number', '==', this.newInventoryItem.number)).ref.get().then(snapShot => {
-            if (snapShot.size === 0) {
-              this.angularFirestore.collection('inventory').add(this.newInventoryItem);
-              alert('Fins added');
-            } else {
-              alert('Fins number already exists');
-            }
-          });
-        break;
-
-      default:
-        break;
-    }
-
-    this.newInventoryItem = {} as InventoryItem;
+    this.angularFirestore.collection('/inventory/').ref.where('type', '==', this.newInventoryItem.type)
+    .where('number', '==', this.newInventoryItem.number).get().then(snapShot => {
+      if (snapShot.size === 0) {
+        this.angularFirestore.collection('inventory').add(this.newInventoryItem);
+        alert(this.newInventoryItem.type + ' added');
+      } else {
+        alert(this.newInventoryItem.type + ' number already exists');
+      }
+    });
   }
 
   displayInventoryDetail(selectedInventoryItem: InventoryItem) {

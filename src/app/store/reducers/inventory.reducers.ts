@@ -10,27 +10,16 @@ export function inventoryReducer(state = initialInventoryState, action: actions.
     const newState = { ...state };
 
     switch (action.type) {
-        case actions.REQUEST_GET_ALL_MASKS:
+
+        case actions.REQUEST_GET_INVENTORY_ITEMS_BY_STATUS:
             newState.inventoryItems = [];
             return newState;
 
-        case actions.REQUEST_GET_ALL_SNORKELS:
+        case actions.REQUEST_GET_INVENTORY_ITEMS_BY_TYPE:
             newState.inventoryItems = [];
             return newState;
 
-        case actions.REQUEST_GET_ALL_GLOVES:
-            newState.inventoryItems = [];
-            return newState;
-
-        case actions.REQUEST_GET_ALL_STICKS:
-            newState.inventoryItems = [];
-            return newState;
-
-        case actions.REQUEST_GET_ALL_FINS:
-            newState.inventoryItems = [];
-            return newState;
-
-        case actions.GET_INVENTORY_ITEMS_SUCCESS:
+        case actions.GET_INVENTORY_ITEM_SUCCESS:
             const getInventoryItemSuccessAction = action as actions.GetInventoryItemSuccess;
             newState.inventoryItems = [...newState.inventoryItems, getInventoryItemSuccessAction.payload];
             return newState;

@@ -25,7 +25,7 @@ export class InventoryEffects {
         mergeMap(actions => actions),
         map(action => {
             if (action.type === 'added') {
-                return new actions.GetMaskSuccess(new InventoryItem(action.payload.doc.data() as InventoryItemData));
+                return new actions.GetInventoryItemSuccess(new InventoryItem(action.payload.doc.data() as InventoryItemData));
             }
             return new actions.ClearInventoryState();
         })
@@ -41,7 +41,7 @@ export class InventoryEffects {
         mergeMap(actions => actions),
         map(action => {
             if (action.type === 'added') {
-                return new actions.GetSnorkelSuccess(new InventoryItem(action.payload.doc.data() as InventoryItemData));
+                return new actions.GetInventoryItemSuccess(new InventoryItem(action.payload.doc.data() as InventoryItemData));
             }
             return new actions.ClearInventoryState();
         })
@@ -57,7 +57,7 @@ export class InventoryEffects {
         mergeMap(actions => actions),
         map(action => {
             if (action.type === 'added') {
-                return new actions.GetGloveSuccess(new InventoryItem(action.payload.doc.data() as InventoryItemData));
+                return new actions.GetInventoryItemSuccess(new InventoryItem(action.payload.doc.data() as InventoryItemData));
             }
             return new actions.ClearInventoryState();
         })
@@ -73,7 +73,7 @@ export class InventoryEffects {
         mergeMap(actions => actions),
         map(action => {
             if (action.type === 'added') {
-                return new actions.GetStickSuccess(new InventoryItem(action.payload.doc.data() as InventoryItemData));
+                return new actions.GetInventoryItemSuccess(new InventoryItem(action.payload.doc.data() as InventoryItemData));
             }
             return new actions.ClearInventoryState();
         })
@@ -89,7 +89,7 @@ export class InventoryEffects {
         mergeMap(actions => actions),
         map(action => {
             if (action.type === 'added') {
-                return new actions.GetFinsSuccess(new InventoryItem(action.payload.doc.data() as InventoryItemData));
+                return new actions.GetInventoryItemSuccess(new InventoryItem(action.payload.doc.data() as InventoryItemData));
             }
             return new actions.ClearInventoryState();
         })

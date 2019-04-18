@@ -86,12 +86,12 @@
         </button>
 
         <ng-container *ngIf="secondaryBtn === 'Status'">
-          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Available'); displayInventoryStatus()"
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Available'); displayInventoryStatusList()"
             [class.active]="tertiaryBtn === 'Available'">
             Available
           </button>
 
-          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Rented'); displayInventoryStatus()"
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Rented'); displayInventoryStatusList()"
             [class.active]="tertiaryBtn === 'Rented'">
             Rented
           </button>
@@ -103,33 +103,33 @@
         </button>
 
         <ng-container *ngIf="secondaryBtn === 'Type'">
-          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Mask'); displayInventoryType()"
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Mask'); displayInventoryTypeList()"
             [class.active]="tertiaryBtn === 'Mask'">
             Mask
           </button>
 
-          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Snorkel'); displayInventoryType()"
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Snorkel'); displayInventoryTypeList()"
             [class.active]="tertiaryBtn === 'Snorkel'">
             Snorkel
           </button>
 
-          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Glove'); displayInventoryType()"
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Glove'); displayInventoryTypeList()"
             [class.active]="tertiaryBtn === 'Glove'">
             Glove
           </button>
 
-          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Stick'); displayInventoryType()"
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Stick'); displayInventoryTypeList()"
             [class.active]="tertiaryBtn === 'Stick'">
             Stick
           </button>
 
-          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Fins'); displayInventoryType()"
+          <button class="btn btn-light btn-block" (click)="activateTertiaryBtn('Fins'); displayInventoryTypeList()"
             [class.active]="tertiaryBtn === 'Fins'">
             Fins
           </button>
         </ng-container>
 
-        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('Add'); addInventory()"
+        <button class="btn btn-secondary btn-block" (click)="activateSecondaryBtn('Add'); displayAddInventory()"
           [class.active]="secondaryBtn === 'Add'">
           Add
         </button>
@@ -196,16 +196,20 @@
     <!-- detail -->
     <div class="col-8">
       <div class="row">
-        <ng-container *ngIf="showList">
+        <ng-container *ngIf="shouldShowList">
           <div class="col-4 pb-2" *ngFor="let inventoryItem of inventoryItems">
-            <button class="btn btn-dark btn-block">
+            <button class="btn btn-dark btn-block" (click)="displayInventoryDetail(inventoryItem)">
               {{inventoryItem.number}}.{{inventoryItem.color}}
             </button>
           </div>
         </ng-container>
 
-        <ng-container *ngIf="showAdd">
-          
+        <ng-container *ngIf="shouldShowDetail">
+
+        </ng-container>
+
+        <ng-container *ngIf="shouldShowAdd">
+
         </ng-container>
       </div>
     </div>

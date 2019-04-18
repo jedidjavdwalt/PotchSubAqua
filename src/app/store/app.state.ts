@@ -13,6 +13,7 @@ export interface AppState {
         // rentedInventory: boolean;
         // missingInventory: boolean;
         inventoryItems: InventoryItem[];
+        selectedInventoryItem: InventoryItem;
     };
 
 }

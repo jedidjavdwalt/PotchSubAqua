@@ -4,6 +4,7 @@ import { AppState } from 'src/app/store/app.state';
 import { Store } from '@ngrx/store';
 import * as inventoryActions from '../../store/actions/inventory.actions';
 import * as inventorySelectors from '../../store/selectors/inventory.selectors';
+import { InventoryItem } from 'src/app/models/InventoryItem';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,8 +19,11 @@ export class DashboardComponent implements OnInit {
 
   inventoryItems = [];
 
-  showList = true;
-  showAdd = false;
+  shouldShowList = false;
+  shouldShowDetail = false;
+  shouldShowAdd = false;
+
+  selectedInventoryItem = {} as InventoryItem;
 
   constructor(
     private router: Router,
@@ -42,16 +46,24 @@ export class DashboardComponent implements OnInit {
   }
 
   toggleShowList() {
-    this.showList = true;
-    this.showAdd = false;
+    this.shouldShowList = true;
+    this.shouldShowDetail = false;
+    this.shouldShowAdd = false;
   }
 
   toggleShowAdd() {
-    this.showList = false;
-    this.showAdd = true;
+    this.shouldShowList = false;
+    this.shouldShowDetail = false;
+    this.shouldShowAdd = true;
   }
 
-  displayInventoryStatus() {
+  toggleShowDetail() {
+    this.shouldShowList = false;
+    this.shouldShowDetail = true;
+    this.shouldShowAdd = false;
+  }
+
+  displayInventoryStatusList() {
     this.toggleShowList();
     switch (this.tertiaryBtn) {
       case 'Available':
@@ -67,8 +79,9 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  displayInventoryType() {
+  displayInventoryTypeList() {
     this.toggleShowList();
+
     switch (this.tertiaryBtn) {
       case 'Mask':
         this.store.dispatch(new inventoryActions.RequestGetAllMasks());
@@ -95,15 +108,25 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  addInventory() {
+  displayAddInventory() {
     this.toggleShowAdd();
     alert('addInventory');
+  }
+
+  displayInventoryDetail(selectedInventoryItem: InventoryItem) {
+    this.toggleShowDetail();
+
+    this.store.dispatch(new inventoryActions.GetSelectedInventoryItemSuccess(selectedInventoryItem));
   }
 
   sliceAppState() {
     this.store.select(inventorySelectors.inventoryItems).subscribe(inventoryItems => {
       this.inventoryItems = inventoryItems;
       this.inventoryItems.sort((a, b) => (a.number > b.number) ? 1 : -1);
+    });
+
+    this.store.select(inventorySelectors.selectedInventoryItem).subscribe(selectedInventoryItem => {
+      this.selectedInventoryItem = selectedInventoryItem;
     });
   }
 

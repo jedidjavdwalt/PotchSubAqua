@@ -66,17 +66,20 @@ export class DashboardComponent implements OnInit {
     this.shouldShowAdd = false;
   }
 
-  displayInventoryStatusList() {
+  displayePlayerList() {
     this.toggleShowList();
-    this.store.dispatch(new inventoryActions.RequestGetInventoryItemsByStatus(this.tertiaryBtn));
+    // this.secondaryBtn === 'U19'
+    //   ? this
   }
 
-  displayInventoryTypeList() {
+  displayInventoryList() {
     this.toggleShowList();
-    this.store.dispatch(new inventoryActions.RequestGetInventoryItemsByType(this.tertiaryBtn));
+    this.secondaryBtn === 'Status'
+      ? this.store.dispatch(new inventoryActions.RequestGetInventoryItemsByStatus(this.tertiaryBtn))
+      : this.store.dispatch(new inventoryActions.RequestGetInventoryItemsByType(this.tertiaryBtn));
   }
 
-  displayAddInventory() {
+  displayInventoryAdd() {
     this.toggleShowAdd();
   }
 
@@ -95,19 +98,18 @@ export class DashboardComponent implements OnInit {
 
   addInventory() {
     this.angularFirestore.collection('/inventory/').ref.where('type', '==', this.newInventoryItem.type)
-    .where('number', '==', this.newInventoryItem.number).get().then(snapShot => {
-      if (snapShot.size === 0) {
-        this.angularFirestore.collection('inventory').add(this.newInventoryItem);
-        alert(this.newInventoryItem.type + ' added');
-      } else {
-        alert(this.newInventoryItem.type + ' number already exists');
-      }
-    });
+      .where('number', '==', this.newInventoryItem.number).get().then(snapShot => {
+        if (snapShot.size === 0) {
+          this.angularFirestore.collection('inventory').add(this.newInventoryItem);
+          alert(this.newInventoryItem.type + ' added');
+        } else {
+          alert(this.newInventoryItem.type + ' number already exists');
+        }
+      });
   }
 
   displayInventoryDetail(selectedInventoryItem: InventoryItem) {
     this.toggleShowDetail();
-
     this.store.dispatch(new inventoryActions.GetSelectedInventoryItemSuccess(selectedInventoryItem));
   }
 

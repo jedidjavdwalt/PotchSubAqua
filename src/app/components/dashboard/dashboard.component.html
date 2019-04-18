@@ -14,13 +14,13 @@
             </button>
 
             <ng-container *ngIf="primaryBtn === 'Players'">
-              <button class="btn btn-dark btn-block" (click)="activateSecondaryBtn('U19')"
+              <button class="btn btn-info btn-block" (click)="activateSecondaryBtn('U19')"
                 [class.active]="secondaryBtn === 'U19'">
                 U19
               </button>
 
               <ng-container *ngIf="secondaryBtn === 'U19'">
-                <button class="btn btn-secondary btn-block" (click)="activateTertiaryBtn('Ladies')"
+                <button class="btn btn-secondary btn-block" (click)="activateTertiaryBtn('Ladies')" (click)="displayPlayersU19LadiesList()"
                   [class.active]="tertiaryBtn === 'Ladies'">
                   Ladies
                 </button>
@@ -31,7 +31,7 @@
                 </button>
               </ng-container>
 
-              <button class="btn btn-dark btn-block" (click)="activateSecondaryBtn('U15')"
+              <button class="btn btn-info btn-block" (click)="activateSecondaryBtn('U15')"
                 [class.active]="secondaryBtn === 'U15'">
                 U15
               </button>
@@ -48,7 +48,7 @@
                 </button>
               </ng-container>
 
-              <button class="btn btn-dark btn-block" (click)="activateSecondaryBtn('U13')"
+              <button class="btn btn-info btn-block" (click)="activateSecondaryBtn('U13')"
                 [class.active]="secondaryBtn === 'U13'">
                 U13
               </button>
@@ -65,12 +65,12 @@
                 </button>
               </ng-container>
 
-              <button class="btn btn-dark btn-block" (click)="activateSecondaryBtn('U10')"
+              <button class="btn btn-info btn-block" (click)="activateSecondaryBtn('U10')"
                 [class.active]="secondaryBtn === 'U10'">
                 U10
               </button>
 
-              <button class="btn btn-dark btn-block" (click)="activateSecondaryBtn('Beginners')"
+              <button class="btn btn-info btn-block" (click)="activateSecondaryBtn('Beginners')"
                 [class.active]="secondaryBtn === 'Beginners'">
                 Beginners
               </button>
@@ -83,7 +83,7 @@
             </button>
 
             <ng-container *ngIf="primaryBtn === 'Inventory'">
-              <button class="btn btn-dark btn-block" (click)="activateSecondaryBtn('Status')"
+              <button class="btn btn-info btn-block" (click)="activateSecondaryBtn('Status')"
                 [class.active]="secondaryBtn === 'Status'">
                 Status
               </button>
@@ -102,7 +102,7 @@
                 </button>
               </ng-container>
 
-              <button class="btn btn-dark btn-block" (click)="activateSecondaryBtn('Type')"
+              <button class="btn btn-info btn-block" (click)="activateSecondaryBtn('Type')"
                 [class.active]="secondaryBtn === 'Type'">
                 Type
               </button>
@@ -139,7 +139,7 @@
                 </button>
               </ng-container>
 
-              <button class="btn btn-dark btn-block" (click)="activateSecondaryBtn('Add'); displayAddInventory()"
+              <button class="btn btn-info btn-block" (click)="activateSecondaryBtn('Add'); displayAddInventory()"
                 [class.active]="secondaryBtn === 'Add'">
                 Add
               </button>
@@ -152,7 +152,7 @@
             </button>
 
             <ng-container *ngIf="primaryBtn === 'Rentals'">
-              <button class="btn btn-dark btn-block" (click)="activateSecondaryBtn('Status')"
+              <button class="btn btn-info btn-block" (click)="activateSecondaryBtn('Status')"
                 [class.active]="secondaryBtn === 'Status'">
                 Status
               </button>
@@ -174,7 +174,7 @@
                 </button>
               </ng-container>
 
-              <button class="btn btn-dark btn-block" (click)="activateSecondaryBtn('Type')"
+              <button class="btn btn-info btn-block" (click)="activateSecondaryBtn('Type')"
                 [class.active]="secondaryBtn === 'Type'">
                 Type
               </button>
@@ -196,7 +196,7 @@
                 </button>
               </ng-container>
 
-              <button class="btn btn-dark btn-block" (click)="activateSecondaryBtn('Add')"
+              <button class="btn btn-info btn-block" (click)="activateSecondaryBtn('Add')"
                 [class.active]="secondaryBtn === 'Add'">
                 Add
               </button>
@@ -208,146 +208,148 @@
 
     <!-- detail -->
     <div class="col-8">
-      <div class="row">
-        <ng-container *ngIf="shouldShowList">
-          <div class="col-4 pb-2" *ngFor="let inventoryItem of inventoryItems">
-            <button class="btn btn-light btn-block" (click)="displayInventoryDetail(inventoryItem)">
-              {{inventoryItem.number}}.{{inventoryItem.color}} {{inventoryItem.type}}
-            </button>
-          </div>
-        </ng-container>
+      <button class="btn btn-light btn-block" disabled>
+        <div class="row">
+          <ng-container *ngIf="shouldShowList">
+            <div class="col-4 pb-2" *ngFor="let inventoryItem of inventoryItems">
+              <button class="btn btn-secondary btn-block" (click)="displayInventoryDetail(inventoryItem)">
+                {{inventoryItem.number}}.{{inventoryItem.color}} {{inventoryItem.type}}
+              </button>
+            </div>
+          </ng-container>
 
-        <ng-container *ngIf="shouldShowDetail">
-          <div class="col-12">
-            <button class="btn btn-light btn-block" disabled>
-              <div class="row">
-                <div class="col-6">
-                  <div class="row">
-                    <div class="col-12 text-right">
-                      Type:
+          <ng-container *ngIf="shouldShowDetail">
+            <div class="col-12">
+              <button class="btn btn-secondary btn-block" disabled>
+                <div class="row">
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-12 text-right">
+                        Type:
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-12 text-right">
+                        Number:
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-12 text-right">
+                        Brand:
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-12 text-right">
+                        Color:
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-12 text-right">
+                        Description:
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-12 text-right">
+                        Type:
+                      </div>
                     </div>
                   </div>
 
-                  <div class="row">
-                    <div class="col-12 text-right">
-                      Number:
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-12 text-left">
+                        {{selectedInventoryItem.type}}
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="row">
-                    <div class="col-12 text-right">
-                      Brand:
+                    <div class="row">
+                      <div class="col-12 text-left">
+                        {{selectedInventoryItem.number}}
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="row">
-                    <div class="col-12 text-right">
-                      Color:
+                    <div class="row">
+                      <div class="col-12 text-left">
+                        {{selectedInventoryItem.brand}}
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="row">
-                    <div class="col-12 text-right">
-                      Description:
+                    <div class="row">
+                      <div class="col-12 text-left">
+                        {{selectedInventoryItem.color}}
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="row">
-                    <div class="col-12 text-right">
-                      Type:
+                    <div class="row">
+                      <div class="col-12 text-left">
+                        {{selectedInventoryItem.description}}
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-12 text-left">
+                        {{selectedInventoryItem.status}}
+                      </div>
                     </div>
                   </div>
                 </div>
+              </button>
+            </div>
+          </ng-container>
 
-                <div class="col-6">
-                  <div class="row">
-                    <div class="col-12 text-left">
-                      {{selectedInventoryItem.type}}
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-12 text-left">
-                      {{selectedInventoryItem.number}}
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-12 text-left">
-                      {{selectedInventoryItem.brand}}
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-12 text-left">
-                      {{selectedInventoryItem.color}}
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-12 text-left">
-                      {{selectedInventoryItem.description}}
-                    </div>
-                  </div>
-
-                  <div class="row">
-                    <div class="col-12 text-left">
-                      {{selectedInventoryItem.status}}
-                    </div>
-                  </div>
+          <ng-container *ngIf="shouldShowAdd">
+            <div class="col-12">
+              <button class="btn btn-secondary btn-block" disabled>
+                <div class="form-row pb-2">
+                  <select class="form-control" [(ngModel)]="newInventoryItem.type" required>
+                    <option>Mask</option>
+                    <option>Snorkel</option>
+                    <option>Glove</option>
+                    <option>Stick</option>
+                    <option>Fins</option>
+                  </select>
                 </div>
-              </div>
-            </button>
-          </div>
-        </ng-container>
 
-        <ng-container *ngIf="shouldShowAdd">
-          <div class="col-12">
-            <button class="btn btn-light btn-block" disabled>
-              <div class="form-row pb-2">
-                <select class="form-control" [(ngModel)]="newInventoryItem.type" required>
-                  <option>Mask</option>
-                  <option>Snorkel</option>
-                  <option>Glove</option>
-                  <option>Stick</option>
-                  <option>Fins</option>
-                </select>
-              </div>
+                <div class="form-row pb-2">
+                  <input type="number" class="form-control" [(ngModel)]="newInventoryItem.number" placeholder="number"
+                    required>
+                </div>
 
-              <div class="form-row pb-2">
-                <input type="number" class="form-control" [(ngModel)]="newInventoryItem.number" placeholder="number"
-                  required>
-              </div>
+                <div class="form-row pb-2">
+                  <input type="text" class="form-control" [(ngModel)]="newInventoryItem.brand" placeholder="brand"
+                    required>
+                </div>
 
-              <div class="form-row pb-2">
-                <input type="text" class="form-control" [(ngModel)]="newInventoryItem.brand" placeholder="brand"
-                  required>
-              </div>
+                <div class="form-row pb-2">
+                  <input type="text" class="form-control" [(ngModel)]="newInventoryItem.color" placeholder="color"
+                    required>
+                </div>
 
-              <div class="form-row pb-2">
-                <input type="text" class="form-control" [(ngModel)]="newInventoryItem.color" placeholder="color"
-                  required>
-              </div>
+                <div class="form-row pb-2">
+                  <input type="text" class="form-control" [(ngModel)]="newInventoryItem.description"
+                    placeholder="description" required>
+                </div>
 
-              <div class="form-row pb-2">
-                <input type="text" class="form-control" [(ngModel)]="newInventoryItem.description"
-                  placeholder="description" required>
-              </div>
+                <div class="form-row pb-2">
+                  <select class="form-control" [(ngModel)]="newInventoryItem.status" required>
+                    <option>Available</option>
+                    <option>Rented</option>
+                  </select>
+                </div>
+              </button>
 
-              <div class="form-row pb-2">
-                <select class="form-control" [(ngModel)]="newInventoryItem.status" required>
-                  <option>Available</option>
-                  <option>Rented</option>
-                </select>
-              </div>
-            </button>
-
-            <button class="btn btn-success btn-block" (click)="clickAddInventory()">
-              Add
-            </button>
-          </div>
-        </ng-container>
-      </div>
+              <button class="btn btn-success btn-block" (click)="clickAddInventory()">
+                Add
+              </button>
+            </div>
+          </ng-container>
+        </div>
+      </button>
     </div>
   </div>
 </div>

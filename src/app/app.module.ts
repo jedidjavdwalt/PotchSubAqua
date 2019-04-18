@@ -12,19 +12,19 @@ import { environment } from '../environments/environment';
 import { AngularFirestore } from '@angular/fire/firestore';
 
 import * as inventoryReducers from '../app/store/reducers/inventory.reducers';
-import * as componentReducers from './store/reducers/component.reducers';
+import * as playersReducers from '../app/store/reducers/players.reducers';
 
 import * as inventoryEffects from '../app/store/effects/inventory.effects';
+import * as playersEffects from '../app/store/effects/players.effects';
+
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { AddComponent } from './components/add/add.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    AddComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,11 +32,12 @@ import { AddComponent } from './components/add/add.component';
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     StoreModule.forRoot({
-      componentState: componentReducers.componentReducer,
       inventoryState: inventoryReducers.inventoryReducer,
+      playersState: playersReducers.playersReducer,
     }),
     EffectsModule.forRoot([
       inventoryEffects.InventoryEffects,
+      playersEffects.PlayersEffects,
     ]),
     StoreDevtoolsModule.instrument(),
     FormsModule,

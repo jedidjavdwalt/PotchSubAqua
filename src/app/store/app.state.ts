@@ -1,19 +1,17 @@
 import { InventoryItem } from '../models/InventoryItem';
+import { Player } from '../models/Player';
+
 
 export interface AppState {
 
-    componentState: {
-        addPlayers: boolean;
-        addInventory: boolean;
-        addRentals: boolean;
-    };
-
     inventoryState: {
-        // availableInventory: boolean;
-        // rentedInventory: boolean;
-        // missingInventory: boolean;
         inventoryItems: InventoryItem[];
         selectedInventoryItem: InventoryItem;
+    };
+
+    playersState: {
+        players: Player[];
+        selectedPlayer: Player;
     };
 
 }

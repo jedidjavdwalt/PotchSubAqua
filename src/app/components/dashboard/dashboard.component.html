@@ -14,65 +14,69 @@
             </button>
 
             <ng-container *ngIf="primaryBtn === 'Players'">
-              <button class="btn btn-info btn-block" (click)="activateSecondaryBtn('U19')"
+              <button class="btn btn-info btn-block" (click)="activateSecondaryBtn('U19'); displayPlayersList()"
                 [class.active]="secondaryBtn === 'U19'">
                 U19
               </button>
 
               <ng-container *ngIf="secondaryBtn === 'U19'">
-                <button class="btn btn-secondary btn-block" (click)="activateTertiaryBtn('Ladies')" (click)="displayPlayersU19LadiesList()"
-                  [class.active]="tertiaryBtn === 'Ladies'">
+                <button class="btn btn-secondary btn-block" (click)="activateTertiaryBtn('Ladies'); displayPlayersList()" [class.active]="tertiaryBtn === 'Ladies'">
                   Ladies
                 </button>
 
-                <button class="btn btn-secondary btn-block" (click)="activateTertiaryBtn('Men')"
+                <button class="btn btn-secondary btn-block" (click)="activateTertiaryBtn('Men'); displayPlayersList()"
                   [class.active]="tertiaryBtn === 'Men'">
                   Men
                 </button>
               </ng-container>
 
-              <button class="btn btn-info btn-block" (click)="activateSecondaryBtn('U15')"
+              <button class="btn btn-info btn-block" (click)="activateSecondaryBtn('U15'); displayPlayersList()"
                 [class.active]="secondaryBtn === 'U15'">
                 U15
               </button>
 
               <ng-container *ngIf="secondaryBtn === 'U15'">
-                <button class="btn btn-secondary btn-block" (click)="activateTertiaryBtn('Ladies')"
+                <button class="btn btn-secondary btn-block" (click)="activateTertiaryBtn('Ladies'); displayPlayersList()"
                   [class.active]="tertiaryBtn === 'Ladies'">
                   Ladies
                 </button>
 
-                <button class="btn btn-secondary btn-block" (click)="activateTertiaryBtn('Men')"
+                <button class="btn btn-secondary btn-block" (click)="activateTertiaryBtn('Men'); displayPlayersList()"
                   [class.active]="tertiaryBtn === 'Men'">
                   Men
                 </button>
               </ng-container>
 
-              <button class="btn btn-info btn-block" (click)="activateSecondaryBtn('U13')"
+              <button class="btn btn-info btn-block" (click)="activateSecondaryBtn('U13'); displayPlayersList()"
                 [class.active]="secondaryBtn === 'U13'">
                 U13
               </button>
 
               <ng-container *ngIf="secondaryBtn === 'U13'">
-                <button class="btn btn-secondary btn-block" (click)="activateTertiaryBtn('Ladies')"
+                <button class="btn btn-secondary btn-block" (click)="activateTertiaryBtn('Ladies'); displayPlayersList()"
                   [class.active]="tertiaryBtn === 'Ladies'">
                   Ladies
                 </button>
 
-                <button class="btn btn-secondary btn-block" (click)="activateTertiaryBtn('Men')"
+                <button class="btn btn-secondary btn-block" (click)="activateTertiaryBtn('Men'); displayPlayersList()"
                   [class.active]="tertiaryBtn === 'Men'">
                   Men
                 </button>
               </ng-container>
 
-              <button class="btn btn-info btn-block" (click)="activateSecondaryBtn('U10')"
+              <button class="btn btn-info btn-block" (click)="activateSecondaryBtn('U10'); displayPlayersList()"
                 [class.active]="secondaryBtn === 'U10'">
                 U10
               </button>
 
-              <button class="btn btn-info btn-block" (click)="activateSecondaryBtn('Beginners')"
+              <button class="btn btn-info btn-block" (click)="activateSecondaryBtn('Beginners'); displayPlayersList()"
                 [class.active]="secondaryBtn === 'Beginners'">
                 Beginners
+              </button>
+
+              <button class="btn btn-info btn-block" (click)="activateSecondaryBtn('Add'); displayPlayersAdd()"
+                [class.active]="secondaryBtn === 'Add'">
+                Add
               </button>
             </ng-container>
 
@@ -210,7 +214,7 @@
     <div class="col-8">
       <button class="btn btn-light btn-block" disabled>
         <div class="row">
-          <ng-container *ngIf="shouldShowList">
+          <ng-container *ngIf="inventoryItems">
             <div class="col-4 pb-2" *ngFor="let inventoryItem of inventoryItems">
               <button class="btn btn-secondary btn-block" (click)="displayInventoryDetail(inventoryItem)">
                 {{inventoryItem.number}}.{{inventoryItem.color}} {{inventoryItem.type}}
@@ -218,7 +222,15 @@
             </div>
           </ng-container>
 
-          <ng-container *ngIf="shouldShowDetail">
+          <ng-container *ngIf="players">
+              <div class="col-4 pb-2" *ngFor="let player of players">
+                <button class="btn btn-secondary btn-block" (click)="displayPlayersDetail(player)">
+                  {{player.name}} {{player.surname}}
+                </button>
+              </div>
+            </ng-container>
+
+          <ng-container *ngIf="selectedInventoryItem">
             <div class="col-12">
               <button class="btn btn-secondary btn-block" disabled>
                 <div class="row">
@@ -302,7 +314,7 @@
             </div>
           </ng-container>
 
-          <ng-container *ngIf="shouldShowAdd">
+          <ng-container *ngIf="shouldShowInventoryAdd">
             <div class="col-12">
               <button class="btn btn-secondary btn-block" disabled>
                 <div class="form-row pb-2">

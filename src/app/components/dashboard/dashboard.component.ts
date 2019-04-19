@@ -9,6 +9,9 @@ import * as playersSelectors from '../../store/selectors/players.selectors';
 import { InventoryItem } from 'src/app/models/InventoryItem';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Player } from 'src/app/models/Player';
+import * as firebase from 'firebase';
+import { Timestamp } from '@firebase/firestore-types';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,15 +25,18 @@ export class DashboardComponent implements OnInit {
   tertiaryBtn = undefined;
 
   inventoryItems = [];
-  selectedInventoryItem = {} as InventoryItem;
+  // selectedInventoryItem = {} as InventoryItem;
+  selectedInventoryItem = null;
   newInventoryItem = {} as InventoryItem;
   // shouldShowInventoryList = false;
   // shouldShowInventoryDetail = false;
   shouldShowInventoryAdd = false;
 
   players = [];
-  selectedPlayer = {} as Player;
-  newPlayers = {} as Player;
+  // selectedPlayer = {} as Player;
+  selectedPlayer = null;
+  newPlayer = {} as Player;
+  selectedBirthDate: string;
   shouldShowPlayersAdd = false;
 
   constructor(
@@ -73,26 +79,52 @@ export class DashboardComponent implements OnInit {
   // }
 
   displayPlayersList() {
-    this.secondaryBtn === 'U19' || this.secondaryBtn === 'U15' || this.secondaryBtn === 'U13'
-      ? this.store.dispatch(new playersActions.RequestGetPlayersByGender(this.tertiaryBtn))
-      : this.store.dispatch(new playersActions.RequestGetPlayersByAgeGroup(this.secondaryBtn));
+    !this.tertiaryBtn
+      ? this.store.dispatch(new playersActions.RequestGetPlayersByAgeGroup(this.secondaryBtn))
+      : this.store.dispatch(new playersActions.RequestGetPlayersByGender(this.tertiaryBtn, this.secondaryBtn));
   }
 
   displayPlayersAdd() {
-    this.shouldShowInventoryAdd = true;
+    this.shouldShowPlayersAdd = true;
   }
 
   clickAddPlayers() {
-    if (!this.newInventoryItem.type ||
-      !this.newInventoryItem.number ||
-      !this.newInventoryItem.brand ||
-      !this.newInventoryItem.color ||
-      !this.newInventoryItem.description ||
-      !this.newInventoryItem.status) {
+    this.convertDateToTimestamp();
+    this.calculateAgeGroup();
+
+    if (!this.newPlayer.player ||
+      !this.newPlayer.playerCell ||
+      !this.newPlayer.gender ||
+      isNaN(this.newPlayer.birthDate.seconds) ||
+      !this.newPlayer.ageGroup ||
+      !this.newPlayer.parent ||
+      !this.newPlayer.parentCell) {
       alert('You forgot to fill in some fields');
     } else {
-      this.addInventory();
+      alert('Player added');
     }
+  }
+
+  convertDateToTimestamp() {
+    const date = new Date(this.selectedBirthDate);
+    this.newPlayer.birthDate = firebase.firestore.Timestamp.fromDate(date);
+  }
+
+  calculateAgeGroup() {
+    const currentYear = moment().year();
+    const firstDayOfYear = moment(`${currentYear}-01-01`);
+    const selectedBirthDate = moment(this.selectedBirthDate);
+    const age = firstDayOfYear.diff(selectedBirthDate, 'years');
+
+    age <= 18 && age > 15
+      ? this.newPlayer.ageGroup = 'U19'
+      : age <= 15 && age > 13
+      ? this.newPlayer.ageGroup = 'U15'
+      : age <= 13 && age > 10
+      ? this.newPlayer.ageGroup = 'U13'
+      : age <= 10
+      ? this.newPlayer.ageGroup = 'U10'
+      : this.newPlayer.ageGroup = 'Senior';
   }
 
   addPlayers() {

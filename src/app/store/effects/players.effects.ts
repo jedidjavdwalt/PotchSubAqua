@@ -17,8 +17,9 @@ export class PlayersEffects {
     GetPlayerByGender$ = this.actions$.pipe(
         ofType(actions.REQUEST_GET_PLAYERS_BY_GENDER),
         switchMap((action: actions.RequestGetPlayersByGender) => {
-            return this.angularFirestore.collection
-                ('/players/', ref => ref.where('gender', '==', action.payload)).stateChanges();
+            return this.angularFirestore.collection('/players/', ref => ref
+                .where('gender', '==', action.gender)
+                .where('ageGroup', '==', action.ageGroup)).stateChanges();
         }),
         mergeMap(actions => actions),
         map(action => {

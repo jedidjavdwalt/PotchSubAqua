@@ -3,7 +3,8 @@ import { InventoryItem } from 'src/app/models/InventoryItem';
 
 export const initialInventoryState = {
     inventoryItems: [],
-    selectedInventoryItem: {} as InventoryItem,
+    // selectedInventoryItem: {} as InventoryItem,
+    selectedInventoryItem: null,
 };
 
 export function inventoryReducer(state = initialInventoryState, action: actions.InventoryActions) {
@@ -31,7 +32,8 @@ export function inventoryReducer(state = initialInventoryState, action: actions.
 
         case actions.CLEAR_INVENTORY_STATE:
             newState.inventoryItems = [];
-            newState.selectedInventoryItem = {} as InventoryItem;
+            // newState.selectedInventoryItem = {} as InventoryItem;
+            newState.selectedInventoryItem = null;
             return newState;
 
         default:

@@ -3,7 +3,8 @@ import { Player } from 'src/app/models/Player';
 
 export const initialPlayersState = {
     players: [],
-    selectedPlayer: {} as Player,
+    // selectedPlayer: {} as Player,
+    selectedPlayer: null,
 };
 
 export function playersReducer(state = initialPlayersState, action: actions.PlayersActions) {
@@ -31,7 +32,8 @@ export function playersReducer(state = initialPlayersState, action: actions.Play
 
         case actions.CLEAR_PLAYERS_STATE:
             newState.players = [];
-            newState.selectedPlayer = {} as Player;
+            // newState.selectedPlayer = {} as Player;
+            newState.selectedPlayer = null;
             return newState;
 
         default:

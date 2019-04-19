@@ -11,7 +11,7 @@ export const CLEAR_PLAYERS_STATE = '[playersState] CLEAR_PLAYERS_STATE';
 
 export class RequestGetPlayersByGender implements Action {
     type = REQUEST_GET_PLAYERS_BY_GENDER;
-    constructor(public payload: string) { }
+    constructor(public gender: string, public ageGroup: string) { }
 }
 
 export class RequestGetPlayersByAgeGroup implements Action {

@@ -3,40 +3,43 @@ import { Timestamp } from '@firebase/firestore-types';
 export class Rental {
     id: string;
     player: string;
-    inventoryItem: string;
+    inventoryItems: string[];
     type: string;
-    kitOut: Timestamp;
-    kitIn: Timestamp;
-    kitDue: Timestamp;
-    feePaid: Timestamp;
-    feeReturned: Timestamp;
+    dateKitOut: Timestamp;
+    dateKitIn: Timestamp;
+    dateKitDue: Timestamp;
+    dateFeePaid: Timestamp;
+    dateFeeReturned: Timestamp;
+    feePaid: number;
     feeDue: number;
     actionRequired: string;
 
-    constructor(id: string, data: RentalData) {
-        this.id = id;
+    constructor(data: RentalData) {
+        this.id = data.id;
         this.player = data.player;
-        this.inventoryItem = data.inventoryItem;
+        this.inventoryItems = data.inventoryItems;
         this.type = data.type;
-        this.kitOut = data.kitOut;
-        this.kitIn = data.kitIn;
-        this.kitDue = data.kitDue;
-        this.feePaid = data.feePaid;
-        this.feeReturned = data.feeReturned;
+        this.dateKitOut = data.dateKitOut;
+        this.dateKitIn = data.dateKitIn;
+        this.dateKitDue = data.dateKitDue;
+        this.dateFeePaid = data.dateFeePaid;
+        this.dateFeeReturned = data.dateFeeReturned;
         this.feeDue = data.feeDue;
         this.actionRequired = data.actionRequired;
     }
 
     toData(): RentalData {
         return {
+            id: this.id,
             player: this.player,
-            inventoryItem: this.inventoryItem,
+            inventoryItems: this.inventoryItems,
             type: this.type,
-            kitOut: this.kitOut,
-            kitIn: this.kitIn,
-            kitDue: this.kitDue,
+            dateKitOut: this.dateKitOut,
+            dateKitIn: this.dateKitIn,
+            dateKitDue: this.dateKitDue,
+            dateFeePaid: this.dateFeePaid,
+            dateFeeReturned: this.dateFeeReturned,
             feePaid: this.feePaid,
-            feeReturned: this.feeReturned,
             feeDue: this.feeDue,
             actionRequired: this.actionRequired,
         } as RentalData;
@@ -44,14 +47,16 @@ export class Rental {
 }
 
 export class RentalData {
+    id: string;
     player: string;
-    inventoryItem: string;
+    inventoryItems: string[];
     type: string;
-    kitOut: Timestamp;
-    kitIn: Timestamp;
-    kitDue: Timestamp;
-    feePaid: Timestamp;
-    feeReturned: Timestamp;
+    dateKitOut: Timestamp;
+    dateKitIn: Timestamp;
+    dateKitDue: Timestamp;
+    dateFeePaid: Timestamp;
+    dateFeeReturned: Timestamp;
+    feePaid: number;
     feeDue: number;
     actionRequired: string;
 }

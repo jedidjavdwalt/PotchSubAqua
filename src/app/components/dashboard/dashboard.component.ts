@@ -2,10 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppState } from 'src/app/store/app.state';
 import { Store } from '@ngrx/store';
-import * as inventoryActions from '../../store/actions/inventory.actions';
-import * as inventorySelectors from '../../store/selectors/inventory.selectors';
 import * as playersActions from '../../store/actions/players.actions';
 import * as playersSelectors from '../../store/selectors/players.selectors';
+import * as inventoryActions from '../../store/actions/inventory.actions';
+import * as inventorySelectors from '../../store/selectors/inventory.selectors';
+import * as rentalsActions from '../../store/actions/rentals.actions';
+import * as rentalsSelectors from '../../store/selectors/rentals.selectors';
 import { InventoryItem } from 'src/app/models/InventoryItem';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Player } from 'src/app/models/Player';
@@ -45,6 +47,12 @@ export class DashboardComponent implements OnInit {
   shouldShowRentalsList = false;
   shouldShowRentalsDetail = false;
   shouldShowRentalsAdd = false;
+
+  availableMasks = [];
+  availableSnorkels = [];
+  availableGloves = [];
+  availableSticks = [];
+  availableFins = [];
 
   constructor(
     private router: Router,
@@ -153,7 +161,7 @@ export class DashboardComponent implements OnInit {
     this.toggleDetailOff();
   }
 
-  toggleShowRentalAdd() {
+  toggleShowRentalsAdd() {
     this.shouldShowPlayersAdd = false;
     this.shouldShowInventoryAdd = false;
     this.shouldShowRentalsAdd = true;
@@ -179,7 +187,7 @@ export class DashboardComponent implements OnInit {
   }
 
   clickAddPlayers() {
-    this.convertDateToTimestamp();
+    this.newPlayer.birthDate = this.convertDateToTimestamp(this.selectedBirthDate);
     this.calculateAgeGroup();
 
     if (!this.newPlayer.player ||
@@ -192,14 +200,15 @@ export class DashboardComponent implements OnInit {
       !this.newPlayer.parentCell) {
       alert('You forgot to fill in a cell number');
     } else {
+      this.newPlayer.id = this.newPlayer.player.replace('', '_');
       this.addPlayers();
     }
   }
 
-  convertDateToTimestamp() {
-    const date = new Date(this.selectedBirthDate);
-    this.newPlayer.birthDate = firebase.firestore.Timestamp.fromDate(date);
-  }
+  // convertDateToTimestamp() {
+  //   const date = new Date(this.selectedBirthDate);
+  //   this.newPlayer.birthDate = firebase.firestore.Timestamp.fromDate(date);
+  // }
 
   calculateAgeGroup() {
     const currentYear = moment().year();
@@ -221,7 +230,7 @@ export class DashboardComponent implements OnInit {
   addPlayers() {
     this.angularFirestore.collection('/players/').ref.where('player', '==', this.newPlayer.player).get().then(snapShot => {
       if (snapShot.size === 0) {
-        this.angularFirestore.collection('/players/').add(this.newPlayer);
+        this.angularFirestore.collection('/players/').doc(this.newPlayer.id).set(this.newPlayer);
         alert(this.newPlayer.player + ' added');
       } else {
         alert(this.newPlayer.player + ' already exists');
@@ -255,6 +264,7 @@ export class DashboardComponent implements OnInit {
       !this.newInventoryItem.status) {
       alert('You forgot to fill in some fields');
     } else {
+      this.newInventoryItem.id = this.newInventoryItem.number + '_' + this.newInventoryItem.brand + '_' + this.newInventoryItem.type;
       this.addInventory();
     }
   }
@@ -263,12 +273,78 @@ export class DashboardComponent implements OnInit {
     this.angularFirestore.collection('/inventory/').ref.where('type', '==', this.newInventoryItem.type)
       .where('number', '==', this.newInventoryItem.number).get().then(snapShot => {
         if (snapShot.size === 0) {
-          this.angularFirestore.collection('inventory').add(this.newInventoryItem);
+          this.angularFirestore.collection('inventory').doc(this.newInventoryItem.id).set(this.newInventoryItem);
           alert(this.newInventoryItem.type + ' added');
         } else {
           alert(this.newInventoryItem.type + ' number already exists');
         }
       });
+  }
+
+  displayRentalsAdd() {
+    this.store.dispatch(new playersActions.RequestGetAllPlayers());
+    this.store.dispatch(new inventoryActions.RequestGetAvailableMasks());
+    this.store.dispatch(new inventoryActions.RequestGetAvailableSnorkels());
+    this.store.dispatch(new inventoryActions.RequestGetAvailableGloves());
+    this.store.dispatch(new inventoryActions.RequestGetAvailableSticks());
+    this.store.dispatch(new inventoryActions.RequestGetAvailableFins());
+    this.toggleShowRentalsAdd();
+  }
+
+  selectRentalInventoryItem(selectedRentalInventoryItem: string) {
+    this.newRental.inventoryItems.push(selectedRentalInventoryItem);
+  }
+
+  clickAddRentals() {
+    // this.convertDateToTimestamp();
+    // this.calculateAgeGroup();
+
+    // if (!this.newPlayer.player ||
+    //   !this.newPlayer.gender ||
+    //   isNaN(this.newPlayer.birthDate.seconds) ||
+    //   !this.newPlayer.ageGroup ||
+    //   !this.newPlayer.parent) {
+    //   alert('You forgot to fill in some fields');
+    // } else if (!this.newPlayer.playerCell &&
+    //   !this.newPlayer.parentCell) {
+    //   alert('You forgot to fill in a cell number');
+    // } else {
+    //   this.addPlayers();
+    // }
+  }
+
+  convertDateToTimestamp(stringToConvert: string) {
+    return firebase.firestore.Timestamp.fromDate(new Date(stringToConvert));
+  }
+
+  calculateDueDate() {
+    // const currentYear = moment().year();
+    // const firstDayOfYear = moment(`${currentYear}-01-01`);
+    // const selectedBirthDate = moment(this.selectedBirthDate);
+    // const age = firstDayOfYear.diff(selectedBirthDate, 'years');
+
+    // age <= 18 && age > 15
+    //   ? this.newPlayer.ageGroup = 'U19'
+    //   : age <= 15 && age > 13
+    //     ? this.newPlayer.ageGroup = 'U15'
+    //     : age <= 13 && age > 10
+    //       ? this.newPlayer.ageGroup = 'U13'
+    //       : age <= 10
+    //         ? this.newPlayer.ageGroup = 'U10'
+    //         : this.newPlayer.ageGroup = 'Senior';
+  }
+
+  addRentals() {
+    this.angularFirestore.collection('/rentals/').ref
+      .where('player', '==', this.newRental.player)
+      .where('inventoryItems', '==', this.newRental.inventoryItems).get().then(snapShot => {
+      if (snapShot.size === 0) {
+        this.angularFirestore.collection('/rentals/').doc(this.newRental.id).set(this.newRental);
+        alert('Rental added');
+      } else {
+        alert('Rental already exists');
+      }
+    });
   }
 
   sliceAppState() {
@@ -287,6 +363,26 @@ export class DashboardComponent implements OnInit {
 
     this.store.select(playersSelectors.selectedPlayer).subscribe(selectedPlayer => {
       this.selectedPlayer = selectedPlayer;
+    });
+
+    this.store.select(inventorySelectors.availableMasks).subscribe(availableMasks => {
+      this.availableMasks = availableMasks;
+    });
+
+    this.store.select(inventorySelectors.availableSnorkels).subscribe(availableSnorkels => {
+      this.availableSnorkels = availableSnorkels;
+    });
+
+    this.store.select(inventorySelectors.availableGloves).subscribe(availableGloves => {
+      this.availableGloves = availableGloves;
+    });
+
+    this.store.select(inventorySelectors.availableSticks).subscribe(availableSticks => {
+      this.availableSticks = availableSticks;
+    });
+
+    this.store.select(inventorySelectors.availableFins).subscribe(availableFins => {
+      this.availableFins = availableFins;
     });
   }
 

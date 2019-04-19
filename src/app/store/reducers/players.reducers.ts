@@ -18,6 +18,10 @@ export function playersReducer(state = initialPlayersState, action: actions.Play
             newState.players = [];
             return newState;
 
+        case actions.REQUEST_GET_ALL_PLAYERS:
+            newState.players = [];
+            return newState;
+
         case actions.GET_PLAYER_SUCCESS:
             const getPlayerSuccessAction = action as actions.GetPlayerSuccess;
             newState.players = [...newState.players, getPlayerSuccessAction.payload];

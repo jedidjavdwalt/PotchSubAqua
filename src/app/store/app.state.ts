@@ -13,6 +13,11 @@ export interface AppState {
     inventoryState: {
         inventoryItems: InventoryItem[];
         selectedInventoryItem: InventoryItem;
+        availableMasks: InventoryItem[];
+        availableSnorkels: InventoryItem[];
+        availableGloves: InventoryItem[];
+        availableSticks: InventoryItem[];
+        availableFins: InventoryItem[];
     };
 
     rentalState: {

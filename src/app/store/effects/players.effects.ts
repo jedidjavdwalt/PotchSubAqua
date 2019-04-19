@@ -14,7 +14,7 @@ export class PlayersEffects {
     ) { }
 
     @Effect()
-    GetPlayerByGender$ = this.actions$.pipe(
+    GetPlayersByGender$ = this.actions$.pipe(
         ofType(actions.REQUEST_GET_PLAYERS_BY_GENDER),
         switchMap((action: actions.RequestGetPlayersByGender) => {
             return this.angularFirestore.collection('/players/', ref => ref
@@ -24,14 +24,14 @@ export class PlayersEffects {
         mergeMap(actions => actions),
         map(action => {
             if (action.type === 'added') {
-                return new actions.GetPlayerSuccess(new Player(action.payload.doc.id, action.payload.doc.data() as PlayerData));
+                return new actions.GetPlayerSuccess(new Player(action.payload.doc.data() as PlayerData));
             }
             return new actions.ClearPlayersState();
         })
     );
 
     @Effect()
-    GetPlayerByAgeGroup$ = this.actions$.pipe(
+    GetPlayersByAgeGroup$ = this.actions$.pipe(
         ofType(actions.REQUEST_GET_PLAYERS_BY_AGE_GROUP),
         switchMap((action: actions.RequestGetPlayersByAgeGroup) => {
             return this.angularFirestore.collection
@@ -40,7 +40,23 @@ export class PlayersEffects {
         mergeMap(actions => actions),
         map(action => {
             if (action.type === 'added') {
-                return new actions.GetPlayerSuccess(new Player(action.payload.doc.id, action.payload.doc.data() as PlayerData));
+                return new actions.GetPlayerSuccess(new Player(action.payload.doc.data() as PlayerData));
+            }
+            return new actions.ClearPlayersState();
+        })
+    );
+
+    @Effect()
+    GetAllPlayers$ = this.actions$.pipe(
+        ofType(actions.REQUEST_GET_ALL_PLAYERS),
+        switchMap((action: actions.RequestGetAllPlayers) => {
+            return this.angularFirestore.collection
+                ('/players/').stateChanges();
+        }),
+        mergeMap(actions => actions),
+        map(action => {
+            if (action.type === 'added') {
+                return new actions.GetPlayerSuccess(new Player(action.payload.doc.data() as PlayerData));
             }
             return new actions.ClearPlayersState();
         })

@@ -3,8 +3,12 @@ import { InventoryItem } from 'src/app/models/InventoryItem';
 
 export const initialInventoryState = {
     inventoryItems: [],
-    // selectedInventoryItem: {} as InventoryItem,
     selectedInventoryItem: null,
+    availableMasks: [],
+    availableSnorkels: [],
+    availableGloves: [],
+    availableSticks: [],
+    availableFins: [],
 };
 
 export function inventoryReducer(state = initialInventoryState, action: actions.InventoryActions) {
@@ -26,14 +30,63 @@ export function inventoryReducer(state = initialInventoryState, action: actions.
             return newState;
 
         case actions.GET_SELECTED_INVENTORY_ITEM_SUCCESS:
-            const getSelectedInventoryItemAction = action as actions.GetSelectedInventoryItemSuccess;
-            newState.selectedInventoryItem = getSelectedInventoryItemAction.payload;
+            const getSelectedInventoryItemSuccessAction = action as actions.GetSelectedInventoryItemSuccess;
+            newState.selectedInventoryItem = getSelectedInventoryItemSuccessAction.payload;
+            return newState;
+
+        case actions.REQUEST_GET_AVAILABLE_MASKS:
+            newState.availableMasks = [];
+            return newState;
+
+        case actions.GET_AVAILABLE_MASK_SUCCESS:
+            const getAvailableMaskSuccessAction = action as actions.GetAvailableMaskSuccess;
+            newState.availableMasks = [...newState.availableMasks, getAvailableMaskSuccessAction.payload];
+            return newState;
+
+        case actions.REQUEST_GET_AVAILABLE_SNORKELS:
+            newState.availableSnorkels = [];
+            return newState;
+
+        case actions.GET_AVAILABLE_SNORKEL_SUCCESS:
+            const getAvailableSnorkelsSuccessAction = action as actions.GetAvailableSnorkelSuccess;
+            newState.availableSnorkels = [...newState.availableMasks, getAvailableSnorkelsSuccessAction.payload];
+            return newState;
+
+        case actions.REQUEST_GET_AVAILABLE_GLOVES:
+            newState.availableGloves = [];
+            return newState;
+
+        case actions.GET_AVAILABLE_GLOVE_SUCCESS:
+            const getAvailableGloveSuccessAction = action as actions.GetAvailableGloveSuccess;
+            newState.availableGloves = [...newState.availableGloves, getAvailableGloveSuccessAction.payload];
+            return newState;
+
+        case actions.REQUEST_GET_AVAILABLE_STICKS:
+            newState.availableSticks = [];
+            return newState;
+
+        case actions.GET_AVAILABLE_STICK_SUCCESS:
+            const getAvailableStickSuccessAction = action as actions.GetAvailableStickSuccess;
+            newState.availableSticks = [...newState.availableSticks, getAvailableStickSuccessAction.payload];
+            return newState;
+
+        case actions.REQUEST_GET_AVAILABLE_FINS:
+            newState.availableFins = [];
+            return newState;
+
+        case actions.GET_AVAILABLE_MASK_SUCCESS:
+            const getAvailableFinsSuccessAction = action as actions.GetAvailableFinsSuccess;
+            newState.availableFins = [...newState.availableFins, getAvailableFinsSuccessAction.payload];
             return newState;
 
         case actions.CLEAR_INVENTORY_STATE:
             newState.inventoryItems = [];
-            // newState.selectedInventoryItem = {} as InventoryItem;
             newState.selectedInventoryItem = null;
+            newState.availableMasks = [];
+            newState.availableSnorkels = [];
+            newState.availableGloves = [];
+            newState.availableSticks = [];
+            newState.availableFins = [];
             return newState;
 
         default:

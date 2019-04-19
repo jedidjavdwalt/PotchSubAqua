@@ -7,6 +7,21 @@ export const GET_INVENTORY_ITEM_SUCCESS = '[inventoryState] GET_INVENTORY_ITEM_S
 
 export const GET_SELECTED_INVENTORY_ITEM_SUCCESS = '[inventoryState] GET_SELECTED_INVENTORY_ITEM_SUCCESS';
 
+export const REQUEST_GET_AVAILABLE_MASKS = '[inventoryState] REQUEST_GET_AVAILABLE_MASKS';
+export const GET_AVAILABLE_MASK_SUCCESS = '[inventoryState] GET_AVAILABLE_MASKS_SUCCESS';
+
+export const REQUEST_GET_AVAILABLE_SNORKELS = '[inventoryState] REQUEST_GET_AVAILABLE_SNORKELS';
+export const GET_AVAILABLE_SNORKEL_SUCCESS = '[inventoryState] GET_AVAILABLE_SNORKELS_SUCCESS';
+
+export const REQUEST_GET_AVAILABLE_GLOVES = '[inventoryState] REQUEST_GET_AVAILABLE_GLOVES';
+export const GET_AVAILABLE_GLOVE_SUCCESS = '[inventoryState] GET_AVAILABLE_GLOVES_SUCCESS';
+
+export const REQUEST_GET_AVAILABLE_STICKS = '[inventoryState] REQUEST_GET_AVAILABLE_STICKS';
+export const GET_AVAILABLE_STICK_SUCCESS = '[inventoryState] GET_AVAILABLE_STICKS_SUCCESS';
+
+export const REQUEST_GET_AVAILABLE_FINS = '[inventoryState] REQUEST_GET_AVAILABLE_FINS';
+export const GET_AVAILABLE_FINS_SUCCESS = '[inventoryState] GET_AVAILABLE_FINS_SUCCESS';
+
 export const CLEAR_INVENTORY_STATE = '[inventoryState] CLEAR_INVENTORY_STATE';
 
 export class RequestGetInventoryItemsByStatus implements Action {
@@ -29,6 +44,56 @@ export class GetSelectedInventoryItemSuccess implements Action {
     constructor(public payload: InventoryItem) {}
 }
 
+export class RequestGetAvailableMasks implements Action {
+    type = REQUEST_GET_AVAILABLE_MASKS;
+    constructor() {}
+}
+
+export class GetAvailableMaskSuccess implements Action {
+    type = GET_AVAILABLE_MASK_SUCCESS;
+    constructor(public payload: InventoryItem) {}
+}
+
+export class RequestGetAvailableSnorkels implements Action {
+    type = REQUEST_GET_AVAILABLE_MASKS;
+    constructor() {}
+}
+
+export class GetAvailableSnorkelSuccess implements Action {
+    type = GET_AVAILABLE_MASK_SUCCESS;
+    constructor(public payload: InventoryItem) {}
+}
+
+export class RequestGetAvailableGloves implements Action {
+    type = REQUEST_GET_AVAILABLE_MASKS;
+    constructor() {}
+}
+
+export class GetAvailableGloveSuccess implements Action {
+    type = GET_AVAILABLE_MASK_SUCCESS;
+    constructor(public payload: InventoryItem) {}
+}
+
+export class RequestGetAvailableSticks implements Action {
+    type = REQUEST_GET_AVAILABLE_MASKS;
+    constructor() {}
+}
+
+export class GetAvailableStickSuccess implements Action {
+    type = GET_AVAILABLE_MASK_SUCCESS;
+    constructor(public payload: InventoryItem) {}
+}
+
+export class RequestGetAvailableFins implements Action {
+    type = REQUEST_GET_AVAILABLE_MASKS;
+    constructor() {}
+}
+
+export class GetAvailableFinsSuccess implements Action {
+    type = GET_AVAILABLE_MASK_SUCCESS;
+    constructor(public payload: InventoryItem) {}
+}
+
 export class ClearInventoryState implements Action {
     type = CLEAR_INVENTORY_STATE;
     constructor() { }
@@ -39,4 +104,14 @@ export type InventoryActions =
     | RequestGetInventoryItemsByType
     | GetInventoryItemSuccess
     | GetSelectedInventoryItemSuccess
+    | RequestGetAvailableMasks
+    | GetAvailableMaskSuccess
+    | RequestGetAvailableSnorkels
+    | GetAvailableSnorkelSuccess
+    | RequestGetAvailableGloves
+    | GetAvailableGloveSuccess
+    | RequestGetAvailableSticks
+    | GetAvailableStickSuccess
+    | RequestGetAvailableFins
+    | GetAvailableFinsSuccess
     | ClearInventoryState;

@@ -178,7 +178,7 @@
                 </button>
               </ng-container>
 
-              <button class="btn btn-info btn-block" (click)="activateSecondaryBtn('Add')">
+              <button class="btn btn-info btn-block" (click)="activateSecondaryBtn('Add'); displayRentalsAdd()">
                 Add
               </button>
             </ng-container>
@@ -489,6 +489,114 @@
                 </button>
 
                 <button class="btn btn-success btn-block" (click)="clickAddInventory()">
+                  Add
+                </button>
+              </div>
+            </ng-container>
+
+            <!-- add rentals -->
+            <ng-container *ngIf="shouldShowRentalsAdd">
+              <div class="col-12">
+                <button class="btn btn-secondary btn-block" disabled>
+                  <div class="form-row pb-2">
+                    <select class="form-control" [(ngModel)]="newRental.player" required>
+                      <option *ngFor="let player of players">{{player.player}}</option>
+                    </select>
+                  </div>
+
+                  <div class="form-row justify-content-center">
+                    <div class="col-4">
+                      <select class="form-control mb-2" required>
+                        <option *ngFor="let availableMask of availableMasks"
+                          (click)="selectRentalInventoryItem(availableMask.rentalId)">
+                          {{availableMask.rentalId}}
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="col-4">
+                      <select class="form-control mb-2" required>
+                        <option *ngFor="let availableSnorkel of availableSnorkels"
+                          (click)="selectRentalInventoryItem(availableSnorkel.rentalId)">
+                          {{availableSnorkel.rentalId}}
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="col-4">
+                      <select class="form-control mb-2" required>
+                        <option *ngFor="let availableGlove of availableGloves"
+                          (click)="selectRentalInventoryItem(availableGlove.rentalId)">
+                          {{availableGlove.rentalId}}
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="col-4">
+                      <select class="form-control mb-2" required>
+                        <option *ngFor="let availableStick of availableSticks"
+                          (click)="selectRentalInventoryItem(availableStick.rentalId)">
+                          {{availableStick.rentalId}}
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="col-4">
+                      <select class="form-control mb-2" required>
+                        <option *ngFor="let availableFin of availableFins"
+                          (click)="selectRentalInventoryItem(availableFin.rentalId)">
+                          {{availableFin.rentalId}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-row pb-2">
+                    <select class="form-control" [(ngModel)]="newRental.type" required>
+                      <option>Day</option>
+                      <option>Beginner</option>
+                      <option>Seasonal</option>
+                    </select>
+                  </div>
+
+                  <div class="form-row pb-2">
+                    <input type="date" class="form-control" [(ngModel)]="selectedFeePaidDate" required>
+                  </div>
+
+                  <div class="form-row pb-2">
+                    <input type="number" class="form-control" [(ngModel)]="newRental.feeDue" placeholder="fee due"
+                      required>
+                  </div>
+
+                  <div class="form-row pb-2">
+                    <input type="tel" class="form-control" [(ngModel)]="newPlayer.playerCell" placeholder="player cell"
+                      required>
+                  </div>
+
+                  <div class="form-row pb-2">
+                    <select class="form-control" [(ngModel)]="newPlayer.gender" required>
+                      <option>Ladies</option>
+                      <option>Men</option>
+                    </select>
+                  </div>
+
+                  <div class="form-row pb-2">
+                    <input type="date" class="form-control" [(ngModel)]="selectedBirthDate" placeholder="birth date"
+                      required>
+                  </div>
+
+                  <div class="form-row pb-2">
+                    <input type="text" class="form-control" [(ngModel)]="newPlayer.parent" placeholder="parent"
+                      required>
+                  </div>
+
+                  <div class="form-row">
+                    <input type="tel" class="form-control" [(ngModel)]="newPlayer.parentCell" placeholder="parent cell"
+                      required>
+                  </div>
+                </button>
+
+                <button class="btn btn-success btn-block" (click)="clickAddPlayers()">
                   Add
                 </button>
               </div>

@@ -10,8 +10,8 @@ export class Player {
     parent: string;
     parentCell: number;
 
-    constructor(id: string, data: PlayerData) {
-        this.id = id;
+    constructor(data: PlayerData) {
+        this.id = data.id;
         this.player = data.player;
         this.playerCell = data.playerCell;
         this.gender = data.gender;
@@ -23,6 +23,7 @@ export class Player {
 
     toData(): PlayerData {
         return {
+            id: this.id,
             player: this.player,
             playerCell: this.playerCell,
             gender: this.gender,
@@ -35,6 +36,7 @@ export class Player {
 }
 
 export class PlayerData {
+    id: string;
     player: string;
     playerCell: number;
     gender: string;

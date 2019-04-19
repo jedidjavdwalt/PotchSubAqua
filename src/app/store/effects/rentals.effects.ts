@@ -23,7 +23,7 @@ export class RentalsEffects {
         mergeMap(actions => actions),
         map(action => {
             if (action.type === 'added') {
-                return new actions.GetRentalSuccess(new Rental(action.payload.doc.id, action.payload.doc.data() as RentalData));
+                return new actions.GetRentalSuccess(new Rental(action.payload.doc.data() as RentalData));
             }
             return new actions.ClearRentalsState();
         })
@@ -39,7 +39,7 @@ export class RentalsEffects {
         mergeMap(actions => actions),
         map(action => {
             if (action.type === 'added') {
-                return new actions.GetRentalSuccess(new Rental(action.payload.doc.id, action.payload.doc.data() as RentalData));
+                return new actions.GetRentalSuccess(new Rental(action.payload.doc.data() as RentalData));
             }
             return new actions.ClearRentalsState();
         })

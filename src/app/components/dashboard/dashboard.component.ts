@@ -10,8 +10,8 @@ import { InventoryItem } from 'src/app/models/InventoryItem';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Player } from 'src/app/models/Player';
 import * as firebase from 'firebase';
-import { Timestamp } from '@firebase/firestore-types';
 import * as moment from 'moment';
+import { Rental } from 'src/app/models/Rental';
 
 @Component({
   selector: 'app-dashboard',
@@ -39,6 +39,13 @@ export class DashboardComponent implements OnInit {
   shouldShowPlayersDetail = false;
   shouldShowPlayersAdd = false;
 
+  rentals = [];
+  selectedRental = null;
+  newRental = {} as Rental;
+  shouldShowRentalsList = false;
+  shouldShowRentalsDetail = false;
+  shouldShowRentalsAdd = false;
+
   constructor(
     private router: Router,
     private store: Store<AppState>,
@@ -49,6 +56,8 @@ export class DashboardComponent implements OnInit {
     this.primaryBtn = btn;
     this.secondaryBtn = undefined;
     this.tertiaryBtn = undefined;
+
+    this.toggleAllOff();
   }
 
   activateSecondaryBtn(btn: string) {
@@ -60,46 +69,96 @@ export class DashboardComponent implements OnInit {
     this.tertiaryBtn = btn;
   }
 
+  toggleAllOff() {
+    this.shouldShowPlayersList = false;
+    this.shouldShowInventoryList = false;
+    this.shouldShowRentalsList = false;
+
+    this.shouldShowPlayersDetail = false;
+    this.shouldShowInventoryDetail = false;
+    this.shouldShowRentalsDetail = false;
+
+    this.shouldShowPlayersAdd = false;
+    this.shouldShowInventoryAdd = false;
+    this.shouldShowRentalsAdd = false;
+  }
+
+  toggleAddOff() {
+    this.shouldShowPlayersAdd = false;
+    this.shouldShowInventoryAdd = false;
+    this.shouldShowRentalsAdd = false;
+  }
+
+  toggleDetailOff() {
+    this.shouldShowPlayersDetail = false;
+    this.shouldShowInventoryDetail = false;
+    this.shouldShowRentalsDetail = false;
+  }
+
   toggleShowPlayersList() {
     this.shouldShowPlayersList = true;
     this.shouldShowInventoryList = false;
+    this.shouldShowRentalsList = false;
   }
 
   toggleShowInventoryList() {
     this.shouldShowPlayersList = false;
     this.shouldShowInventoryList = true;
+    this.shouldShowRentalsList = false;
+  }
+
+  toggleShowRentalsList() {
+    this.shouldShowPlayersList = false;
+    this.shouldShowInventoryList = false;
+    this.shouldShowRentalsList = true;
   }
 
   toggleShowPlayersDetail() {
     this.shouldShowPlayersDetail = true;
     this.shouldShowInventoryDetail = false;
+    this.shouldShowRentalsDetail = false;
 
-    this.shouldShowPlayersAdd = false;
-    this.shouldShowInventoryAdd = false;
+    this.toggleAddOff();
   }
 
   toggleShowInventoryDetail() {
     this.shouldShowPlayersDetail = false;
     this.shouldShowInventoryDetail = true;
+    this.shouldShowRentalsDetail = false;
 
-    this.shouldShowPlayersAdd = false;
-    this.shouldShowInventoryAdd = false;
+    this.toggleAddOff();
+  }
+
+  toggleShowRentalDetail() {
+    this.shouldShowPlayersDetail = false;
+    this.shouldShowInventoryDetail = false;
+    this.shouldShowRentalsDetail = true;
+
+    this.toggleAddOff();
   }
 
   toggleShowPlayersAdd() {
     this.shouldShowPlayersAdd = true;
     this.shouldShowInventoryAdd = false;
+    this.shouldShowRentalsAdd = false;
 
-    this.shouldShowPlayersDetail = false;
-    this.shouldShowInventoryDetail = false;
+    this.toggleDetailOff();
   }
 
   toggleShowInventoryAdd() {
     this.shouldShowPlayersAdd = false;
     this.shouldShowInventoryAdd = true;
+    this.shouldShowRentalsAdd = false;
 
-    this.shouldShowPlayersDetail = false;
-    this.shouldShowInventoryDetail = false;
+    this.toggleDetailOff();
+  }
+
+  toggleShowRentalAdd() {
+    this.shouldShowPlayersAdd = false;
+    this.shouldShowInventoryAdd = false;
+    this.shouldShowRentalsAdd = true;
+
+    this.toggleDetailOff();
   }
 
   displayPlayersList() {

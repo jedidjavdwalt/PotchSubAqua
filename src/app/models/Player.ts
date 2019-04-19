@@ -1,6 +1,7 @@
 import { Timestamp } from '@firebase/firestore-types';
 
 export class Player {
+    id: string;
     player: string;
     playerCell: number;
     gender: string;
@@ -9,7 +10,8 @@ export class Player {
     parent: string;
     parentCell: number;
 
-    constructor(data: PlayerData) {
+    constructor(id: string, data: PlayerData) {
+        this.id = id;
         this.player = data.player;
         this.playerCell = data.playerCell;
         this.gender = data.gender;

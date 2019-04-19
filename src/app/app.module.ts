@@ -11,12 +11,13 @@ import { FormsModule } from '@angular/forms';
 import { environment } from '../environments/environment';
 import { AngularFirestore } from '@angular/fire/firestore';
 
-import * as inventoryReducers from '../app/store/reducers/inventory.reducers';
 import * as playersReducers from '../app/store/reducers/players.reducers';
+import * as inventoryReducers from '../app/store/reducers/inventory.reducers';
+import * as rentalsReducers from '../app/store/reducers/rentals.reducers';
 
-import * as inventoryEffects from '../app/store/effects/inventory.effects';
 import * as playersEffects from '../app/store/effects/players.effects';
-
+import * as inventoryEffects from '../app/store/effects/inventory.effects';
+import * as rentalsEffects from '../app/store/effects/rentals.effects';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -32,12 +33,14 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     StoreModule.forRoot({
-      inventoryState: inventoryReducers.inventoryReducer,
       playersState: playersReducers.playersReducer,
+      inventoryState: inventoryReducers.inventoryReducer,
+      rentalsState: rentalsReducers.rentalsReducer,
     }),
     EffectsModule.forRoot([
-      inventoryEffects.InventoryEffects,
       playersEffects.PlayersEffects,
+      inventoryEffects.InventoryEffects,
+      rentalsEffects.RentalsEffects,
     ]),
     StoreDevtoolsModule.instrument(),
     FormsModule,

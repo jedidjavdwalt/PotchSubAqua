@@ -24,7 +24,7 @@ export class PlayersEffects {
         mergeMap(actions => actions),
         map(action => {
             if (action.type === 'added') {
-                return new actions.GetPlayerSuccess(new Player(action.payload.doc.data() as PlayerData));
+                return new actions.GetPlayerSuccess(new Player(action.payload.doc.id, action.payload.doc.data() as PlayerData));
             }
             return new actions.ClearPlayersState();
         })
@@ -40,7 +40,7 @@ export class PlayersEffects {
         mergeMap(actions => actions),
         map(action => {
             if (action.type === 'added') {
-                return new actions.GetPlayerSuccess(new Player(action.payload.doc.data() as PlayerData));
+                return new actions.GetPlayerSuccess(new Player(action.payload.doc.id, action.payload.doc.data() as PlayerData));
             }
             return new actions.ClearPlayersState();
         })

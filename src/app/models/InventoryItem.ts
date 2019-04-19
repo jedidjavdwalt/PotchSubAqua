@@ -1,4 +1,5 @@
 export class InventoryItem {
+    id: string;
     type: string;
     number: number;
     brand: string;
@@ -6,7 +7,8 @@ export class InventoryItem {
     description: string;
     status: string;
 
-    constructor(data: InventoryItemData) {
+    constructor(id: string, data: InventoryItemData) {
+        this.id = id;
         this.type = data.type;
         this.number = data.number;
         this.brand = data.brand;

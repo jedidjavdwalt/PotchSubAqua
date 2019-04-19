@@ -19,7 +19,7 @@ export class Player {
         this.parentCell = data.parentCell;
     }
 
-    toDatat(): PlayerData {
+    toData(): PlayerData {
         return {
             player: this.player,
             playerCell: this.playerCell,

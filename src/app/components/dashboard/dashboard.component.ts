@@ -25,18 +25,18 @@ export class DashboardComponent implements OnInit {
   tertiaryBtn = undefined;
 
   inventoryItems = [];
-  // selectedInventoryItem = {} as InventoryItem;
   selectedInventoryItem = null;
   newInventoryItem = {} as InventoryItem;
-  // shouldShowInventoryList = false;
-  // shouldShowInventoryDetail = false;
+  shouldShowInventoryList = false;
+  shouldShowInventoryDetail = false;
   shouldShowInventoryAdd = false;
 
   players = [];
-  // selectedPlayer = {} as Player;
   selectedPlayer = null;
   newPlayer = {} as Player;
   selectedBirthDate: string;
+  shouldShowPlayersList = false;
+  shouldShowPlayersDetail = false;
   shouldShowPlayersAdd = false;
 
   constructor(
@@ -60,32 +60,63 @@ export class DashboardComponent implements OnInit {
     this.tertiaryBtn = btn;
   }
 
-  // toggleShowList() {
-  //   this.shouldShowInventoryList = true;
-  //   this.shouldShowInventoryDetail = false;
-  //   this.shouldShowInventoryAdd = false;
-  // }
+  toggleShowPlayersList() {
+    this.shouldShowPlayersList = true;
+    this.shouldShowInventoryList = false;
+  }
 
-  // toggleShowAdd() {
-  //   this.shouldShowInventoryList = false;
-  //   this.shouldShowInventoryDetail = false;
-  //   this.shouldShowInventoryAdd = true;
-  // }
+  toggleShowInventoryList() {
+    this.shouldShowPlayersList = false;
+    this.shouldShowInventoryList = true;
+  }
 
-  // toggleShowDetail() {
-  //   this.shouldShowInventoryList = false;
-  //   this.shouldShowInventoryDetail = true;
-  //   this.shouldShowInventoryAdd = false;
-  // }
+  toggleShowPlayersDetail() {
+    this.shouldShowPlayersDetail = true;
+    this.shouldShowInventoryDetail = false;
+
+    this.shouldShowPlayersAdd = false;
+    this.shouldShowInventoryAdd = false;
+  }
+
+  toggleShowInventoryDetail() {
+    this.shouldShowPlayersDetail = false;
+    this.shouldShowInventoryDetail = true;
+
+    this.shouldShowPlayersAdd = false;
+    this.shouldShowInventoryAdd = false;
+  }
+
+  toggleShowPlayersAdd() {
+    this.shouldShowPlayersAdd = true;
+    this.shouldShowInventoryAdd = false;
+
+    this.shouldShowPlayersDetail = false;
+    this.shouldShowInventoryDetail = false;
+  }
+
+  toggleShowInventoryAdd() {
+    this.shouldShowPlayersAdd = false;
+    this.shouldShowInventoryAdd = true;
+
+    this.shouldShowPlayersDetail = false;
+    this.shouldShowInventoryDetail = false;
+  }
 
   displayPlayersList() {
     !this.tertiaryBtn
       ? this.store.dispatch(new playersActions.RequestGetPlayersByAgeGroup(this.secondaryBtn))
       : this.store.dispatch(new playersActions.RequestGetPlayersByGender(this.tertiaryBtn, this.secondaryBtn));
+
+    this.toggleShowPlayersList();
+  }
+
+  displayPlayersDetail(selectedPlayer: Player) {
+    this.store.dispatch(new playersActions.GetSelectedPlayerSuccess(selectedPlayer));
+    this.toggleShowPlayersDetail();
   }
 
   displayPlayersAdd() {
-    this.shouldShowPlayersAdd = true;
+    this.toggleShowPlayersAdd();
   }
 
   clickAddPlayers() {
@@ -93,15 +124,16 @@ export class DashboardComponent implements OnInit {
     this.calculateAgeGroup();
 
     if (!this.newPlayer.player ||
-      !this.newPlayer.playerCell ||
       !this.newPlayer.gender ||
       isNaN(this.newPlayer.birthDate.seconds) ||
       !this.newPlayer.ageGroup ||
-      !this.newPlayer.parent ||
-      !this.newPlayer.parentCell) {
+      !this.newPlayer.parent) {
       alert('You forgot to fill in some fields');
+    } else if (!this.newPlayer.playerCell &&
+      !this.newPlayer.parentCell) {
+      alert('You forgot to fill in a cell number');
     } else {
-      alert('Player added');
+      this.addPlayers();
     }
   }
 
@@ -119,38 +151,40 @@ export class DashboardComponent implements OnInit {
     age <= 18 && age > 15
       ? this.newPlayer.ageGroup = 'U19'
       : age <= 15 && age > 13
-      ? this.newPlayer.ageGroup = 'U15'
-      : age <= 13 && age > 10
-      ? this.newPlayer.ageGroup = 'U13'
-      : age <= 10
-      ? this.newPlayer.ageGroup = 'U10'
-      : this.newPlayer.ageGroup = 'Senior';
+        ? this.newPlayer.ageGroup = 'U15'
+        : age <= 13 && age > 10
+          ? this.newPlayer.ageGroup = 'U13'
+          : age <= 10
+            ? this.newPlayer.ageGroup = 'U10'
+            : this.newPlayer.ageGroup = 'Senior';
   }
 
   addPlayers() {
-    this.angularFirestore.collection('/inventory/').ref.where('type', '==', this.newInventoryItem.type)
-      .where('number', '==', this.newInventoryItem.number).get().then(snapShot => {
-        if (snapShot.size === 0) {
-          this.angularFirestore.collection('inventory').add(this.newInventoryItem);
-          alert(this.newInventoryItem.type + ' added');
-        } else {
-          alert(this.newInventoryItem.type + ' number already exists');
-        }
-      });
-  }
-
-  displayPlayersDetail() {
-    alert('displayPlayersDetail');
+    this.angularFirestore.collection('/players/').ref.where('player', '==', this.newPlayer.player).get().then(snapShot => {
+      if (snapShot.size === 0) {
+        this.angularFirestore.collection('/players/').add(this.newPlayer);
+        alert(this.newPlayer.player + ' added');
+      } else {
+        alert(this.newPlayer.player + ' already exists');
+      }
+    });
   }
 
   displayInventoryList() {
     this.secondaryBtn === 'Status'
       ? this.store.dispatch(new inventoryActions.RequestGetInventoryItemsByStatus(this.tertiaryBtn))
       : this.store.dispatch(new inventoryActions.RequestGetInventoryItemsByType(this.tertiaryBtn));
+
+    this.toggleShowInventoryList();
   }
 
   displayInventoryAdd() {
-    this.shouldShowInventoryAdd = true;
+    this.toggleShowInventoryAdd();
+  }
+
+  displayInventoryDetail(selectedInventoryItem: InventoryItem) {
+    this.store.dispatch(new inventoryActions.GetSelectedInventoryItemSuccess(selectedInventoryItem));
+    this.toggleShowInventoryDetail();
   }
 
   clickAddInventory() {
@@ -178,10 +212,6 @@ export class DashboardComponent implements OnInit {
       });
   }
 
-  displayInventoryDetail(selectedInventoryItem: InventoryItem) {
-    this.store.dispatch(new inventoryActions.GetSelectedInventoryItemSuccess(selectedInventoryItem));
-  }
-
   sliceAppState() {
     this.store.select(inventorySelectors.inventoryItems).subscribe(inventoryItems => {
       this.inventoryItems = inventoryItems;
@@ -190,6 +220,14 @@ export class DashboardComponent implements OnInit {
 
     this.store.select(inventorySelectors.selectedInventoryItem).subscribe(selectedInventoryItem => {
       this.selectedInventoryItem = selectedInventoryItem;
+    });
+
+    this.store.select(playersSelectors.players).subscribe(players => {
+      this.players = players;
+    });
+
+    this.store.select(playersSelectors.selectedPlayer).subscribe(selectedPlayer => {
+      this.selectedPlayer = selectedPlayer;
     });
   }
 

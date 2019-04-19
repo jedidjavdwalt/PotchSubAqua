@@ -226,10 +226,21 @@
     </div>
 
     <!-- detail -->
-    <div class="col-8">
-      <button class="btn btn-light btn-block" disabled>
+    <div class="col-8 h-100">
+      <button class="btn btn-light btn-block h-100" disabled>
         <div class="row">
-          <ng-container *ngIf="inventoryItems.length">
+
+          <!-- players list -->
+          <ng-container *ngIf="shouldShowPlayersList">
+            <div class="col-4 pb-2" *ngFor="let player of players">
+              <button class="btn btn-secondary btn-block" (click)="displayPlayersDetail(player)">
+                {{player.player}}
+              </button>
+            </div>
+          </ng-container>
+
+          <!-- inventory list -->
+          <ng-container *ngIf="shouldShowInventoryList">
             <div class="col-4 pb-2" *ngFor="let inventoryItem of inventoryItems">
               <button class="btn btn-secondary btn-block" (click)="displayInventoryDetail(inventoryItem)">
                 {{inventoryItem.number}}.{{inventoryItem.color}} {{inventoryItem.type}}
@@ -237,15 +248,114 @@
             </div>
           </ng-container>
 
-          <ng-container *ngIf="players">
-            <div class="col-4 pb-2" *ngFor="let player of players">
-              <button class="btn btn-secondary btn-block" (click)="displayPlayersDetail(player)">
-                {{player.name}} {{player.surname}}
+          <!-- players detail -->
+          <ng-container *ngIf="shouldShowPlayersDetail">
+            <div class="col-12">
+              <button class="btn btn-secondary btn-block" disabled>
+                <div class="row">
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-12 text-right">
+                        Player:
+                      </div>
+                    </div>
+
+                    <ng-container *ngIf="selectedPlayer.playerCell">
+                      <div class="row">
+                        <div class="col-12 text-right">
+                          Player Cell:
+                        </div>
+                      </div>
+                    </ng-container>
+
+
+                    <div class="row">
+                      <div class="col-12 text-right">
+                        Gender:
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-12 text-right">
+                        Birth Date:
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-12 text-right">
+                        Age Group:
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-12 text-right">
+                        Parent:
+                      </div>
+                    </div>
+
+                    <ng-container *ngIf="selectedPlayer.parentCell">
+                      <div class="row">
+                        <div class="col-12 text-right">
+                          Parent Cell:
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+
+                  <div class="col-6">
+                    <div class="row">
+                      <div class="col-12 text-left">
+                        {{selectedPlayer.player}}
+                      </div>
+                    </div>
+
+                    <ng-container *ngIf="selectedPlayer.playerCell">
+                      <div class="row">
+                        <div class="col-12 text-left">
+                          {{selectedPlayer.playerCell}}
+                        </div>
+                      </div>
+                    </ng-container>
+
+                    <div class="row">
+                      <div class="col-12 text-left">
+                        {{selectedPlayer.gender}}
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-12 text-left">
+                        {{selectedPlayer.birthDate.toDate() | date:'medium'}}
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-12 text-left">
+                        {{selectedPlayer.ageGroup}}
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-12 text-left">
+                        {{selectedPlayer.parent}}
+                      </div>
+                    </div>
+
+                    <ng-container *ngIf="selectedPlayer.parentCell">
+                      <div class="row">
+                        <div class="col-12 text-left">
+                          {{selectedPlayer.parentCell}}
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
               </button>
             </div>
           </ng-container>
 
-          <ng-container *ngIf="selectedInventoryItem">
+          <!-- inventory detail -->
+          <ng-container *ngIf="shouldShowInventoryDetail">
             <div class="col-12">
               <button class="btn btn-secondary btn-block" disabled>
                 <div class="row">
@@ -329,6 +439,48 @@
             </div>
           </ng-container>
 
+          <!-- add players -->
+          <ng-container *ngIf="shouldShowPlayersAdd">
+            <div class="col-12">
+              <button class="btn btn-secondary btn-block" disabled>
+                <div class="form-row pb-2">
+                  <input type="text" class="form-control" [(ngModel)]="newPlayer.player" placeholder="player" required>
+                </div>
+
+                <div class="form-row pb-2">
+                  <input type="tel" class="form-control" [(ngModel)]="newPlayer.playerCell" placeholder="player cell"
+                    required>
+                </div>
+
+                <div class="form-row pb-2">
+                  <select class="form-control" [(ngModel)]="newPlayer.gender" required>
+                    <option>Ladies</option>
+                    <option>Men</option>
+                  </select>
+                </div>
+
+                <div class="form-row pb-2">
+                  <input type="date" class="form-control" [(ngModel)]="selectedBirthDate" placeholder="birth date"
+                    required>
+                </div>
+
+                <div class="form-row pb-2">
+                  <input type="text" class="form-control" [(ngModel)]="newPlayer.parent" placeholder="parent" required>
+                </div>
+
+                <div class="form-row pb-2">
+                  <input type="tel" class="form-control" [(ngModel)]="newPlayer.parentCell" placeholder="parent cell"
+                    required>
+                </div>
+              </button>
+
+              <button class="btn btn-success btn-block" (click)="clickAddPlayers()">
+                Add
+              </button>
+            </div>
+          </ng-container>
+
+          <!-- add inventory -->
           <ng-container *ngIf="shouldShowInventoryAdd">
             <div class="col-12">
               <button class="btn btn-secondary btn-block" disabled>
@@ -371,46 +523,6 @@
               </button>
 
               <button class="btn btn-success btn-block" (click)="clickAddInventory()">
-                Add
-              </button>
-            </div>
-          </ng-container>
-
-          <ng-container *ngIf="shouldShowPlayersAdd">
-            <div class="col-12">
-              <button class="btn btn-secondary btn-block" disabled>
-                <div class="form-row pb-2">
-                  <input type="text" class="form-control" [(ngModel)]="newPlayer.player" placeholder="player" required>
-                </div>
-
-                <div class="form-row pb-2">
-                  <input type="tel" class="form-control" [(ngModel)]="newPlayer.playerCell" placeholder="player cell"
-                    required>
-                </div>
-
-                <div class="form-row pb-2">
-                  <select class="form-control" [(ngModel)]="newPlayer.gender" required>
-                    <option>Ladies</option>
-                    <option>Men</option>
-                  </select>
-                </div>
-
-                <div class="form-row pb-2">
-                  <input type="date" class="form-control" [(ngModel)]="selectedBirthDate" placeholder="birth date"
-                    required>
-                </div>
-
-                <div class="form-row pb-2">
-                  <input type="text" class="form-control" [(ngModel)]="newPlayer.parent" placeholder="parent" required>
-                </div>
-
-                <div class="form-row pb-2">
-                  <input type="tel" class="form-control" [(ngModel)]="newPlayer.parentCell" placeholder="parent cell"
-                    required>
-                </div>
-              </button>
-
-              <button class="btn btn-success btn-block" (click)="clickAddPlayers()">
                 Add
               </button>
             </div>

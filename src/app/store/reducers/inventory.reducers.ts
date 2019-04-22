@@ -74,19 +74,9 @@ export function inventoryReducer(state = initialInventoryState, action: actions.
             newState.availableFins = [];
             return newState;
 
-        case actions.GET_AVAILABLE_MASK_SUCCESS:
+        case actions.GET_AVAILABLE_FINS_SUCCESS:
             const getAvailableFinsSuccessAction = action as actions.GetAvailableFinsSuccess;
             newState.availableFins = [...newState.availableFins, getAvailableFinsSuccessAction.payload];
-            return newState;
-
-        case actions.CLEAR_INVENTORY_STATE:
-            newState.inventoryItems = [];
-            newState.selectedInventoryItem = null;
-            newState.availableMasks = [];
-            newState.availableSnorkels = [];
-            newState.availableGloves = [];
-            newState.availableSticks = [];
-            newState.availableFins = [];
             return newState;
 
         default:

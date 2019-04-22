@@ -28,11 +28,6 @@ export function rentalsReducer(state = initialRentalsState, action: actions.Rent
             newState.selectedRental = getSelectedRentalSuccessAction.payload;
             return newState;
 
-        case actions.CLEAR_RENTALS_STATE:
-            newState.rentals = [];
-            newState.selectedRental = null;
-            return newState;
-
         default:
             return state;
     }

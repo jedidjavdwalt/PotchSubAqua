@@ -32,11 +32,6 @@ export function playersReducer(state = initialPlayersState, action: actions.Play
             newState.selectedPlayer = getSelectedPlayerSuccessAction.payload;
             return newState;
 
-        case actions.CLEAR_PLAYERS_STATE:
-            newState.players = [];
-            newState.selectedPlayer = null;
-            return newState;
-
         default:
             return state;
     }

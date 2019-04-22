@@ -22,7 +22,7 @@ export const GET_AVAILABLE_STICK_SUCCESS = '[inventoryState] GET_AVAILABLE_STICK
 export const REQUEST_GET_AVAILABLE_FINS = '[inventoryState] REQUEST_GET_AVAILABLE_FINS';
 export const GET_AVAILABLE_FINS_SUCCESS = '[inventoryState] GET_AVAILABLE_FINS_SUCCESS';
 
-export const CLEAR_INVENTORY_STATE = '[inventoryState] CLEAR_INVENTORY_STATE';
+export const UNIMPLEMENTED_ACTION = '[inventoryState] UNIMPLEMENTED_ACTION';
 
 export class RequestGetInventoryItemsByStatus implements Action {
     type = REQUEST_GET_INVENTORY_ITEMS_BY_STATUS;
@@ -94,8 +94,8 @@ export class GetAvailableFinsSuccess implements Action {
     constructor(public payload: InventoryItem) {}
 }
 
-export class ClearInventoryState implements Action {
-    type = CLEAR_INVENTORY_STATE;
+export class UnimplementedAction implements Action {
+    type = UNIMPLEMENTED_ACTION;
     constructor() { }
 }
 
@@ -114,4 +114,4 @@ export type InventoryActions =
     | GetAvailableStickSuccess
     | RequestGetAvailableFins
     | GetAvailableFinsSuccess
-    | ClearInventoryState;
+    | UnimplementedAction;

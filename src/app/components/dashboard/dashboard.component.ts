@@ -8,7 +8,7 @@ import * as inventoryActions from '../../store/actions/inventory.actions';
 import * as inventorySelectors from '../../store/selectors/inventory.selectors';
 import * as rentalsActions from '../../store/actions/rentals.actions';
 import * as rentalsSelectors from '../../store/selectors/rentals.selectors';
-import { InventoryItem } from 'src/app/models/InventoryItem';
+import { InventoryItem, InventoryItemData } from 'src/app/models/InventoryItem';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Player } from 'src/app/models/Player';
 import * as firebase from 'firebase';
@@ -200,9 +200,10 @@ export class DashboardComponent implements OnInit {
     if (!this.newPlayer.player ||
       !this.newPlayer.gender ||
       isNaN(this.newPlayer.birthDate.seconds) ||
-      !this.newPlayer.ageGroup ||
-      !this.newPlayer.parent) {
+      !this.newPlayer.ageGroup) {
       alert('You forgot to fill in some fields');
+    } else if (!this.newPlayer.parent && this.newPlayer.ageGroup !== 'Senior') {
+      alert('You forgot to add a parent');
     } else if (!this.newPlayer.playerCell &&
       !this.newPlayer.parentCell) {
       alert('You forgot to fill in a cell number');
@@ -251,6 +252,7 @@ export class DashboardComponent implements OnInit {
       if (!snapShot.exists) {
         this.angularFirestore.collection('/players/').doc(this.newPlayer.id).set(this.newPlayer);
         alert(this.newPlayer.player + ' added');
+        this.newPlayer = {} as Player;
       } else {
         alert(this.newPlayer.player + ' already exists');
       }
@@ -294,10 +296,24 @@ export class DashboardComponent implements OnInit {
       if (!snapShot.exists) {
         this.angularFirestore.collection('inventory').doc(this.newInventoryItem.id).set(this.newInventoryItem);
         alert(this.newInventoryItem.type + ' added');
+        this.newInventoryItem = {} as InventoryItem;
       } else {
         alert(this.newInventoryItem.type + ' number already exists');
       }
     });
+  }
+
+  displayRentalsList() {
+    this.secondaryBtn === 'Action Required'
+      ? this.store.dispatch(new rentalsActions.RequestGetRentalsByActionRequired(this.tertiaryBtn))
+      : this.store.dispatch(new rentalsActions.RequestGetRentalsByType(this.tertiaryBtn));
+
+    this.toggleShowRentalsList();
+  }
+
+  displayRentalsDetail(selectedRental: Rental) {
+    this.store.dispatch(new rentalsActions.GetSelectedRentalSuccess(selectedRental));
+    this.toggleShowRentalDetail();
   }
 
   displayRentalsAdd() {
@@ -313,7 +329,7 @@ export class DashboardComponent implements OnInit {
   clickAddRentals() {
     if (!this.newRental.player ||
       !this.newRental.type) {
-      alert('You forgot to select a player or type')
+      alert('You forgot to select a player or type');
     } else if (!this.newRentalMask &&
       !this.newRentalSnorkel &&
       !this.newRentalGlove &&
@@ -324,6 +340,9 @@ export class DashboardComponent implements OnInit {
       this.newRental.dateKitOut = this.calculateDateKitOut();
       this.newRental.dateKitDue = this.calculateDateKitDue(this.newRental.type);
       this.newRental.feeDue = this.calculateFeeDue(this.newRental.type);
+      if (!this.newRental.feePaid) {
+        this.newRental.feePaid = 0;
+      }
       !this.newRental.feePaid
         ? this.newRental.actionRequired = 'Player'
         : this.newRental.actionRequired = 'None';
@@ -382,9 +401,38 @@ export class DashboardComponent implements OnInit {
       if (!snapShot.exists) {
         this.angularFirestore.collection('/rentals/').doc(this.newRental.id).set(this.newRental);
         alert('Rental added');
+        this.newRental = {} as Rental;
       } else {
         alert('Rental already exists');
       }
+    });
+
+    this.newRental.inventoryItems.forEach(inventoryItem => {
+      this.angularFirestore.collection('/inventory/', ref => ref.where('rentalId', '==', inventoryItem)).get().subscribe(snapShot => {
+        if (snapShot.size === 1) {
+          this.newInventoryItem = new InventoryItem(snapShot.docs[0].data() as InventoryItemData);
+          this.newInventoryItem.status = 'Rented';
+          this.angularFirestore.collection('/inventory/').doc(this.newInventoryItem.id).update(this.newInventoryItem.toData());
+          if (this.newInventoryItem.type === 'Mask') {
+            this.store.dispatch(new inventoryActions.RequestGetAvailableMasks());
+          } else if (this.newInventoryItem.type === 'Snorkel') {
+            this.store.dispatch(new inventoryActions.RequestGetAvailableSnorkels());
+          } else if (this.newInventoryItem.type === 'Glove') {
+            this.store.dispatch(new inventoryActions.RequestGetAvailableGloves());
+          } else if (this.newInventoryItem.type === 'Stick') {
+            this.store.dispatch(new inventoryActions.RequestGetAvailableSticks());
+          } else if (this.newInventoryItem.type === 'Fins') {
+            this.store.dispatch(new inventoryActions.RequestGetAvailableFins());
+          }
+          alert(this.newInventoryItem.rentalId + ' status updated');
+          this.newInventoryItem = {} as InventoryItem;
+        } else if (snapShot.size === 0) {
+          alert(inventoryItem + ' not found');
+          return;
+        } else if (snapShot.size < 1) {
+          alert('More than one ' + inventoryItem);
+        }
+      });
     });
   }
 
@@ -404,6 +452,14 @@ export class DashboardComponent implements OnInit {
 
     this.store.select(playersSelectors.selectedPlayer).subscribe(selectedPlayer => {
       this.selectedPlayer = selectedPlayer;
+    });
+
+    this.store.select(rentalsSelectors.rentals).subscribe(rentals => {
+      this.rentals = rentals;
+    });
+
+    this.store.select(rentalsSelectors.selectedRental).subscribe(selectedRental => {
+      this.selectedRental = selectedRental;
     });
 
     this.store.select(inventorySelectors.availableMasks).subscribe(availableMasks => {

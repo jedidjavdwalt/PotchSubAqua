@@ -8,7 +8,7 @@ export const GET_PLAYER_SUCCESS = '[playersState] GET_PLAYER_SUCCESS';
 
 export const GET_SELECTED_PLAYER_SUCCESS = '[playersState] GET_SELECTED_PLAYER_SUCCESS';
 
-export const CLEAR_PLAYERS_STATE = '[playersState] CLEAR_PLAYERS_STATE';
+export const UNIMPLEMENTED_ACTION = '[playersState] UNIMPLEMENTED_ACTION';
 
 export class RequestGetPlayersByGender implements Action {
     type = REQUEST_GET_PLAYERS_BY_GENDER;
@@ -35,8 +35,8 @@ export class GetSelectedPlayerSuccess implements Action {
     constructor(public payload: Player) { }
 }
 
-export class ClearPlayersState implements Action {
-    type = CLEAR_PLAYERS_STATE;
+export class UnimplementdAction implements Action {
+    type = UNIMPLEMENTED_ACTION;
     constructor() { }
 }
 
@@ -46,4 +46,4 @@ export type PlayersActions =
     | RequestGetAllPlayers
     | GetPlayerSuccess
     | GetSelectedPlayerSuccess
-    | ClearPlayersState;
+    | UnimplementdAction;

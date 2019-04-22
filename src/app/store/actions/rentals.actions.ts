@@ -7,7 +7,7 @@ export const GET_RENTAL_SUCCESS = '[rentalsState] GET_RENTAL_SUCCESS';
 
 export const GET_SELECTED_RENTAL_SUCCESS = '[rentalsState] GET_SELECTED_RENTAL_SUCCESS';
 
-export const CLEAR_RENTALS_STATE = '[rentalsState] CLEAR_RENTALS_STATE';
+export const UNIMPLEMENTED_ACTION = '[rentalsState] UNIMPLEMENTED_ACTION';
 
 export class RequestGetRentalsByActionRequired implements Action {
     type = REQUEST_GET_RENTALS_BY_ACTION_REQUIRED;
@@ -29,8 +29,8 @@ export class GetSelectedRentalSuccess implements Action {
     constructor(public payload: Rental) {}
 }
 
-export class ClearRentalsState implements Action {
-    type = CLEAR_RENTALS_STATE;
+export class UnimplementedAction implements Action {
+    type = UNIMPLEMENTED_ACTION;
     constructor() {}
 }
 
@@ -39,4 +39,4 @@ export type RentalsActions =
     | RequestGetRentalsByType
     | GetRentalSuccess
     | GetSelectedRentalSuccess
-    | ClearRentalsState;
+    | UnimplementedAction;

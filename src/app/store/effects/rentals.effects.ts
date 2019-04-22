@@ -25,7 +25,7 @@ export class RentalsEffects {
             if (action.type === 'added') {
                 return new actions.GetRentalSuccess(new Rental(action.payload.doc.data() as RentalData));
             }
-            return new actions.ClearRentalsState();
+            return new actions.UnimplementedAction();
         })
     );
 
@@ -41,7 +41,7 @@ export class RentalsEffects {
             if (action.type === 'added') {
                 return new actions.GetRentalSuccess(new Rental(action.payload.doc.data() as RentalData));
             }
-            return new actions.ClearRentalsState();
+            return new actions.UnimplementedAction();
         })
     );
 }

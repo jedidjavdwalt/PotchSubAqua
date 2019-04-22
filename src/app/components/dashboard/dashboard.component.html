@@ -151,11 +151,13 @@
               </button>
 
               <ng-container *ngIf="secondaryBtn === 'Action Required'">
-                <button class="btn btn-secondary btn-block" (click)="activateTertiaryBtn('Admin')">
+                <button class="btn btn-secondary btn-block"
+                  (click)="activateTertiaryBtn('Admin'); displayRentalsList()">
                   Admin
                 </button>
 
-                <button class="btn btn-secondary btn-block" (click)="activateTertiaryBtn('Player')">
+                <button class="btn btn-secondary btn-block"
+                  (click)="activateTertiaryBtn('Player'); displayRentalsList()">
                   Player
                 </button>
               </ng-container>
@@ -165,15 +167,17 @@
               </button>
 
               <ng-container *ngIf="secondaryBtn === 'Type'">
-                <button class="btn btn-secondary btn-block" (click)="activateTertiaryBtn('Day')">
+                <button class="btn btn-secondary btn-block" (click)="activateTertiaryBtn('Day'); displayRentalsList()">
                   Day
                 </button>
 
-                <button class="btn btn-secondary btn-block" (click)="activateTertiaryBtn('Beginner')">
+                <button class="btn btn-secondary btn-block"
+                  (click)="activateTertiaryBtn('Beginner'); displayRentalsList()">
                   Beginner
                 </button>
 
-                <button class="btn btn-secondary btn-block" (click)="activateTertiaryBtn('Season')">
+                <button class="btn btn-secondary btn-block"
+                  (click)="activateTertiaryBtn('Season'); displayRentalsList()">
                   Season
                 </button>
               </ng-container>
@@ -194,27 +198,9 @@
         <button class="btn btn-light btn-block" disabled>
           <div class="row">
 
-            <!-- players list -->
-            <ng-container *ngIf="shouldShowPlayersList">
-              <div class="col-4 pb-2" *ngFor="let player of players">
-                <button class="btn btn-secondary btn-block" (click)="displayPlayersDetail(player)">
-                  {{player.player}}
-                </button>
-              </div>
-            </ng-container>
-
-            <!-- inventory list -->
-            <ng-container *ngIf="shouldShowInventoryList">
-              <div class="col-4 pb-2" *ngFor="let inventoryItem of inventoryItems">
-                <button class="btn btn-secondary btn-block" (click)="displayInventoryDetail(inventoryItem)">
-                  {{inventoryItem.number}}.{{inventoryItem.color}} {{inventoryItem.type}}
-                </button>
-              </div>
-            </ng-container>
-
             <!-- players detail -->
             <ng-container *ngIf="shouldShowPlayersDetail">
-              <div class="col-12">
+              <div class="col-12 pb-2">
                 <button class="btn btn-secondary btn-block" disabled>
                   <div class="row">
                     <div class="col-6">
@@ -320,7 +306,7 @@
 
             <!-- inventory detail -->
             <ng-container *ngIf="shouldShowInventoryDetail">
-              <div class="col-12">
+              <div class="col-12 pb-2">
                 <button class="btn btn-secondary btn-block" disabled>
                   <div class="row">
                     <div class="col-6">
@@ -399,6 +385,166 @@
                       </div>
                     </div>
                   </div>
+                </button>
+              </div>
+            </ng-container>
+
+            <!-- rentals detail -->
+            <ng-container *ngIf="shouldShowRentalsDetail">
+              <div class="col-12 pb-2">
+                <button class="btn btn-secondary btn-block" disabled>
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="row">
+                        <div class="col-12 text-right">
+                          Player:
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-12 text-right">
+                          Inventory Items:
+                        </div>
+                      </div>
+
+
+                      <div class="row">
+                        <div class="col-12 text-right">
+                          Type:
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-12 text-right">
+                          Date Kit Out:
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-12 text-right">
+                          Date Kit Due:
+                        </div>
+                      </div>
+
+                      <ng-container *ngIf="selectedRental.dateKitIn">
+                        <div class="row">
+                          <div class="col-12 text-right">
+                            Date Kit In:
+                          </div>
+                        </div>
+                      </ng-container>
+
+                      <div class="row">
+                        <div class="col-12 text-right">
+                          Fee Due:
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-12 text-right">
+                          Fee Paid:
+                        </div>
+                      </div>
+
+                      <ng-container *ngIf="selectedRental.feeReturned">
+                        <div class="row">
+                          <div class="col-12 text-right">
+                            Fee Returned:
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+
+                    <div class="col-6">
+                      <div class="row">
+                        <div class="col-12 text-left">
+                          {{selectedRental.player}}
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-12 text-left">
+                          <span *ngFor="let inventoryItem of selectedRental.inventoryItems">
+                            {{inventoryItem}}, 
+                          </span>
+                        </div>
+                      </div>
+
+
+                      <div class="row">
+                        <div class="col-12 text-left">
+                          {{selectedRental.type}}
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-12 text-left">
+                          {{selectedRental.dateKitOut.toDate() | date:'medium'}}
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-12 text-left">
+                          {{selectedRental.dateKitDue.toDate() | date:'medium'}}
+                        </div>
+                      </div>
+
+                      <ng-container *ngIf="selectedRental.dateKitIn">
+                        <div class="row">
+                          <div class="col-12 text-left">
+                            {{selectedRental.dateKitIn.toDate() | date:'medium'}}
+                          </div>
+                        </div>
+                      </ng-container>
+
+                      <div class="row">
+                        <div class="col-12 text-left">
+                          {{selectedRental.feeDue}}
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div class="col-12 text-left">
+                          {{selectedRental.feePaid}}
+                        </div>
+                      </div>
+
+                      <ng-container *ngIf="selectedRental.feeReturned">
+                        <div class="row">
+                          <div class="col-12 text-left">
+                            {{selectedRental.feeReturned}}
+                          </div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </button>
+              </div>
+            </ng-container>
+
+            <!-- players list -->
+            <ng-container *ngIf="shouldShowPlayersList">
+              <div class="col-4 pb-2" *ngFor="let player of players">
+                <button class="btn btn-secondary btn-block" (click)="displayPlayersDetail(player)">
+                  {{player.player}}
+                </button>
+              </div>
+            </ng-container>
+
+            <!-- inventory list -->
+            <ng-container *ngIf="shouldShowInventoryList">
+              <div class="col-4 pb-2" *ngFor="let inventoryItem of inventoryItems">
+                <button class="btn btn-secondary btn-block" (click)="displayInventoryDetail(inventoryItem)">
+                  {{inventoryItem.rentalId}}
+                </button>
+              </div>
+            </ng-container>
+
+            <!-- rentals list -->
+            <ng-container *ngIf="shouldShowRentalsList">
+              <div class="col-4 pb-2" *ngFor="let rental of rentals">
+                <button class="btn btn-secondary btn-block" (click)="displayRentalsDetail(rental)">
+                  {{rental.player}}
                 </button>
               </div>
             </ng-container>

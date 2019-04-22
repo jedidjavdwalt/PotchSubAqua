@@ -26,7 +26,7 @@ export class PlayersEffects {
             if (action.type === 'added') {
                 return new actions.GetPlayerSuccess(new Player(action.payload.doc.data() as PlayerData));
             }
-            return new actions.ClearPlayersState();
+            return new actions.UnimplementdAction();
         })
     );
 
@@ -42,7 +42,7 @@ export class PlayersEffects {
             if (action.type === 'added') {
                 return new actions.GetPlayerSuccess(new Player(action.payload.doc.data() as PlayerData));
             }
-            return new actions.ClearPlayersState();
+            return new actions.UnimplementdAction();
         })
     );
 
@@ -58,7 +58,7 @@ export class PlayersEffects {
             if (action.type === 'added') {
                 return new actions.GetPlayerSuccess(new Player(action.payload.doc.data() as PlayerData));
             }
-            return new actions.ClearPlayersState();
+            return new actions.UnimplementdAction();
         })
     );
 }

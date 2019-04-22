@@ -9,4 +9,3 @@ export const availableSnorkels = (state: AppState) => inventoryBase(state).avail
 export const availableGloves = (state: AppState) => inventoryBase(state).availableGloves;
 export const availableSticks = (state: AppState) => inventoryBase(state).availableSticks;
 export const availableFins = (state: AppState) => inventoryBase(state).availableFins;
-

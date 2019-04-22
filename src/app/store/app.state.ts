@@ -20,7 +20,7 @@ export interface AppState {
         availableFins: InventoryItem[];
     };
 
-    rentalState: {
+    rentalsState: {
         rentals: Rental[];
         selectedRental: Rental;
     };

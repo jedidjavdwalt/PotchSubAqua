@@ -26,7 +26,7 @@ export class InventoryEffects {
                 return new actions.GetInventoryItemSuccess(
                     new InventoryItem(action.payload.doc.data() as InventoryItemData));
             }
-            return new actions.ClearInventoryState();
+            return new actions.UnimplementedAction();
         })
     );
 
@@ -43,7 +43,7 @@ export class InventoryEffects {
                 return new actions.GetInventoryItemSuccess(
                     new InventoryItem(action.payload.doc.data() as InventoryItemData));
             }
-            return new actions.ClearInventoryState();
+            return new actions.UnimplementedAction();
         })
     );
 
@@ -52,7 +52,7 @@ export class InventoryEffects {
         ofType(actions.REQUEST_GET_AVAILABLE_MASKS),
         switchMap((action: actions.RequestGetAvailableMasks) => {
             return this.angularFirestore.collection
-                ('/inventory/', ref => ref.where('type', '==', 'Mask')).stateChanges();
+                ('/inventory/', ref => ref.where('type', '==', 'Mask').where('status', '==', 'Available')).stateChanges();
         }),
         mergeMap(actions => actions),
         map(action => {
@@ -60,7 +60,7 @@ export class InventoryEffects {
                 return new actions.GetAvailableMaskSuccess(
                     new InventoryItem(action.payload.doc.data() as InventoryItemData));
             }
-            return new actions.ClearInventoryState();
+            return new actions.UnimplementedAction();
         })
     );
 
@@ -69,7 +69,7 @@ export class InventoryEffects {
         ofType(actions.REQUEST_GET_AVAILABLE_SNORKELS),
         switchMap((action: actions.RequestGetAvailableSnorkels) => {
             return this.angularFirestore.collection
-                ('/inventory/', ref => ref.where('type', '==', 'Snorkel')).stateChanges();
+                ('/inventory/', ref => ref.where('type', '==', 'Snorkel').where('status', '==', 'Available')).stateChanges();
         }),
         mergeMap(actions => actions),
         map(action => {
@@ -77,7 +77,7 @@ export class InventoryEffects {
                 return new actions.GetAvailableSnorkelSuccess(
                     new InventoryItem(action.payload.doc.data() as InventoryItemData));
             }
-            return new actions.ClearInventoryState();
+            return new actions.UnimplementedAction();
         })
     );
 
@@ -86,7 +86,7 @@ export class InventoryEffects {
         ofType(actions.REQUEST_GET_AVAILABLE_GLOVES),
         switchMap((action: actions.RequestGetAvailableGloves) => {
             return this.angularFirestore.collection
-                ('/inventory/', ref => ref.where('type', '==', 'Glove')).stateChanges();
+                ('/inventory/', ref => ref.where('type', '==', 'Glove').where('status', '==', 'Available')).stateChanges();
         }),
         mergeMap(actions => actions),
         map(action => {
@@ -94,7 +94,7 @@ export class InventoryEffects {
                 return new actions.GetAvailableGloveSuccess(
                     new InventoryItem(action.payload.doc.data() as InventoryItemData));
             }
-            return new actions.ClearInventoryState();
+            return new actions.UnimplementedAction();
         })
     );
 
@@ -103,7 +103,7 @@ export class InventoryEffects {
         ofType(actions.REQUEST_GET_AVAILABLE_STICKS),
         switchMap((action: actions.RequestGetAvailableSticks) => {
             return this.angularFirestore.collection
-                ('/inventory/', ref => ref.where('type', '==', 'Stick')).stateChanges();
+                ('/inventory/', ref => ref.where('type', '==', 'Stick').where('status', '==', 'Available')).stateChanges();
         }),
         mergeMap(actions => actions),
         map(action => {
@@ -111,7 +111,7 @@ export class InventoryEffects {
                 return new actions.GetAvailableStickSuccess(
                     new InventoryItem(action.payload.doc.data() as InventoryItemData));
             }
-            return new actions.ClearInventoryState();
+            return new actions.UnimplementedAction();
         })
     );
 
@@ -120,7 +120,7 @@ export class InventoryEffects {
         ofType(actions.REQUEST_GET_AVAILABLE_FINS),
         switchMap((action: actions.RequestGetAvailableFins) => {
             return this.angularFirestore.collection
-                ('/inventory/', ref => ref.where('type', '==', 'Fins')).stateChanges();
+                ('/inventory/', ref => ref.where('type', '==', 'Fins').where('status', '==', 'Available')).stateChanges();
         }),
         mergeMap(actions => actions),
         map(action => {
@@ -128,7 +128,7 @@ export class InventoryEffects {
                 return new actions.GetAvailableFinsSuccess(
                     new InventoryItem(action.payload.doc.data() as InventoryItemData));
             }
-            return new actions.ClearInventoryState();
+            return new actions.UnimplementedAction();
         })
     );
 }

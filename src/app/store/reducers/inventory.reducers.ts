@@ -49,7 +49,7 @@ export function inventoryReducer(state = initialInventoryState, action: actions.
 
         case actions.GET_AVAILABLE_SNORKEL_SUCCESS:
             const getAvailableSnorkelsSuccessAction = action as actions.GetAvailableSnorkelSuccess;
-            newState.availableSnorkels = [...newState.availableMasks, getAvailableSnorkelsSuccessAction.payload];
+            newState.availableSnorkels = [...newState.availableSnorkels, getAvailableSnorkelsSuccessAction.payload];
             return newState;
 
         case actions.REQUEST_GET_AVAILABLE_GLOVES:

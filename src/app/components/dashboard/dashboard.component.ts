@@ -14,6 +14,7 @@ import { Player } from 'src/app/models/Player';
 import * as firebase from 'firebase';
 import * as moment from 'moment';
 import { Rental } from 'src/app/models/Rental';
+import { Timestamp } from '@firebase/firestore-types';
 
 @Component({
   selector: 'app-dashboard',
@@ -53,6 +54,12 @@ export class DashboardComponent implements OnInit {
   availableGloves = [];
   availableSticks = [];
   availableFins = [];
+
+  newRentalMask = undefined;
+  newRentalSnorkel = undefined;
+  newRentalGlove = undefined;
+  newRentalStick = undefined;
+  newRentalFins = undefined;
 
   constructor(
     private router: Router,
@@ -187,8 +194,8 @@ export class DashboardComponent implements OnInit {
   }
 
   clickAddPlayers() {
-    this.newPlayer.birthDate = this.convertDateToTimestamp(this.selectedBirthDate);
-    this.calculateAgeGroup();
+    this.newPlayer.birthDate = this.convertDateStringToTimestamp(this.selectedBirthDate);
+    this.newPlayer.ageGroup = this.calculateAgeGroup(this.selectedBirthDate);
 
     if (!this.newPlayer.player ||
       !this.newPlayer.gender ||
@@ -200,36 +207,48 @@ export class DashboardComponent implements OnInit {
       !this.newPlayer.parentCell) {
       alert('You forgot to fill in a cell number');
     } else {
-      this.newPlayer.id = this.newPlayer.player.replace('', '_');
+      this.newPlayer.id = this.calculateId(this.newPlayer.player);
       this.addPlayers();
     }
   }
 
-  // convertDateToTimestamp() {
-  //   const date = new Date(this.selectedBirthDate);
-  //   this.newPlayer.birthDate = firebase.firestore.Timestamp.fromDate(date);
-  // }
+  convertDateStringToTimestamp(stringToConvert: string) {
+    return firebase.firestore.Timestamp.fromDate(new Date(stringToConvert));
+  }
 
-  calculateAgeGroup() {
+  calculateAgeGroup(selectedBirthDate: string) {
     const currentYear = moment().year();
     const firstDayOfYear = moment(`${currentYear}-01-01`);
-    const selectedBirthDate = moment(this.selectedBirthDate);
-    const age = firstDayOfYear.diff(selectedBirthDate, 'years');
+    const convertedBirthDate = moment(selectedBirthDate);
+    const age = firstDayOfYear.diff(convertedBirthDate, 'years');
+    let ageGroup;
 
     age <= 18 && age > 15
-      ? this.newPlayer.ageGroup = 'U19'
+      ? ageGroup = 'U19'
       : age <= 15 && age > 13
-        ? this.newPlayer.ageGroup = 'U15'
+        ? ageGroup = 'U15'
         : age <= 13 && age > 10
-          ? this.newPlayer.ageGroup = 'U13'
+          ? ageGroup = 'U13'
           : age <= 10
-            ? this.newPlayer.ageGroup = 'U10'
-            : this.newPlayer.ageGroup = 'Senior';
+            ? ageGroup = 'U10'
+            : ageGroup = 'Senior';
+
+    return ageGroup;
+  }
+
+  calculateId(selectedStrings: string) {
+    let newId = selectedStrings;
+
+    while (newId.indexOf(' ') !== -1) {
+      newId = newId.replace(' ', '_');
+    }
+
+    return newId;
   }
 
   addPlayers() {
-    this.angularFirestore.collection('/players/').ref.where('player', '==', this.newPlayer.player).get().then(snapShot => {
-      if (snapShot.size === 0) {
+    this.angularFirestore.collection('/players/').doc(this.newPlayer.id).get().subscribe(snapShot => {
+      if (!snapShot.exists) {
         this.angularFirestore.collection('/players/').doc(this.newPlayer.id).set(this.newPlayer);
         alert(this.newPlayer.player + ' added');
       } else {
@@ -246,13 +265,13 @@ export class DashboardComponent implements OnInit {
     this.toggleShowInventoryList();
   }
 
-  displayInventoryAdd() {
-    this.toggleShowInventoryAdd();
-  }
-
   displayInventoryDetail(selectedInventoryItem: InventoryItem) {
     this.store.dispatch(new inventoryActions.GetSelectedInventoryItemSuccess(selectedInventoryItem));
     this.toggleShowInventoryDetail();
+  }
+
+  displayInventoryAdd() {
+    this.toggleShowInventoryAdd();
   }
 
   clickAddInventory() {
@@ -265,20 +284,20 @@ export class DashboardComponent implements OnInit {
       alert('You forgot to fill in some fields');
     } else {
       this.newInventoryItem.id = this.newInventoryItem.number + '_' + this.newInventoryItem.brand + '_' + this.newInventoryItem.type;
+      this.newInventoryItem.rentalId = this.newInventoryItem.number + '. ' + this.newInventoryItem.brand + ' ' + this.newInventoryItem.type;
       this.addInventory();
     }
   }
 
   addInventory() {
-    this.angularFirestore.collection('/inventory/').ref.where('type', '==', this.newInventoryItem.type)
-      .where('number', '==', this.newInventoryItem.number).get().then(snapShot => {
-        if (snapShot.size === 0) {
-          this.angularFirestore.collection('inventory').doc(this.newInventoryItem.id).set(this.newInventoryItem);
-          alert(this.newInventoryItem.type + ' added');
-        } else {
-          alert(this.newInventoryItem.type + ' number already exists');
-        }
-      });
+    this.angularFirestore.collection('/inventory/').doc(this.newInventoryItem.id).get().subscribe(snapShot => {
+      if (!snapShot.exists) {
+        this.angularFirestore.collection('inventory').doc(this.newInventoryItem.id).set(this.newInventoryItem);
+        alert(this.newInventoryItem.type + ' added');
+      } else {
+        alert(this.newInventoryItem.type + ' number already exists');
+      }
+    });
   }
 
   displayRentalsAdd() {
@@ -291,54 +310,76 @@ export class DashboardComponent implements OnInit {
     this.toggleShowRentalsAdd();
   }
 
-  selectRentalInventoryItem(selectedRentalInventoryItem: string) {
-    this.newRental.inventoryItems.push(selectedRentalInventoryItem);
-  }
-
   clickAddRentals() {
-    // this.convertDateToTimestamp();
-    // this.calculateAgeGroup();
-
-    // if (!this.newPlayer.player ||
-    //   !this.newPlayer.gender ||
-    //   isNaN(this.newPlayer.birthDate.seconds) ||
-    //   !this.newPlayer.ageGroup ||
-    //   !this.newPlayer.parent) {
-    //   alert('You forgot to fill in some fields');
-    // } else if (!this.newPlayer.playerCell &&
-    //   !this.newPlayer.parentCell) {
-    //   alert('You forgot to fill in a cell number');
-    // } else {
-    //   this.addPlayers();
-    // }
+    if (!this.newRental.player ||
+      !this.newRental.type) {
+      alert('You forgot to select a player or type')
+    } else if (!this.newRentalMask &&
+      !this.newRentalSnorkel &&
+      !this.newRentalGlove &&
+      !this.newRentalStick &&
+      !this.newRentalFins) {
+      alert('You forgot to select any inventory items');
+    } else {
+      this.newRental.dateKitOut = this.calculateDateKitOut();
+      this.newRental.dateKitDue = this.calculateDateKitDue(this.newRental.type);
+      this.newRental.feeDue = this.calculateFeeDue(this.newRental.type);
+      !this.newRental.feePaid
+        ? this.newRental.actionRequired = 'Player'
+        : this.newRental.actionRequired = 'None';
+      this.newRental.inventoryItems = [];
+      if (this.newRentalMask) {
+        this.newRental.inventoryItems.push(this.newRentalMask);
+      }
+      if (this.newRentalSnorkel) {
+        this.newRental.inventoryItems.push(this.newRentalSnorkel);
+      }
+      if (this.newRentalGlove) {
+        this.newRental.inventoryItems.push(this.newRentalGlove);
+      }
+      if (this.newRentalStick) {
+        this.newRental.inventoryItems.push(this.newRentalStick);
+      }
+      if (this.newRentalFins) {
+        this.newRental.inventoryItems.push(this.newRentalFins);
+      }
+      this.newRental.id = this.calculateId(moment().format().slice(0, 10) + '_' + this.newRental.player);
+      this.addRentals();
+    }
   }
 
-  convertDateToTimestamp(stringToConvert: string) {
-    return firebase.firestore.Timestamp.fromDate(new Date(stringToConvert));
+  calculateDateKitOut() {
+    return this.convertDateStringToTimestamp(moment().format());
   }
 
-  calculateDueDate() {
-    // const currentYear = moment().year();
-    // const firstDayOfYear = moment(`${currentYear}-01-01`);
-    // const selectedBirthDate = moment(this.selectedBirthDate);
-    // const age = firstDayOfYear.diff(selectedBirthDate, 'years');
+  calculateDateKitDue(newRentalType: string) {
+    let dateKitDue = moment();
+    const currentYear = moment().year();
 
-    // age <= 18 && age > 15
-    //   ? this.newPlayer.ageGroup = 'U19'
-    //   : age <= 15 && age > 13
-    //     ? this.newPlayer.ageGroup = 'U15'
-    //     : age <= 13 && age > 10
-    //       ? this.newPlayer.ageGroup = 'U13'
-    //       : age <= 10
-    //         ? this.newPlayer.ageGroup = 'U10'
-    //         : this.newPlayer.ageGroup = 'Senior';
+    newRentalType === 'Day'
+      ? dateKitDue.add(1, 'days')
+      : newRentalType === 'Beginner'
+        ? dateKitDue.add(1, 'months')
+        : dateKitDue = moment(`${currentYear}-03-31`);
+
+    return this.convertDateStringToTimestamp(dateKitDue.format());
+  }
+
+  calculateFeeDue(newRentalType: string) {
+    let feeDue;
+
+    newRentalType === 'Day'
+      ? feeDue = 5
+      : newRentalType === 'Beginner'
+        ? feeDue = 250
+        : feeDue = 500;
+
+    return feeDue;
   }
 
   addRentals() {
-    this.angularFirestore.collection('/rentals/').ref
-      .where('player', '==', this.newRental.player)
-      .where('inventoryItems', '==', this.newRental.inventoryItems).get().then(snapShot => {
-      if (snapShot.size === 0) {
+    this.angularFirestore.collection('/rentals/').doc(this.newRental.id).get().subscribe(snapShot => {
+      if (!snapShot.exists) {
         this.angularFirestore.collection('/rentals/').doc(this.newRental.id).set(this.newRental);
         alert('Rental added');
       } else {

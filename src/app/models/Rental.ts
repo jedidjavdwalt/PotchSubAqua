@@ -6,12 +6,11 @@ export class Rental {
     inventoryItems: string[];
     type: string;
     dateKitOut: Timestamp;
-    dateKitIn: Timestamp;
     dateKitDue: Timestamp;
-    dateFeePaid: Timestamp;
-    dateFeeReturned: Timestamp;
-    feePaid: number;
+    dateKitIn: Timestamp;
     feeDue: number;
+    feePaid: number;
+    feeReturned: number;
     actionRequired: string;
 
     constructor(data: RentalData) {
@@ -20,11 +19,11 @@ export class Rental {
         this.inventoryItems = data.inventoryItems;
         this.type = data.type;
         this.dateKitOut = data.dateKitOut;
-        this.dateKitIn = data.dateKitIn;
         this.dateKitDue = data.dateKitDue;
-        this.dateFeePaid = data.dateFeePaid;
-        this.dateFeeReturned = data.dateFeeReturned;
+        this.dateKitIn = data.dateKitIn;
         this.feeDue = data.feeDue;
+        this.feePaid = data.feePaid;
+        this.feeReturned = data.feeReturned;
         this.actionRequired = data.actionRequired;
     }
 
@@ -35,12 +34,11 @@ export class Rental {
             inventoryItems: this.inventoryItems,
             type: this.type,
             dateKitOut: this.dateKitOut,
-            dateKitIn: this.dateKitIn,
             dateKitDue: this.dateKitDue,
-            dateFeePaid: this.dateFeePaid,
-            dateFeeReturned: this.dateFeeReturned,
-            feePaid: this.feePaid,
+            dateKitIn: this.dateKitIn,
             feeDue: this.feeDue,
+            feePaid: this.feePaid,
+            feeReturned: this.feeReturned,
             actionRequired: this.actionRequired,
         } as RentalData;
     }
@@ -52,11 +50,10 @@ export class RentalData {
     inventoryItems: string[];
     type: string;
     dateKitOut: Timestamp;
-    dateKitIn: Timestamp;
     dateKitDue: Timestamp;
-    dateFeePaid: Timestamp;
-    dateFeeReturned: Timestamp;
-    feePaid: number;
+    dateKitIn: Timestamp;
     feeDue: number;
+    feePaid: number;
+    feeReturned: number;
     actionRequired: string;
 }

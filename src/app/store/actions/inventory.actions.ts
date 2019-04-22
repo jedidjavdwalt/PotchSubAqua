@@ -55,42 +55,42 @@ export class GetAvailableMaskSuccess implements Action {
 }
 
 export class RequestGetAvailableSnorkels implements Action {
-    type = REQUEST_GET_AVAILABLE_MASKS;
+    type = REQUEST_GET_AVAILABLE_SNORKELS;
     constructor() {}
 }
 
 export class GetAvailableSnorkelSuccess implements Action {
-    type = GET_AVAILABLE_MASK_SUCCESS;
+    type = GET_AVAILABLE_SNORKEL_SUCCESS;
     constructor(public payload: InventoryItem) {}
 }
 
 export class RequestGetAvailableGloves implements Action {
-    type = REQUEST_GET_AVAILABLE_MASKS;
+    type = REQUEST_GET_AVAILABLE_GLOVES;
     constructor() {}
 }
 
 export class GetAvailableGloveSuccess implements Action {
-    type = GET_AVAILABLE_MASK_SUCCESS;
+    type = GET_AVAILABLE_GLOVE_SUCCESS;
     constructor(public payload: InventoryItem) {}
 }
 
 export class RequestGetAvailableSticks implements Action {
-    type = REQUEST_GET_AVAILABLE_MASKS;
+    type = REQUEST_GET_AVAILABLE_STICKS;
     constructor() {}
 }
 
 export class GetAvailableStickSuccess implements Action {
-    type = GET_AVAILABLE_MASK_SUCCESS;
+    type = GET_AVAILABLE_STICK_SUCCESS;
     constructor(public payload: InventoryItem) {}
 }
 
 export class RequestGetAvailableFins implements Action {
-    type = REQUEST_GET_AVAILABLE_MASKS;
+    type = REQUEST_GET_AVAILABLE_FINS;
     constructor() {}
 }
 
 export class GetAvailableFinsSuccess implements Action {
-    type = GET_AVAILABLE_MASK_SUCCESS;
+    type = GET_AVAILABLE_FINS_SUCCESS;
     constructor(public payload: InventoryItem) {}
 }
 

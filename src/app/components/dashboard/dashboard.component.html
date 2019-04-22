@@ -146,7 +146,7 @@
             </button>
 
             <ng-container *ngIf="primaryBtn === 'Rentals'">
-              <button class="btn btn-info btn-block" (click)="activateSecondaryBtn('Status')">
+              <button class="btn btn-info btn-block" (click)="activateSecondaryBtn('Action Required')">
                 Action Required
               </button>
 
@@ -408,35 +408,76 @@
               <div class="col-12">
                 <button class="btn btn-secondary btn-block" disabled>
                   <div class="form-row pb-2">
-                    <input type="text" class="form-control" [(ngModel)]="newPlayer.player" placeholder="player"
-                      required>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          Player
+                        </span>
+                      </div>
+
+                      <input type="text" class="form-control" [(ngModel)]="newPlayer.player" placeholder="player"
+                        required>
+                    </div>
                   </div>
 
                   <div class="form-row pb-2">
-                    <input type="tel" class="form-control" [(ngModel)]="newPlayer.playerCell" placeholder="player cell"
-                      required>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          Player Cell
+                        </span>
+                      </div>
+
+                      <input type="tel" class="form-control" [(ngModel)]="newPlayer.playerCell"
+                        placeholder="player cell" required>
+                    </div>
                   </div>
 
                   <div class="form-row pb-2">
                     <select class="form-control" [(ngModel)]="newPlayer.gender" required>
+                      <option hidden selected value="undefined">gender</option>
                       <option>Ladies</option>
                       <option>Men</option>
                     </select>
                   </div>
 
                   <div class="form-row pb-2">
-                    <input type="date" class="form-control" [(ngModel)]="selectedBirthDate" placeholder="birth date"
-                      required>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          Birth Date
+                        </span>
+                      </div>
+
+                      <input type="date" class="form-control" [(ngModel)]="selectedBirthDate" placeholder="birth date"
+                        required>
+                    </div>
                   </div>
 
                   <div class="form-row pb-2">
-                    <input type="text" class="form-control" [(ngModel)]="newPlayer.parent" placeholder="parent"
-                      required>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          Parent
+                        </span>
+                      </div>
+
+                      <input type="text" class="form-control" [(ngModel)]="newPlayer.parent" placeholder="parent"
+                        required>
+                    </div>
                   </div>
 
                   <div class="form-row">
-                    <input type="tel" class="form-control" [(ngModel)]="newPlayer.parentCell" placeholder="parent cell"
-                      required>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          Parent Cell
+                        </span>
+                      </div>
+
+                      <input type="tel" class="form-control" [(ngModel)]="newPlayer.parentCell"
+                        placeholder="parent cell" required>
+                    </div>
                   </div>
                 </button>
 
@@ -452,6 +493,7 @@
                 <button class="btn btn-secondary btn-block" disabled>
                   <div class="form-row pb-2">
                     <select class="form-control" [(ngModel)]="newInventoryItem.type" required>
+                      <option hidden selected value="undefined">type</option>
                       <option>Mask</option>
                       <option>Snorkel</option>
                       <option>Glove</option>
@@ -461,27 +503,60 @@
                   </div>
 
                   <div class="form-row pb-2">
-                    <input type="number" class="form-control" [(ngModel)]="newInventoryItem.number" placeholder="number"
-                      required>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          Number
+                        </span>
+                      </div>
+
+                      <input type="number" class="form-control" [(ngModel)]="newInventoryItem.number"
+                        placeholder="number" required>
+                    </div>
                   </div>
 
                   <div class="form-row pb-2">
-                    <input type="text" class="form-control" [(ngModel)]="newInventoryItem.brand" placeholder="brand"
-                      required>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          Brand
+                        </span>
+                      </div>
+
+                      <input type="text" class="form-control" [(ngModel)]="newInventoryItem.brand" placeholder="brand"
+                        required>
+                    </div>
                   </div>
 
                   <div class="form-row pb-2">
-                    <input type="text" class="form-control" [(ngModel)]="newInventoryItem.color" placeholder="color"
-                      required>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          Color
+                        </span>
+                      </div>
+
+                      <input type="text" class="form-control" [(ngModel)]="newInventoryItem.color" placeholder="color"
+                        required>
+                    </div>
                   </div>
 
                   <div class="form-row pb-2">
-                    <input type="text" class="form-control" [(ngModel)]="newInventoryItem.description"
-                      placeholder="description" required>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          Description
+                        </span>
+                      </div>
+
+                      <input type="text" class="form-control" [(ngModel)]="newInventoryItem.description"
+                        placeholder="description" required>
+                    </div>
                   </div>
 
                   <div class="form-row">
                     <select class="form-control" [(ngModel)]="newInventoryItem.status" required>
+                      <option hidden selected value="undefined">status</option>
                       <option>Available</option>
                       <option>Rented</option>
                     </select>
@@ -500,51 +575,52 @@
                 <button class="btn btn-secondary btn-block" disabled>
                   <div class="form-row pb-2">
                     <select class="form-control" [(ngModel)]="newRental.player" required>
+                      <option hidden selected value="undefined">player</option>
                       <option *ngFor="let player of players">{{player.player}}</option>
                     </select>
                   </div>
 
                   <div class="form-row justify-content-center">
                     <div class="col-4">
-                      <select class="form-control mb-2" required>
-                        <option *ngFor="let availableMask of availableMasks"
-                          (click)="selectRentalInventoryItem(availableMask.rentalId)">
+                      <select class="form-control mb-2" [(ngModel)]="newRentalMask" required>
+                        <option hidden selected value="undefined">mask</option>
+                        <option *ngFor="let availableMask of availableMasks">
                           {{availableMask.rentalId}}
                         </option>
                       </select>
                     </div>
 
                     <div class="col-4">
-                      <select class="form-control mb-2" required>
-                        <option *ngFor="let availableSnorkel of availableSnorkels"
-                          (click)="selectRentalInventoryItem(availableSnorkel.rentalId)">
+                      <select class="form-control mb-2" [(ngModel)]="newRentalSnorkel" required>
+                        <option hidden selected value="undefined">snorkel</option>
+                        <option *ngFor="let availableSnorkel of availableSnorkels">
                           {{availableSnorkel.rentalId}}
                         </option>
                       </select>
                     </div>
 
                     <div class="col-4">
-                      <select class="form-control mb-2" required>
-                        <option *ngFor="let availableGlove of availableGloves"
-                          (click)="selectRentalInventoryItem(availableGlove.rentalId)">
+                      <select class="form-control mb-2" [(ngModel)]="newRentalGlove" required>
+                        <option hidden selected value="undefined">glove</option>
+                        <option *ngFor="let availableGlove of availableGloves">
                           {{availableGlove.rentalId}}
                         </option>
                       </select>
                     </div>
 
                     <div class="col-4">
-                      <select class="form-control mb-2" required>
-                        <option *ngFor="let availableStick of availableSticks"
-                          (click)="selectRentalInventoryItem(availableStick.rentalId)">
+                      <select class="form-control mb-2" [(ngModel)]="newRentalStick" required>
+                        <option hidden selected value="undefined">stick</option>
+                        <option *ngFor="let availableStick of availableSticks">
                           {{availableStick.rentalId}}
                         </option>
                       </select>
                     </div>
 
                     <div class="col-4">
-                      <select class="form-control mb-2" required>
-                        <option *ngFor="let availableFin of availableFins"
-                          (click)="selectRentalInventoryItem(availableFin.rentalId)">
+                      <select class="form-control mb-2" [(ngModel)]="newRentalFins" required>
+                        <option hidden selected value="undefined">fins</option>
+                        <option *ngFor="let availableFin of availableFins">
                           {{availableFin.rentalId}}
                         </option>
                       </select>
@@ -553,6 +629,7 @@
 
                   <div class="form-row pb-2">
                     <select class="form-control" [(ngModel)]="newRental.type" required>
+                      <option hidden selected value="undefined">type</option>
                       <option>Day</option>
                       <option>Beginner</option>
                       <option>Seasonal</option>
@@ -560,43 +637,20 @@
                   </div>
 
                   <div class="form-row pb-2">
-                    <input type="date" class="form-control" [(ngModel)]="selectedFeePaidDate" required>
-                  </div>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          Fee Paid
+                        </span>
+                      </div>
 
-                  <div class="form-row pb-2">
-                    <input type="number" class="form-control" [(ngModel)]="newRental.feeDue" placeholder="fee due"
-                      required>
-                  </div>
-
-                  <div class="form-row pb-2">
-                    <input type="tel" class="form-control" [(ngModel)]="newPlayer.playerCell" placeholder="player cell"
-                      required>
-                  </div>
-
-                  <div class="form-row pb-2">
-                    <select class="form-control" [(ngModel)]="newPlayer.gender" required>
-                      <option>Ladies</option>
-                      <option>Men</option>
-                    </select>
-                  </div>
-
-                  <div class="form-row pb-2">
-                    <input type="date" class="form-control" [(ngModel)]="selectedBirthDate" placeholder="birth date"
-                      required>
-                  </div>
-
-                  <div class="form-row pb-2">
-                    <input type="text" class="form-control" [(ngModel)]="newPlayer.parent" placeholder="parent"
-                      required>
-                  </div>
-
-                  <div class="form-row">
-                    <input type="tel" class="form-control" [(ngModel)]="newPlayer.parentCell" placeholder="parent cell"
-                      required>
+                      <input type="number" class="form-control" [(ngModel)]="newRental.feePaid" placeholder="fee paid"
+                        required>
+                    </div>
                   </div>
                 </button>
 
-                <button class="btn btn-success btn-block" (click)="clickAddPlayers()">
+                <button class="btn btn-success btn-block" (click)="clickAddRentals()">
                   Add
                 </button>
               </div>

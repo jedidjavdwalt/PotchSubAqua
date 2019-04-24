@@ -198,6 +198,33 @@
         <button class="btn btn-light btn-block" disabled>
           <div class="row">
 
+            <!-- players list -->
+            <ng-container *ngIf="shouldShowPlayersList">
+              <div class="col-4 pb-2" *ngFor="let player of players">
+                <button class="btn btn-secondary btn-block" (click)="displayPlayersDetail(player)">
+                  {{player.player}}
+                </button>
+              </div>
+            </ng-container>
+
+            <!-- inventory list -->
+            <ng-container *ngIf="shouldShowInventoryList">
+              <div class="col-4 pb-2" *ngFor="let inventoryItem of inventoryItems">
+                <button class="btn btn-secondary btn-block" (click)="displayInventoryDetail(inventoryItem)">
+                  {{inventoryItem.rentalId}}
+                </button>
+              </div>
+            </ng-container>
+
+            <!-- rentals list -->
+            <ng-container *ngIf="shouldShowRentalsList">
+              <div class="col-4 pb-2" *ngFor="let rental of rentals">
+                <button class="btn btn-secondary btn-block" (click)="displayRentalsDetail(rental)">
+                  {{rental.player}}
+                </button>
+              </div>
+            </ng-container>
+
             <!-- players detail -->
             <ng-container *ngIf="shouldShowPlayersDetail">
               <div class="col-12 pb-2">
@@ -465,7 +492,7 @@
                       <div class="row">
                         <div class="col-12 text-left">
                           <span *ngFor="let inventoryItem of selectedRental.inventoryItems">
-                            {{inventoryItem}}, 
+                            {{inventoryItem}},
                           </span>
                         </div>
                       </div>
@@ -519,32 +546,9 @@
                     </div>
                   </div>
                 </button>
-              </div>
-            </ng-container>
 
-            <!-- players list -->
-            <ng-container *ngIf="shouldShowPlayersList">
-              <div class="col-4 pb-2" *ngFor="let player of players">
-                <button class="btn btn-secondary btn-block" (click)="displayPlayersDetail(player)">
-                  {{player.player}}
-                </button>
-              </div>
-            </ng-container>
-
-            <!-- inventory list -->
-            <ng-container *ngIf="shouldShowInventoryList">
-              <div class="col-4 pb-2" *ngFor="let inventoryItem of inventoryItems">
-                <button class="btn btn-secondary btn-block" (click)="displayInventoryDetail(inventoryItem)">
-                  {{inventoryItem.rentalId}}
-                </button>
-              </div>
-            </ng-container>
-
-            <!-- rentals list -->
-            <ng-container *ngIf="shouldShowRentalsList">
-              <div class="col-4 pb-2" *ngFor="let rental of rentals">
-                <button class="btn btn-secondary btn-block" (click)="displayRentalsDetail(rental)">
-                  {{rental.player}}
+                <button class="btn btn-danger btn-block" (click)="displayRentalsEdit()">
+                  Edit
                 </button>
               </div>
             </ng-container>
@@ -580,11 +584,19 @@
                   </div>
 
                   <div class="form-row pb-2">
-                    <select class="form-control" [(ngModel)]="newPlayer.gender" required>
-                      <option hidden selected value="undefined">gender</option>
-                      <option>Ladies</option>
-                      <option>Men</option>
-                    </select>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          Gender
+                        </span>
+                      </div>
+
+                      <select class="form-control" [(ngModel)]="newPlayer.gender" required>
+                        <option hidden selected value="undefined">gender</option>
+                        <option>Ladies</option>
+                        <option>Men</option>
+                      </select>
+                    </div>
                   </div>
 
                   <div class="form-row pb-2">
@@ -638,14 +650,22 @@
               <div class="col-12">
                 <button class="btn btn-secondary btn-block" disabled>
                   <div class="form-row pb-2">
-                    <select class="form-control" [(ngModel)]="newInventoryItem.type" required>
-                      <option hidden selected value="undefined">type</option>
-                      <option>Mask</option>
-                      <option>Snorkel</option>
-                      <option>Glove</option>
-                      <option>Stick</option>
-                      <option>Fins</option>
-                    </select>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          Type
+                        </span>
+                      </div>
+
+                      <select class="form-control" [(ngModel)]="newInventoryItem.type" required>
+                        <option hidden selected value="undefined">type</option>
+                        <option>Mask</option>
+                        <option>Snorkel</option>
+                        <option>Glove</option>
+                        <option>Stick</option>
+                        <option>Fins</option>
+                      </select>
+                    </div>
                   </div>
 
                   <div class="form-row pb-2">
@@ -701,11 +721,19 @@
                   </div>
 
                   <div class="form-row">
-                    <select class="form-control" [(ngModel)]="newInventoryItem.status" required>
-                      <option hidden selected value="undefined">status</option>
-                      <option>Available</option>
-                      <option>Rented</option>
-                    </select>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          Status
+                        </span>
+                      </div>
+
+                      <select class="form-control" [(ngModel)]="newInventoryItem.status" required>
+                        <option hidden selected value="undefined">status</option>
+                        <option>Available</option>
+                        <option>Rented</option>
+                      </select>
+                    </div>
                   </div>
                 </button>
 
@@ -720,10 +748,18 @@
               <div class="col-12">
                 <button class="btn btn-secondary btn-block" disabled>
                   <div class="form-row pb-2">
-                    <select class="form-control" [(ngModel)]="newRental.player" required>
-                      <option hidden selected value="undefined">player</option>
-                      <option *ngFor="let player of players">{{player.player}}</option>
-                    </select>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          Player
+                        </span>
+                      </div>
+
+                      <select class="form-control" [(ngModel)]="newRental.player" required>
+                        <option hidden selected value="undefined">player</option>
+                        <option *ngFor="let player of players">{{player.player}}</option>
+                      </select>
+                    </div>
                   </div>
 
                   <div class="form-row justify-content-center">
@@ -774,12 +810,20 @@
                   </div>
 
                   <div class="form-row pb-2">
-                    <select class="form-control" [(ngModel)]="newRental.type" required>
-                      <option hidden selected value="undefined">type</option>
-                      <option>Day</option>
-                      <option>Beginner</option>
-                      <option>Seasonal</option>
-                    </select>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          Type
+                        </span>
+                      </div>
+
+                      <select class="form-control" [(ngModel)]="newRental.type" required>
+                        <option hidden selected value="undefined">type</option>
+                        <option>Day</option>
+                        <option>Beginner</option>
+                        <option>Seasonal</option>
+                      </select>
+                    </div>
                   </div>
 
                   <div class="form-row pb-2">
@@ -799,6 +843,182 @@
                 <button class="btn btn-success btn-block" (click)="clickAddRentals()">
                   Add
                 </button>
+              </div>
+            </ng-container>
+
+            <!-- edit rentals -->
+            <ng-container *ngIf="shouldShowRentalsEdit">
+              <div class="col-12">
+                <button class="btn btn-secondary btn-block mb-2" disabled>
+                  <div class="form-row pb-2">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          Players
+                        </span>
+                      </div>
+
+                      <select class="form-control" [(ngModel)]="newRental.player" disabled>
+                        <option selected>{{newRental.player}}</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-row justify-content-center">
+                    <div class="col-4">
+                      <select class="form-control mb-2" [(ngModel)]="selectedRentalMask" required>
+                        <option *ngIf="selectedRentalMask" selected>{{selectedRentalMask}}</option>
+                        <option *ngIf="!selectedRentalMask" hidden selected value="undefined">mask</option>
+                        <option *ngFor="let availableMask of availableMasks">
+                          {{availableMask.rentalId}}
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="col-4">
+                      <select class="form-control mb-2" [(ngModel)]="selectedRentalSnorkel" required>
+                        <option *ngIf="selectedRentalSnorkel" selected>{{selectedRentalSnorkel}}</option>
+                        <option *ngIf="!selectedRentalSnorkel" hidden selected value="undefined">snorkel</option>
+                        <option *ngFor="let availableSnorkel of availableSnorkels">
+                          {{availableSnorkel.rentalId}}
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="col-4">
+                      <select class="form-control mb-2" [(ngModel)]="selectedRentalGlove" required>
+                        <option *ngIf="selectedRentalGlove" selected>{{selectedRentalGlove}}</option>
+                        <option *ngIf="!selectedRentalGlove" hidden selected value="undefined">glove</option>
+                        <option *ngFor="let availableGlove of availableGloves">
+                          {{availableGlove.rentalId}}
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="col-4">
+                      <select class="form-control mb-2" [(ngModel)]="selectedRentalStick" required>
+                        <option *ngIf="selectedRentalStick" selected>{{selectedRentalStick}}</option>
+                        <option *ngIf="!selectedRentalStick" hidden selected value="undefined">stick</option>
+                        <option *ngFor="let availableStick of availableSticks">
+                          {{availableStick.rentalId}}
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="col-4">
+                      <select class="form-control mb-2" [(ngModel)]="selectedRentalFins" required>
+                        <option *ngIf="selectedRentalFins" selected>{{selectedRentalFins}}</option>
+                        <option *ngIf="!selectedRentalFins" hidden selected value="undefined">fins</option>
+                        <option *ngFor="let availableFin of availableFins">
+                          {{availableFin.rentalId}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-row pb-2">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          Type
+                        </span>
+                      </div>
+
+                      <select class="form-control" [(ngModel)]="newRental.type" disabled>
+                        <option selected>{{newRental.type}}</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-row pb-2">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          Date Kit Out
+                        </span>
+                      </div>
+
+                      <input type="text" class="form-control" [(ngModel)]="dateKitOut" disabled>
+                    </div>
+                  </div>
+
+                  <div class="form-row pb-2">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          Date Kit Due
+                        </span>
+                      </div>
+
+                      <input type="text" class="form-control" [(ngModel)]="dateKitDue" disabled>
+                    </div>
+                  </div>
+
+                  <div class="form-row pb-2">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          Date Kit In
+                        </span>
+                      </div>
+
+                      <input type="date" class="form-control" [(ngModel)]="selectedDateKitIn" required>
+                    </div>
+                  </div>
+
+                  <div class="form-row pb-2">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          Fee Due
+                        </span>
+                      </div>
+
+                      <input type="number" class="form-control" [(ngModel)]="newRental.feeDue" placeholder="fee due"
+                        disabled>
+                    </div>
+                  </div>
+
+                  <div class="form-row pb-2">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          Fee Paid
+                        </span>
+                      </div>
+
+                      <input type="number" class="form-control" [(ngModel)]="newRental.feePaid" placeholder="fee paid"
+                        required>
+                    </div>
+                  </div>
+
+                  <div class="form-row pb-2">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text">
+                          Fee Returned
+                        </span>
+                      </div>
+
+                      <input type="number" class="form-control" [(ngModel)]="newRental.feeReturned"
+                        placeholder="fee returned" required>
+                    </div>
+                  </div>
+                </button>
+
+                <div class="row">
+                  <div class="col-6">
+                    <button class="btn btn-success btn-block" (click)="clickRentalsSaveEdit()">
+                      Save
+                    </button>
+                  </div>
+
+                  <div class="col-6">
+                    <button class="btn btn-danger btn-block" (click)="clickRentalsCancelEdit()">
+                      Cancel
+                    </button>
+                  </div>
+                </div>
               </div>
             </ng-container>
           </div>

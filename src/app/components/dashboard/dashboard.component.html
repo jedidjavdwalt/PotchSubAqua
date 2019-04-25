@@ -764,7 +764,7 @@
 
                   <div class="form-row justify-content-center">
                     <div class="col-4">
-                      <select class="form-control mb-2" [(ngModel)]="newRentalMask" required>
+                      <select class="form-control mb-2" [(ngModel)]="selectedRentalMask" required>
                         <option hidden selected value="undefined">mask</option>
                         <option *ngFor="let availableMask of availableMasks">
                           {{availableMask.rentalId}}
@@ -773,7 +773,7 @@
                     </div>
 
                     <div class="col-4">
-                      <select class="form-control mb-2" [(ngModel)]="newRentalSnorkel" required>
+                      <select class="form-control mb-2" [(ngModel)]="selectedRentalSnorkel" required>
                         <option hidden selected value="undefined">snorkel</option>
                         <option *ngFor="let availableSnorkel of availableSnorkels">
                           {{availableSnorkel.rentalId}}
@@ -782,7 +782,7 @@
                     </div>
 
                     <div class="col-4">
-                      <select class="form-control mb-2" [(ngModel)]="newRentalGlove" required>
+                      <select class="form-control mb-2" [(ngModel)]="selectedRentalGlove" required>
                         <option hidden selected value="undefined">glove</option>
                         <option *ngFor="let availableGlove of availableGloves">
                           {{availableGlove.rentalId}}
@@ -791,7 +791,7 @@
                     </div>
 
                     <div class="col-4">
-                      <select class="form-control mb-2" [(ngModel)]="newRentalStick" required>
+                      <select class="form-control mb-2" [(ngModel)]="selectedRentalStick" required>
                         <option hidden selected value="undefined">stick</option>
                         <option *ngFor="let availableStick of availableSticks">
                           {{availableStick.rentalId}}
@@ -800,7 +800,7 @@
                     </div>
 
                     <div class="col-4">
-                      <select class="form-control mb-2" [(ngModel)]="newRentalFins" required>
+                      <select class="form-control mb-2" [(ngModel)]="selectedRentalFins" required>
                         <option hidden selected value="undefined">fins</option>
                         <option *ngFor="let availableFin of availableFins">
                           {{availableFin.rentalId}}

@@ -6,7 +6,7 @@ export class InventoryItem {
     color: string;
     description: string;
     status: string;
-    rentalId: string;
+    displayId: string;
 
     constructor(data: InventoryItemData) {
         this.id = data.id;
@@ -16,7 +16,7 @@ export class InventoryItem {
         this.color = data.color;
         this.description = data.description;
         this.status = data.status;
-        this.rentalId = data.rentalId;
+        this.displayId = data.displayId;
     }
 
     toData(): InventoryItemData {
@@ -28,7 +28,7 @@ export class InventoryItem {
             color: this.color,
             description: this.description,
             status: this.status,
-            rentalId: this.rentalId,
+            displayId: this.displayId,
         } as InventoryItemData;
     }
 }
@@ -41,5 +41,5 @@ export class InventoryItemData {
     color: string;
     description: string;
     status: string;
-    rentalId: string;
+    displayId: string;
 }

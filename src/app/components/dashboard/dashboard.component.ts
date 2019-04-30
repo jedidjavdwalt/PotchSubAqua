@@ -31,7 +31,7 @@ export class DashboardComponent implements OnInit {
 
   inventoryItems = [];
   selectedInventoryItem = null;
-  newInventoryItem = {} as InventoryItem;
+  inventoryItem: InventoryItem = {} as InventoryItem;
   shouldShowInventoryList = false;
   shouldShowInventoryDetail = false;
   shouldShowInventoryAdd = false;
@@ -241,30 +241,8 @@ export class DashboardComponent implements OnInit {
   }
 
   clickAddInventory() {
-    if (!this.newInventoryItem.type ||
-      !this.newInventoryItem.number ||
-      !this.newInventoryItem.brand ||
-      !this.newInventoryItem.color ||
-      !this.newInventoryItem.description ||
-      !this.newInventoryItem.status) {
-      alert('You forgot to fill in some fields');
-    } else {
-      this.newInventoryItem.id = this.newInventoryItem.number + '_' + this.newInventoryItem.brand + '_' + this.newInventoryItem.type;
-      this.newInventoryItem.rentalId = this.newInventoryItem.number + '. ' + this.newInventoryItem.brand + ' ' + this.newInventoryItem.type;
-      this.addInventory();
-    }
-  }
-
-  addInventory() {
-    this.angularFirestore.collection('/inventory/').doc(this.newInventoryItem.id).get().subscribe(snapShot => {
-      if (!snapShot.exists) {
-        this.angularFirestore.collection('inventory').doc(this.newInventoryItem.id).set(this.newInventoryItem);
-        alert(this.newInventoryItem.type + ' added');
-        this.newInventoryItem = {} as InventoryItem;
-      } else {
-        alert(this.newInventoryItem.type + ' number already exists');
-      }
-    });
+   alert(this.inventoryService.createInventoryItemToAdd(this.inventoryItem));
+   this.inventoryItem = {} as InventoryItem;
   }
 
   displayRentalsList() {
@@ -404,22 +382,22 @@ export class DashboardComponent implements OnInit {
     this.newRental.inventoryItems.forEach(inventoryItem => {
       this.angularFirestore.collection('/inventory/', ref => ref.where('rentalId', '==', inventoryItem)).get().subscribe(snapShot => {
         if (snapShot.size === 1) {
-          this.newInventoryItem = new InventoryItem(snapShot.docs[0].data() as InventoryItemData);
-          this.newInventoryItem.status = 'Rented';
-          this.angularFirestore.collection('/inventory/').doc(this.newInventoryItem.id).update(this.newInventoryItem.toData());
-          if (this.newInventoryItem.type === 'Mask') {
+          this.inventoryItem = new InventoryItem(snapShot.docs[0].data() as InventoryItemData);
+          this.inventoryItem.status = 'Rented';
+          this.angularFirestore.collection('/inventory/').doc(this.inventoryItem.id).update(this.inventoryItem.toData());
+          if (this.inventoryItem.type === 'Mask') {
             this.store.dispatch(new inventoryActions.RequestGetAvailableMasks());
-          } else if (this.newInventoryItem.type === 'Snorkel') {
+          } else if (this.inventoryItem.type === 'Snorkel') {
             this.store.dispatch(new inventoryActions.RequestGetAvailableSnorkels());
-          } else if (this.newInventoryItem.type === 'Glove') {
+          } else if (this.inventoryItem.type === 'Glove') {
             this.store.dispatch(new inventoryActions.RequestGetAvailableGloves());
-          } else if (this.newInventoryItem.type === 'Stick') {
+          } else if (this.inventoryItem.type === 'Stick') {
             this.store.dispatch(new inventoryActions.RequestGetAvailableSticks());
-          } else if (this.newInventoryItem.type === 'Fins') {
+          } else if (this.inventoryItem.type === 'Fins') {
             this.store.dispatch(new inventoryActions.RequestGetAvailableFins());
           }
-          alert(this.newInventoryItem.rentalId + ' status updated');
-          this.newInventoryItem = {} as InventoryItem;
+          alert(this.inventoryItem.displayId + ' status updated');
+          this.inventoryItem = {} as InventoryItem;
         } else if (snapShot.size === 0) {
           alert(inventoryItem + ' not found');
           return;

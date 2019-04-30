@@ -15,6 +15,8 @@ import * as firebase from 'firebase';
 import * as moment from 'moment';
 import { Rental } from 'src/app/models/Rental';
 import { Timestamp } from '@firebase/firestore-types';
+import { PlayersService } from 'src/app/services/players/players.service';
+import { InventoryService } from 'src/app/services/inventory/inventory.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -36,7 +38,7 @@ export class DashboardComponent implements OnInit {
 
   players = [];
   selectedPlayer = null;
-  newPlayer = {} as Player;
+  player: Player = {} as Player;
   selectedBirthDate: string;
   shouldShowPlayersList = false;
   shouldShowPlayersDetail = false;
@@ -67,9 +69,10 @@ export class DashboardComponent implements OnInit {
   selectedDateKitIn: string;
 
   constructor(
-    private router: Router,
     private store: Store<AppState>,
     private angularFirestore: AngularFirestore,
+    private playersService: PlayersService,
+    private inventoryService: InventoryService,
   ) { }
 
   activatePrimaryBtn(btn: string) {
@@ -215,70 +218,9 @@ export class DashboardComponent implements OnInit {
     this.toggleShowPlayersAdd();
   }
 
-  clickAddPlayers() {
-    this.newPlayer.birthDate = this.convertDateStringToTimestamp(this.selectedBirthDate);
-    this.newPlayer.ageGroup = this.calculateAgeGroup(this.selectedBirthDate);
-
-    if (!this.newPlayer.player ||
-      !this.newPlayer.gender ||
-      isNaN(this.newPlayer.birthDate.seconds) ||
-      !this.newPlayer.ageGroup) {
-      alert('You forgot to fill in some fields');
-    } else if (!this.newPlayer.parent && this.newPlayer.ageGroup !== 'Senior') {
-      alert('You forgot to add a parent');
-    } else if (!this.newPlayer.playerCell &&
-      !this.newPlayer.parentCell) {
-      alert('You forgot to fill in a cell number');
-    } else {
-      this.newPlayer.id = this.calculateId(this.newPlayer.player);
-      this.addPlayers();
-    }
-  }
-
-  convertDateStringToTimestamp(stringToConvert: string) {
-    return firebase.firestore.Timestamp.fromDate(new Date(stringToConvert));
-  }
-
-  calculateAgeGroup(selectedBirthDate: string) {
-    const currentYear = moment().year();
-    const firstDayOfYear = moment(`${currentYear}-01-01`);
-    const convertedBirthDate = moment(selectedBirthDate);
-    const age = firstDayOfYear.diff(convertedBirthDate, 'years');
-    let ageGroup;
-
-    age <= 18 && age > 15
-      ? ageGroup = 'U19'
-      : age <= 15 && age > 13
-        ? ageGroup = 'U15'
-        : age <= 13 && age > 10
-          ? ageGroup = 'U13'
-          : age <= 10
-            ? ageGroup = 'U10'
-            : ageGroup = 'Senior';
-
-    return ageGroup;
-  }
-
-  calculateId(selectedStrings: string) {
-    let newId = selectedStrings;
-
-    while (newId.indexOf(' ') !== -1) {
-      newId = newId.replace(' ', '_');
-    }
-
-    return newId;
-  }
-
-  addPlayers() {
-    this.angularFirestore.collection('/players/').doc(this.newPlayer.id).get().subscribe(snapShot => {
-      if (!snapShot.exists) {
-        this.angularFirestore.collection('/players/').doc(this.newPlayer.id).set(this.newPlayer);
-        alert(this.newPlayer.player + ' added');
-        this.newPlayer = {} as Player;
-      } else {
-        alert(this.newPlayer.player + ' already exists');
-      }
-    });
+  clickAddPlayer() {
+    alert(this.playersService.createPlayerToAdd(this.selectedBirthDate, this.player));
+    this.player = {} as Player;
   }
 
   displayInventoryList() {

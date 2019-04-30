@@ -17,6 +17,7 @@ import { Rental } from 'src/app/models/Rental';
 import { Timestamp } from '@firebase/firestore-types';
 import { PlayersService } from 'src/app/services/players/players.service';
 import { InventoryService } from 'src/app/services/inventory/inventory.service';
+import { RentalsService } from 'src/app/services/rentals/rentals.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -73,6 +74,7 @@ export class DashboardComponent implements OnInit {
     private angularFirestore: AngularFirestore,
     private playersService: PlayersService,
     private inventoryService: InventoryService,
+    private rentalsService: RentalsService,
   ) { }
 
   activatePrimaryBtn(btn: string) {
@@ -259,7 +261,7 @@ export class DashboardComponent implements OnInit {
   }
 
   displayRentalsAdd() {
-    this.newRental.inventoryItems = [];
+    // this.newRental.inventoryItems = [];
 
     this.store.dispatch(new playersActions.RequestGetAllPlayers());
     this.store.dispatch(new inventoryActions.RequestGetAvailableMasks());
@@ -267,44 +269,13 @@ export class DashboardComponent implements OnInit {
     this.store.dispatch(new inventoryActions.RequestGetAvailableGloves());
     this.store.dispatch(new inventoryActions.RequestGetAvailableSticks());
     this.store.dispatch(new inventoryActions.RequestGetAvailableFins());
-    this.newRental.inventoryItems = [];
+    // this.newRental.inventoryItems = [];
 
     this.toggleShowRentalsAdd();
   }
 
   clickAddRentals() {
-    if (!this.newRental.player ||
-      !this.newRental.type) {
-      alert('You forgot to select a player or type');
-    } else if (!this.selectedRentalMask &&
-      !this.selectedRentalSnorkel &&
-      !this.selectedRentalGlove &&
-      !this.selectedRentalStick &&
-      !this.selectedRentalFins) {
-      alert('You forgot to select any inventory items');
-    } else {
-      this.newRental.dateKitOut = this.calculateDateKitOut();
-      this.newRental.dateKitDue = this.calculateDateKitDue(this.newRental.type);
-      this.newRental.feeDue = this.calculateFeeDue(this.newRental.type);
-      if (this.selectedRentalMask) {
-        this.newRental.inventoryItems.push(this.selectedRentalMask);
-      }
-      if (this.selectedRentalSnorkel) {
-        this.newRental.inventoryItems.push(this.selectedRentalSnorkel);
-      }
-      if (this.selectedRentalGlove) {
-        this.newRental.inventoryItems.push(this.selectedRentalGlove);
-      }
-      if (this.selectedRentalStick) {
-        this.newRental.inventoryItems.push(this.selectedRentalStick);
-      }
-      if (this.selectedRentalFins) {
-        this.newRental.inventoryItems.push(this.selectedRentalFins);
-      }
-      this.newRental.id = this.calculateId(moment().format().slice(0, 10) + '_' + this.newRental.player);
-      this.newRental.actionRequired = this.calculateActionRequired(this.newRental);
-      this.addRentals();
-    }
+   this.rentalsService.createRentalToAdd();
   }
 
   calculateDateKitOut() {

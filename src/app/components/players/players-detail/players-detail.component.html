@@ -1,0 +1,104 @@
+<ng-container>
+  <div class="col-12 pb-2">
+    <button class="btn btn-secondary btn-block" disabled>
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col-12 text-right">
+              Player:
+            </div>
+          </div>
+
+          <ng-container *ngIf="selectedPlayer.playerCell">
+            <div class="row">
+              <div class="col-12 text-right">
+                Player Cell:
+              </div>
+            </div>
+          </ng-container>
+
+
+          <div class="row">
+            <div class="col-12 text-right">
+              Gender:
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 text-right">
+              Birth Date:
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 text-right">
+              Age Group:
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 text-right">
+              Parent:
+            </div>
+          </div>
+
+          <ng-container *ngIf="selectedPlayer.parentCell">
+            <div class="row">
+              <div class="col-12 text-right">
+                Parent Cell:
+              </div>
+            </div>
+          </ng-container>
+        </div>
+
+        <div class="col-6">
+          <div class="row">
+            <div class="col-12 text-left">
+              {{selectedPlayer.player}}
+            </div>
+          </div>
+
+          <ng-container *ngIf="selectedPlayer.playerCell">
+            <div class="row">
+              <div class="col-12 text-left">
+                {{selectedPlayer.playerCell}}
+              </div>
+            </div>
+          </ng-container>
+
+          <div class="row">
+            <div class="col-12 text-left">
+              {{selectedPlayer.gender}}
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 text-left">
+              {{selectedPlayer.birthDate.toDate() | date:'medium'}}
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 text-left">
+              {{selectedPlayer.ageGroup}}
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 text-left">
+              {{selectedPlayer.parent}}
+            </div>
+          </div>
+
+          <ng-container *ngIf="selectedPlayer.parentCell">
+            <div class="row">
+              <div class="col-12 text-left">
+                {{selectedPlayer.parentCell}}
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </button>
+  </div>
+</ng-container>

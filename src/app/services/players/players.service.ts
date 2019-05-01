@@ -17,6 +17,8 @@ export class PlayersService {
   ) { }
 
   createPlayerToAdd(birthDate: string, playerToAdd: Player): string {
+    console.log('createPlayerToAdd');
+    
     let player = {} as Player;
 
     // playerFullName, playerCell, gender, parentFullName, parentCell

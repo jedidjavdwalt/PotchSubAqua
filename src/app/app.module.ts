@@ -21,11 +21,15 @@ import * as rentalsEffects from '../app/store/effects/rentals.effects';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { PlayersAddComponent } from './components/players/players-add/players-add.component';
+import { PlayersDetailComponent } from './components/players/players-detail/players-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
+    PlayersAddComponent,
+    PlayersDetailComponent,
   ],
   imports: [
     BrowserModule,

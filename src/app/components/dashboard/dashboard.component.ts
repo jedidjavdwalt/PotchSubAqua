@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AppState } from 'src/app/store/app.state';
 import { Store } from '@ngrx/store';
 import * as playersActions from '../../store/actions/players.actions';
@@ -11,10 +10,7 @@ import * as rentalsSelectors from '../../store/selectors/rentals.selectors';
 import { InventoryItem, InventoryItemData } from 'src/app/models/InventoryItem';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Player } from 'src/app/models/Player';
-import * as firebase from 'firebase';
-import * as moment from 'moment';
 import { Rental } from 'src/app/models/Rental';
-import { Timestamp } from '@firebase/firestore-types';
 import { PlayersService } from 'src/app/services/players/players.service';
 import { InventoryService } from 'src/app/services/inventory/inventory.service';
 import { RentalsService } from 'src/app/services/rentals/rentals.service';
@@ -39,7 +35,7 @@ export class DashboardComponent implements OnInit {
 
   players = [];
   selectedPlayer = null;
-  player: Player = {} as Player;
+  playerToAdd: Player = {} as Player;
   selectedBirthDate: string;
   shouldShowPlayersList = false;
   shouldShowPlayersDetail = false;
@@ -220,11 +216,6 @@ export class DashboardComponent implements OnInit {
     this.toggleShowPlayersAdd();
   }
 
-  clickAddPlayer() {
-    alert(this.playersService.createPlayerToAdd(this.selectedBirthDate, this.player));
-    this.player = {} as Player;
-  }
-
   displayInventoryList() {
     this.secondaryBtn === 'Status'
       ? this.store.dispatch(new inventoryActions.RequestGetInventoryItemsByStatus(this.tertiaryBtn))
@@ -261,15 +252,12 @@ export class DashboardComponent implements OnInit {
   }
 
   displayRentalsAdd() {
-    // this.newRental.inventoryItems = [];
-
     this.store.dispatch(new playersActions.RequestGetAllPlayers());
     this.store.dispatch(new inventoryActions.RequestGetAvailableMasks());
     this.store.dispatch(new inventoryActions.RequestGetAvailableSnorkels());
     this.store.dispatch(new inventoryActions.RequestGetAvailableGloves());
     this.store.dispatch(new inventoryActions.RequestGetAvailableSticks());
     this.store.dispatch(new inventoryActions.RequestGetAvailableFins());
-    // this.newRental.inventoryItems = [];
 
     this.toggleShowRentalsAdd();
   }

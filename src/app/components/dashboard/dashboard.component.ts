@@ -47,7 +47,7 @@ export class DashboardComponent implements OnInit {
 
   rentals = [];
   selectedRental = {} as Rental;
-  newRental = {} as Rental;
+  rental = {} as Rental;
   shouldShowRentalsList = false;
   shouldShowRentalsDetail = false;
   shouldShowRentalsAdd = false;
@@ -243,8 +243,8 @@ export class DashboardComponent implements OnInit {
   }
 
   clickAddInventory() {
-   alert(this.inventoryService.createInventoryItemToAdd(this.inventoryItem));
-   this.inventoryItem = {} as InventoryItem;
+    alert(this.inventoryService.createInventoryItemToAdd(this.inventoryItem));
+    this.inventoryItem = {} as InventoryItem;
   }
 
   displayRentalsList() {
@@ -275,115 +275,37 @@ export class DashboardComponent implements OnInit {
   }
 
   clickAddRentals() {
-   this.rentalsService.createRentalToAdd();
-  }
-
-  calculateDateKitOut() {
-    return this.convertDateStringToTimestamp(moment().format());
-  }
-
-  calculateDateKitDue(newRentalType: string) {
-    let dateKitDue = moment();
-    const currentYear = moment().year();
-
-    newRentalType === 'Day'
-      ? dateKitDue.add(1, 'days')
-      : newRentalType === 'Beginner'
-        ? dateKitDue.add(1, 'months')
-        : dateKitDue = moment(`${currentYear}-03-31`);
-
-    return this.convertDateStringToTimestamp(dateKitDue.format());
-  }
-
-  calculateFeeDue(newRentalType: string) {
-    let feeDue;
-
-    newRentalType === 'Day'
-      ? feeDue = 5
-      : newRentalType === 'Beginner'
-        ? feeDue = 250
-        : feeDue = 500;
-
-    return feeDue;
-  }
-
-  calculateActionRequired(rental: Rental) {
-    let actionRequired: string;
-    const currentDate = moment();
-    const dateKitDue = moment(rental.dateKitDue.toDate());
-
-    if (rental.type === 'Day') {
-      if (rental.feePaid !== rental.feeDue) {
-        actionRequired = 'Player';
-      } else if (!rental.dateKitIn && currentDate > dateKitDue) {
-        actionRequired = 'Player';
-      } else {
-        actionRequired = 'None';
-      }
-    } else {
-      if (rental.feePaid !== rental.feeDue) {
-        if (rental.dateKitIn) {
-          actionRequired = 'None';
-        } else {
-          actionRequired = 'Player';
-        }
-      } else if (!rental.dateKitIn && currentDate > dateKitDue) {
-        actionRequired = 'Player';
-      } else if (rental.dateKitIn && !rental.feeReturned) {
-        actionRequired = 'Admin';
-      } else {
-        actionRequired = 'None';
-      }
+    if (this.selectedRentalMask) {
+      this.rental.inventoryItems.push(this.selectedRentalMask);
+    }
+    if (this.selectedRentalSnorkel) {
+      this.rental.inventoryItems.push(this.selectedRentalSnorkel);
+    }
+    if (this.selectedRentalGlove) {
+      this.rental.inventoryItems.push(this.selectedRentalGlove);
+    }
+    if (this.selectedRentalStick) {
+      this.rental.inventoryItems.push(this.selectedRentalStick);
+    }
+    if (this.selectedRentalFins) {
+      this.rental.inventoryItems.push(this.selectedRentalFins);
     }
 
-    return actionRequired;
-  }
+    this.rentalsService.createRentalToAdd(this.rental);
 
-  addRentals() {
-    this.angularFirestore.collection('/rentals/').doc(this.newRental.id).get().subscribe(snapShot => {
-      if (!snapShot.exists) {
-        this.angularFirestore.collection('/rentals/').doc(this.newRental.id).set(this.newRental);
-        alert('Rental added');
-        this.newRental = {} as Rental;
-      } else {
-        alert('Rental already exists');
-      }
-    });
-
-    this.newRental.inventoryItems.forEach(inventoryItem => {
-      this.angularFirestore.collection('/inventory/', ref => ref.where('rentalId', '==', inventoryItem)).get().subscribe(snapShot => {
-        if (snapShot.size === 1) {
-          this.inventoryItem = new InventoryItem(snapShot.docs[0].data() as InventoryItemData);
-          this.inventoryItem.status = 'Rented';
-          this.angularFirestore.collection('/inventory/').doc(this.inventoryItem.id).update(this.inventoryItem.toData());
-          if (this.inventoryItem.type === 'Mask') {
-            this.store.dispatch(new inventoryActions.RequestGetAvailableMasks());
-          } else if (this.inventoryItem.type === 'Snorkel') {
-            this.store.dispatch(new inventoryActions.RequestGetAvailableSnorkels());
-          } else if (this.inventoryItem.type === 'Glove') {
-            this.store.dispatch(new inventoryActions.RequestGetAvailableGloves());
-          } else if (this.inventoryItem.type === 'Stick') {
-            this.store.dispatch(new inventoryActions.RequestGetAvailableSticks());
-          } else if (this.inventoryItem.type === 'Fins') {
-            this.store.dispatch(new inventoryActions.RequestGetAvailableFins());
-          }
-          alert(this.inventoryItem.displayId + ' status updated');
-          this.inventoryItem = {} as InventoryItem;
-        } else if (snapShot.size === 0) {
-          alert(inventoryItem + ' not found');
-          return;
-        } else if (snapShot.size < 1) {
-          alert('More than one ' + inventoryItem);
-        }
-      });
-    });
+    this.rental = {} as Rental;
+    this.selectedRentalMask = null;
+    this.selectedRentalSnorkel = null;
+    this.selectedRentalGlove = null;
+    this.selectedRentalStick = null;
+    this.selectedRentalFins = null;
   }
 
   displayRentalsEdit() {
-    this.newRental = new Rental(Object.assign({}, this.selectedRental));
+    this.rental = new Rental(Object.assign({}, this.selectedRental));
     // this.newRental = this.selectedRental;
 
-    this.newRental.inventoryItems.forEach(inventoryItem => {
+    this.rental.inventoryItems.forEach(inventoryItem => {
       inventoryItem.includes('Mask')
         ? this.selectedRentalMask = inventoryItem
         : inventoryItem.includes('Snorkel')
@@ -397,10 +319,10 @@ export class DashboardComponent implements OnInit {
                 : alert('Inventory item does not contain known type');
     });
 
-    this.newRental.inventoryItems = [];
+    this.rental.inventoryItems = [];
 
-    this.dateKitOut = this.newRental.dateKitOut.toDate().toString().slice(0, 15);
-    this.dateKitDue = this.newRental.dateKitDue.toDate().toString().slice(0, 15);
+    this.dateKitOut = this.rental.startDate.toDate().toString().slice(0, 15);
+    this.dateKitDue = this.rental.dueDate.toDate().toString().slice(0, 15);
 
     this.store.dispatch(new inventoryActions.RequestGetAvailableMasks());
     this.store.dispatch(new inventoryActions.RequestGetAvailableSnorkels());
@@ -413,30 +335,30 @@ export class DashboardComponent implements OnInit {
 
   clickRentalsSaveEdit() {
     if (this.selectedRentalMask) {
-      this.newRental.inventoryItems.push(this.selectedRentalMask);
+      this.rental.inventoryItems.push(this.selectedRentalMask);
     }
     if (this.selectedRentalSnorkel) {
-      this.newRental.inventoryItems.push(this.selectedRentalSnorkel);
+      this.rental.inventoryItems.push(this.selectedRentalSnorkel);
     }
     if (this.selectedRentalGlove) {
-      this.newRental.inventoryItems.push(this.selectedRentalGlove);
+      this.rental.inventoryItems.push(this.selectedRentalGlove);
     }
     if (this.selectedRentalStick) {
-      this.newRental.inventoryItems.push(this.selectedRentalStick);
+      this.rental.inventoryItems.push(this.selectedRentalStick);
     }
     if (this.selectedRentalFins) {
-      this.newRental.inventoryItems.push(this.selectedRentalFins);
+      this.rental.inventoryItems.push(this.selectedRentalFins);
     }
     if (this.selectedDateKitIn) {
-      this.newRental.dateKitIn = this.convertDateStringToTimestamp(this.selectedDateKitIn);
+      this.rental.endDate = this.convertDateStringToTimestamp(this.selectedDateKitIn);
     }
-    this.newRental.actionRequired = this.calculateActionRequired(this.newRental);
+    this.rental.actionRequired = this.calculateActionRequired(this.rental);
 
     this.rentalsSaveEdit();
   }
 
   rentalsSaveEdit() {
-    if (this.newRental === this.selectedRental) {
+    if (this.rental === this.selectedRental) {
       console.log('equals');
 
     }
@@ -473,7 +395,7 @@ export class DashboardComponent implements OnInit {
   }
 
   clickRentalsCancelEdit() {
-    this.newRental = {} as Rental;
+    this.rental = {} as Rental;
 
     this.dateKitOut = null;
     this.dateKitDue = null;

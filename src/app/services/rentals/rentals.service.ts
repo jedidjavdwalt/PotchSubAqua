@@ -5,81 +5,85 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Rental } from 'src/app/models/Rental';
 import * as firebase from 'firebase';
 import * as moment from 'moment';
+import { InventoryItem, InventoryItemData } from 'src/app/models/InventoryItem';
+import * as inventoryActions from '../../store/actions/inventory.actions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RentalsService {
 
-  rental: Rental = {} as Rental;
-
   constructor(
     private store: Store<AppState>,
     private angularFirestore: AngularFirestore,
   ) { }
 
-  createRentalToAdd(
-    rental: Rental,
-    selectedRentalMask: string,
-    selectedRentalSnorkel: string,
-    selectedRentalGlove: string,
-    selectedRentalStick: string,
-    selectedRentalFins: string,
-  ): string {
-    this.rental = rental;
-    this.rental.dateKitOut = this.calculateDateKitOut();
-    this.rental.dateKitDue = this.calculateDateKitDue(this.rental.type);
-    this.rental.feeDue = this.calculateFeeDue(this.rental.type);
-    this.rental.id = this.calculateId(moment().format().slice(0, 10) + '_' + this.rental.player);
-    this.rental.actionRequired = this.calculateActionRequired(this.rental);
+  createRentalToAdd(rentalToAdd: Rental): string {
+    let rental: Rental = {} as Rental;
 
-    if (!this.rental.player ||
-      !this.rental.type) {
+    // playerFullName, rentalType, feePaid
+    rental = rentalToAdd;
+
+    if (!rental.playerFullName ||
+      !rental.rentalType) {
       return 'You forgot to select a player or type';
     }
 
-    if (!selectedRentalMask &&
-      !selectedRentalSnorkel &&
-      !selectedRentalGlove &&
-      !selectedRentalStick &&
-      !selectedRentalFins) {
+    // inventoryItems
+    if (rental.inventoryItems.length === 0) {
       return 'You forgot to select any inventory items';
     }
 
-    if (selectedRentalMask) {
-      this.rental.inventoryItems.push(selectedRentalMask);
-    }
-    if (selectedRentalSnorkel) {
-      this.rental.inventoryItems.push(selectedRentalSnorkel);
-    }
-    if (selectedRentalGlove) {
-      this.rental.inventoryItems.push(selectedRentalGlove);
-    }
-    if (selectedRentalStick) {
-      this.rental.inventoryItems.push(selectedRentalStick);
-    }
-    if (selectedRentalFins) {
-      this.rental.inventoryItems.push(selectedRentalFins);
-    }
+    // startDate
+    rental.startDate = this.calculateStartDate();
 
-    return this.addRental();
+    // docId
+    rental.docId = this.calculateDocId(moment(rental.startDate).format().slice(0, 10), rental.playerFullName);
+
+    // displayId
+    rental.displayId = this.calculateDisplayId(moment(rental.startDate).format().slice(0, 10), rental.playerFullName);
+
+    // dueDate
+    rental.dueDate = this.calculateDueDate(rental.rentalType);
+
+    // endDate
+    rental.endDate = null;
+
+    // feeDue
+    rental.feeDue = this.calculateFeeDue(rental.rentalType);
+
+    // feeReturned
+    rental.feeReturned = null;
+
+    // actionRequired
+    rental.actionRequired = this.calculateActionRequired(rental);
+
+    return this.addRental(rental);
   }
 
-  addRental(): string {
-    let alert = null;
+  calculateDocId(startDate: string, playerFullName: string) {
+    let newId = startDate + '_' + playerFullName;
 
-    return alert;
+    while (newId.indexOf(' ') !== -1) {
+      newId = newId.replace(' ', '_');
+    }
+
+    return newId;
   }
 
-  convertDateStringToTimestamp(stringToConvert: string) {
-    return firebase.firestore.Timestamp.fromDate(new Date(stringToConvert));
+  calculateDisplayId(startDate: string, playerFullName: string) {
+    return startDate + ' ' + playerFullName;
   }
 
-  calculateDateKitOut() {
+  calculateStartDate() {
     return this.convertDateStringToTimestamp(moment().format());
   }
 
-  calculateDateKitDue(rentalType: string) {
+  convertDateStringToTimestamp(dateString: string) {
+    return firebase.firestore.Timestamp.fromDate(new Date(dateString));
+  }
+
+  calculateDueDate(rentalType: string) {
     let dateKitDue = moment();
     const currentYear = moment().year();
 
@@ -106,33 +110,59 @@ export class RentalsService {
 
   calculateActionRequired(rental: Rental) {
     let actionRequired: string;
-    const currentDate = moment();
-    const dateKitDue = moment(rental.dateKitDue.toDate());
 
-    if (rental.type === 'Day') {
-      if (rental.feePaid !== rental.feeDue) {
-        actionRequired = 'Player';
-      } else if (!rental.dateKitIn && currentDate > dateKitDue) {
-        actionRequired = 'Player';
-      } else {
-        actionRequired = 'None';
-      }
-    } else {
-      if (rental.feePaid !== rental.feeDue) {
-        if (rental.dateKitIn) {
-          actionRequired = 'None';
-        } else {
-          actionRequired = 'Player';
-        }
-      } else if (!rental.dateKitIn && currentDate > dateKitDue) {
-        actionRequired = 'Player';
-      } else if (rental.dateKitIn && !rental.feeReturned) {
-        actionRequired = 'Admin';
-      } else {
-        actionRequired = 'None';
-      }
-    }
+    rental.rentalType === 'Day' && rental.feePaid !== rental.feeDue
+      ? actionRequired = 'Player'
+      : actionRequired = 'None';
 
     return actionRequired;
+  }
+
+  addRental(rental: Rental): string {
+    let alert = null;
+    let inventoryItemToUpdate: InventoryItem = {} as InventoryItem;
+
+    // add rental
+    this.angularFirestore.collection('/rentals/').doc(rental.docId).get().subscribe(snapShot => {
+      if (!snapShot.exists) {
+        this.angularFirestore.collection('/rentals/').doc(rental.docId).set(rental);
+        alert = rental.displayId + ' added';
+        rental = {} as Rental;
+      } else {
+        alert = rental.displayId + ' already exists';
+        rental = {} as Rental;
+      }
+    });
+
+    // update inventory items status
+    rental.inventoryItems.forEach(inventoryItem => {
+      this.angularFirestore.collection('/inventory/', ref => ref.where('rentalId', '==', inventoryItem)).get().subscribe(snapShot => {
+        if (snapShot.size === 1) {
+          inventoryItemToUpdate = new InventoryItem(snapShot.docs[0].data() as InventoryItemData);
+          inventoryItemToUpdate.status = 'Rented';
+          this.angularFirestore.collection('/inventory/').doc(inventoryItemToUpdate.id).update(inventoryItemToUpdate.toData());
+          if (inventoryItemToUpdate.type === 'Mask') {
+            this.store.dispatch(new inventoryActions.RequestGetAvailableMasks());
+          } else if (inventoryItemToUpdate.type === 'Snorkel') {
+            this.store.dispatch(new inventoryActions.RequestGetAvailableSnorkels());
+          } else if (inventoryItemToUpdate.type === 'Glove') {
+            this.store.dispatch(new inventoryActions.RequestGetAvailableGloves());
+          } else if (inventoryItemToUpdate.type === 'Stick') {
+            this.store.dispatch(new inventoryActions.RequestGetAvailableSticks());
+          } else if (inventoryItemToUpdate.type === 'Fins') {
+            this.store.dispatch(new inventoryActions.RequestGetAvailableFins());
+          }
+          alert = inventoryItemToUpdate.displayId + ' status updated';
+          inventoryItemToUpdate = {} as InventoryItem;
+        } else if (snapShot.size === 0) {
+          alert = inventoryItem + ' not found';
+          return;
+        } else if (snapShot.size < 1) {
+          alert = 'More than one ' + inventoryItem;
+        }
+      });
+    });
+
+    return alert;
   }
 }

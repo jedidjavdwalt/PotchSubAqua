@@ -1,26 +1,28 @@
 import { Timestamp } from '@firebase/firestore-types';
 
 export class Rental {
-    id: string;
-    player: string;
+    docId: string;
+    displayId: string;
+    playerFullName: string;
     inventoryItems: string[];
-    type: string;
-    dateKitOut: Timestamp;
-    dateKitDue: Timestamp;
-    dateKitIn: Timestamp;
+    rentalType: string;
+    startDate: Timestamp;
+    dueDate: Timestamp;
+    endDate: Timestamp;
     feeDue: number;
     feePaid: number;
     feeReturned: number;
     actionRequired: string;
 
     constructor(data: RentalData) {
-        this.id = data.id;
-        this.player = data.player;
+        this.docId = data.docId;
+        this.displayId = data.displayId;
+        this.playerFullName = data.playerFullName;
         this.inventoryItems = data.inventoryItems;
-        this.type = data.type;
-        this.dateKitOut = data.dateKitOut;
-        this.dateKitDue = data.dateKitDue;
-        this.dateKitIn = data.dateKitIn;
+        this.rentalType = data.rentalType;
+        this.startDate = data.startDate;
+        this.dueDate = data.dueDate;
+        this.endDate = data.endDate;
         this.feeDue = data.feeDue;
         this.feePaid = data.feePaid;
         this.feeReturned = data.feeReturned;
@@ -29,13 +31,14 @@ export class Rental {
 
     toData(): RentalData {
         return {
-            id: this.id,
-            player: this.player,
+            docId: this.docId,
+            displayId: this.displayId,
+            playerFullName: this.playerFullName,
             inventoryItems: this.inventoryItems,
-            type: this.type,
-            dateKitOut: this.dateKitOut,
-            dateKitDue: this.dateKitDue,
-            dateKitIn: this.dateKitIn,
+            rentalType: this.rentalType,
+            startDate: this.startDate,
+            dueDate: this.dueDate,
+            endDate: this.endDate,
             feeDue: this.feeDue,
             feePaid: this.feePaid,
             feeReturned: this.feeReturned,
@@ -45,13 +48,14 @@ export class Rental {
 }
 
 export class RentalData {
-    id: string;
-    player: string;
+    docId: string;
+    displayId: string;
+    playerFullName: string;
     inventoryItems: string[];
-    type: string;
-    dateKitOut: Timestamp;
-    dateKitDue: Timestamp;
-    dateKitIn: Timestamp;
+    rentalType: string;
+    startDate: Timestamp;
+    dueDate: Timestamp;
+    endDate: Timestamp;
     feeDue: number;
     feePaid: number;
     feeReturned: number;

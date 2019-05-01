@@ -11,65 +11,68 @@ import * as moment from 'moment';
 })
 export class PlayersService {
 
-  player: Player = {} as Player;
-
   constructor(
     private store: Store<AppState>,
     private angularFirestore: AngularFirestore,
   ) { }
 
-  createPlayerToAdd(birthDate: string, player: Player): string {
-    this.player = player;
+  createPlayerToAdd(birthDate: string, playerToAdd: Player): string {
+    let player = {} as Player;
 
-    this.player.birthDate = this.convertDateStringToTimestamp(birthDate);
-    this.player.ageGroup = this.calculatePlayerAgeGroup(birthDate);
-    this.player.id = this.calculatePlayerDocumentId(this.player.player);
+    // playerFullName, playerCell, gender, parentFullName, parentCell
+    player = playerToAdd;
 
-    if (!this.player.player ||
-      !this.player.gender ||
-      isNaN(this.player.birthDate.seconds) ||
-      !this.player.ageGroup) {
+    if (!player.playerFullName ||
+      !player.gender ||
+      !player.ageGroup) {
       return 'You forgot to fill in some fields';
     }
 
-    if (!this.player.parent && this.player.ageGroup !== 'Senior') {
-      return 'You forgot to add a parent';
-    }
-
-    if (!this.player.playerCell &&
-      !this.player.parentCell) {
+    if (!player.playerCell &&
+      !player.parentCell) {
       return 'You forgot to fill in a cell number';
     }
 
-    return this.addPlayer();
+    // docId
+    player.docId = this.calculateDocumentId(player.playerFullName);
+
+    // birthDate
+    player.birthDate = this.convertDateStringToTimestamp(birthDate);
+
+    if (isNaN(player.birthDate.seconds)) {
+      return 'You forgot to fill in some fields';
+    }
+
+    // ageGroup
+    player.ageGroup = this.calculatePlayerAgeGroup(birthDate);
+
+    if (!player.parentFullName && player.ageGroup !== 'Senior') {
+      return 'You forgot to add a parent';
+    }
+
+    return this.addPlayer(player);
   }
 
-  addPlayer(): string {
-    let alert = null;
+  calculateDocumentId(playerFullName: string) {
+    let newId = playerFullName;
 
-    this.angularFirestore.collection('/players/').doc(this.player.id).get().subscribe(snapShot => {
-      if (!snapShot.exists) {
-        this.angularFirestore.collection('/players/').doc(this.player.id).set(this.player);
-        alert = this.player.player + 'added';
-      } else {
-        alert(this.player.player + ' already exists');
-      }
-    });
+    while (newId.indexOf(' ') !== -1) {
+      newId = newId.replace(' ', '_');
+    }
 
-    this.player = {} as Player;
-    return alert;
+    return newId;
   }
 
-  convertDateStringToTimestamp(stringToConvert: string) {
-    return firebase.firestore.Timestamp.fromDate(new Date(stringToConvert));
+  convertDateStringToTimestamp(dateString: string) {
+    return firebase.firestore.Timestamp.fromDate(new Date(dateString));
   }
 
-  calculatePlayerAgeGroup(selectedBirthDate: string) {
+  calculatePlayerAgeGroup(birthDate: string) {
     const currentYear = moment().year();
     const firstDayOfYear = moment(`${currentYear}-01-01`);
-    const convertedBirthDate = moment(selectedBirthDate);
+    const convertedBirthDate = moment(birthDate);
     const age = firstDayOfYear.diff(convertedBirthDate, 'years');
-    let ageGroup;
+    let ageGroup = null;
 
     age <= 18 && age > 15
       ? ageGroup = 'U19'
@@ -84,13 +87,20 @@ export class PlayersService {
     return ageGroup;
   }
 
-  calculatePlayerDocumentId(selectedStrings: string) {
-    let newId = selectedStrings;
+  addPlayer(player: Player): string {
+    let alert = null;
 
-    while (newId.indexOf(' ') !== -1) {
-      newId = newId.replace(' ', '_');
-    }
+    // add player
+    this.angularFirestore.collection('/players/').doc(player.docId).get().subscribe(snapShot => {
+      if (!snapShot.exists) {
+        this.angularFirestore.collection('/players/').doc(player.docId).set(player);
+        alert = player.playerFullName + 'added';
+      } else {
+        alert = player.playerFullName + ' already exists';
+      }
+    });
 
-    return newId;
+    player = {} as Player;
+    return alert;
   }
 }

@@ -9,43 +9,62 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class InventoryService {
 
-  inventoryItem: InventoryItem = {} as InventoryItem;
-
   constructor(
-    private store: Store<AppState>,
     private angularFirestore: AngularFirestore,
   ) { }
 
-  createInventoryItemToAdd(inventoryItem: InventoryItem): string {
-    this.inventoryItem = inventoryItem;
-    this.inventoryItem.id = this.inventoryItem.number + '_' + this.inventoryItem.brand + '_' + this.inventoryItem.type;
-    this.inventoryItem.displayId = this.inventoryItem.number + '. ' + this.inventoryItem.brand + ' ' + this.inventoryItem.type;
+  createInventoryItemToAdd(inventoryItemToAdd: InventoryItem): string {
+    let inventoryItem = {} as InventoryItem;
 
-    if (!this.inventoryItem.type ||
-      !this.inventoryItem.number ||
-      !this.inventoryItem.brand ||
-      !this.inventoryItem.color ||
-      !this.inventoryItem.description ||
-      !this.inventoryItem.status) {
+    // type, number, brand, color, description, status
+    inventoryItem = inventoryItemToAdd;
+
+    if (!inventoryItem.type ||
+      !inventoryItem.number ||
+      !inventoryItem.brand ||
+      !inventoryItem.color ||
+      !inventoryItem.description ||
+      !inventoryItem.status) {
       return 'You forgot to fill in some fields';
     }
 
-    return this.addInventoryItem();
+    // docId
+    inventoryItem.docId = this.calculateDocId(inventoryItem.number, inventoryItem.brand, inventoryItem.type);
+
+    // displayId
+    inventoryItem.displayId = this.calculateDisplayId(inventoryItem.number, inventoryItem.brand, inventoryItem.type);
+
+    return this.addInventoryItem(inventoryItem);
   }
 
-  addInventoryItem(): string {
+  calculateDocId(inventoryItemNumber: number, brand: string, type: string) {
+    let newId = inventoryItemNumber + '_' + brand + '_' + type;
+
+    while (newId.indexOf(' ') !== -1) {
+      newId = newId.replace(' ', '_');
+    }
+
+    return newId;
+  }
+
+  calculateDisplayId(inventoryItemNumber: number, brand: string, type: string) {
+    return inventoryItemNumber + '. ' + brand + ' ' + type;
+  }
+
+  addInventoryItem(inventoryItem): string {
     let alert = null;
 
-    this.angularFirestore.collection('/inventory/').doc(this.inventoryItem.id).get().subscribe(snapShot => {
+    // add inventory item
+    this.angularFirestore.collection('/inventory/').doc(inventoryItem.docId).get().subscribe(snapShot => {
       if (!snapShot.exists) {
-        this.angularFirestore.collection('inventory').doc(this.inventoryItem.id).set(this.inventoryItem);
-        alert = this.inventoryItem.displayId + ' added';
+        this.angularFirestore.collection('inventory').doc(inventoryItem.docId).set(inventoryItem);
+        alert = inventoryItem.displayId + ' added';
       } else {
-        alert = this.inventoryItem.displayId + ' already exists';
+        alert = inventoryItem.displayId + ' already exists';
       }
     });
 
-    this.inventoryItem = {} as InventoryItem;
+    inventoryItem = {} as InventoryItem;
     return alert;
   }
 }

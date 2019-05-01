@@ -25,7 +25,7 @@ export class RentalsService {
     rental = rentalToAdd;
 
     if (!rental.playerFullName ||
-      !rental.rentalType) {
+      !rental.type) {
       return 'You forgot to select a player or type';
     }
 
@@ -44,13 +44,13 @@ export class RentalsService {
     rental.displayId = this.calculateDisplayId(moment(rental.startDate).format().slice(0, 10), rental.playerFullName);
 
     // dueDate
-    rental.dueDate = this.calculateDueDate(rental.rentalType);
+    rental.dueDate = this.calculateDueDate(rental.type);
 
     // endDate
     rental.endDate = null;
 
     // feeDue
-    rental.feeDue = this.calculateFeeDue(rental.rentalType);
+    rental.feeDue = this.calculateFeeDue(rental.type);
 
     // feeReturned
     rental.feeReturned = null;
@@ -111,7 +111,7 @@ export class RentalsService {
   calculateActionRequired(rental: Rental) {
     let actionRequired: string;
 
-    rental.rentalType === 'Day' && rental.feePaid !== rental.feeDue
+    rental.type === 'Day' && rental.feePaid !== rental.feeDue
       ? actionRequired = 'Player'
       : actionRequired = 'None';
 
@@ -127,10 +127,8 @@ export class RentalsService {
       if (!snapShot.exists) {
         this.angularFirestore.collection('/rentals/').doc(rental.docId).set(rental);
         alert = rental.displayId + ' added';
-        rental = {} as Rental;
       } else {
         alert = rental.displayId + ' already exists';
-        rental = {} as Rental;
       }
     });
 
@@ -140,7 +138,7 @@ export class RentalsService {
         if (snapShot.size === 1) {
           inventoryItemToUpdate = new InventoryItem(snapShot.docs[0].data() as InventoryItemData);
           inventoryItemToUpdate.status = 'Rented';
-          this.angularFirestore.collection('/inventory/').doc(inventoryItemToUpdate.id).update(inventoryItemToUpdate.toData());
+          this.angularFirestore.collection('/inventory/').doc(inventoryItemToUpdate.docId).update(inventoryItemToUpdate.toData());
           if (inventoryItemToUpdate.type === 'Mask') {
             this.store.dispatch(new inventoryActions.RequestGetAvailableMasks());
           } else if (inventoryItemToUpdate.type === 'Snorkel') {
@@ -153,7 +151,6 @@ export class RentalsService {
             this.store.dispatch(new inventoryActions.RequestGetAvailableFins());
           }
           alert = inventoryItemToUpdate.displayId + ' status updated';
-          inventoryItemToUpdate = {} as InventoryItem;
         } else if (snapShot.size === 0) {
           alert = inventoryItem + ' not found';
           return;
@@ -163,6 +160,8 @@ export class RentalsService {
       });
     });
 
+    inventoryItemToUpdate = {} as InventoryItem;
+    rental = {} as Rental;
     return alert;
   }
 }

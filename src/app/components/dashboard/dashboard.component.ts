@@ -301,67 +301,67 @@ export class DashboardComponent implements OnInit {
     this.selectedRentalFins = null;
   }
 
-  displayRentalsEdit() {
-    this.rental = new Rental(Object.assign({}, this.selectedRental));
-    // this.newRental = this.selectedRental;
+  // displayRentalsEdit() {
+  //   this.rental = new Rental(Object.assign({}, this.selectedRental));
+  //   // this.newRental = this.selectedRental;
 
-    this.rental.inventoryItems.forEach(inventoryItem => {
-      inventoryItem.includes('Mask')
-        ? this.selectedRentalMask = inventoryItem
-        : inventoryItem.includes('Snorkel')
-          ? this.selectedRentalSnorkel = inventoryItem
-          : inventoryItem.includes('Glove')
-            ? this.selectedRentalGlove = inventoryItem
-            : inventoryItem.includes('Stick')
-              ? this.selectedRentalStick = inventoryItem
-              : inventoryItem.includes('Fins')
-                ? this.selectedRentalFins = inventoryItem
-                : alert('Inventory item does not contain known type');
-    });
+  //   this.rental.inventoryItems.forEach(inventoryItem => {
+  //     inventoryItem.includes('Mask')
+  //       ? this.selectedRentalMask = inventoryItem
+  //       : inventoryItem.includes('Snorkel')
+  //         ? this.selectedRentalSnorkel = inventoryItem
+  //         : inventoryItem.includes('Glove')
+  //           ? this.selectedRentalGlove = inventoryItem
+  //           : inventoryItem.includes('Stick')
+  //             ? this.selectedRentalStick = inventoryItem
+  //             : inventoryItem.includes('Fins')
+  //               ? this.selectedRentalFins = inventoryItem
+  //               : alert('Inventory item does not contain known type');
+  //   });
 
-    this.rental.inventoryItems = [];
+  //   this.rental.inventoryItems = [];
 
-    this.dateKitOut = this.rental.startDate.toDate().toString().slice(0, 15);
-    this.dateKitDue = this.rental.dueDate.toDate().toString().slice(0, 15);
+  //   this.dateKitOut = this.rental.startDate.toDate().toString().slice(0, 15);
+  //   this.dateKitDue = this.rental.dueDate.toDate().toString().slice(0, 15);
 
-    this.store.dispatch(new inventoryActions.RequestGetAvailableMasks());
-    this.store.dispatch(new inventoryActions.RequestGetAvailableSnorkels());
-    this.store.dispatch(new inventoryActions.RequestGetAvailableGloves());
-    this.store.dispatch(new inventoryActions.RequestGetAvailableSticks());
-    this.store.dispatch(new inventoryActions.RequestGetAvailableFins());
+  //   this.store.dispatch(new inventoryActions.RequestGetAvailableMasks());
+  //   this.store.dispatch(new inventoryActions.RequestGetAvailableSnorkels());
+  //   this.store.dispatch(new inventoryActions.RequestGetAvailableGloves());
+  //   this.store.dispatch(new inventoryActions.RequestGetAvailableSticks());
+  //   this.store.dispatch(new inventoryActions.RequestGetAvailableFins());
 
-    this.toggleShowRentalsEdit();
-  }
+  //   this.toggleShowRentalsEdit();
+  // }
 
-  clickRentalsSaveEdit() {
-    if (this.selectedRentalMask) {
-      this.rental.inventoryItems.push(this.selectedRentalMask);
-    }
-    if (this.selectedRentalSnorkel) {
-      this.rental.inventoryItems.push(this.selectedRentalSnorkel);
-    }
-    if (this.selectedRentalGlove) {
-      this.rental.inventoryItems.push(this.selectedRentalGlove);
-    }
-    if (this.selectedRentalStick) {
-      this.rental.inventoryItems.push(this.selectedRentalStick);
-    }
-    if (this.selectedRentalFins) {
-      this.rental.inventoryItems.push(this.selectedRentalFins);
-    }
-    if (this.selectedDateKitIn) {
-      this.rental.endDate = this.convertDateStringToTimestamp(this.selectedDateKitIn);
-    }
-    this.rental.actionRequired = this.calculateActionRequired(this.rental);
+  // clickRentalsSaveEdit() {
+  //   if (this.selectedRentalMask) {
+  //     this.rental.inventoryItems.push(this.selectedRentalMask);
+  //   }
+  //   if (this.selectedRentalSnorkel) {
+  //     this.rental.inventoryItems.push(this.selectedRentalSnorkel);
+  //   }
+  //   if (this.selectedRentalGlove) {
+  //     this.rental.inventoryItems.push(this.selectedRentalGlove);
+  //   }
+  //   if (this.selectedRentalStick) {
+  //     this.rental.inventoryItems.push(this.selectedRentalStick);
+  //   }
+  //   if (this.selectedRentalFins) {
+  //     this.rental.inventoryItems.push(this.selectedRentalFins);
+  //   }
+  //   if (this.selectedDateKitIn) {
+  //     this.rental.endDate = this.convertDateStringToTimestamp(this.selectedDateKitIn);
+  //   }
+  //   this.rental.actionRequired = this.calculateActionRequired(this.rental);
 
-    this.rentalsSaveEdit();
-  }
+  //   this.rentalsSaveEdit();
+  // }
 
-  rentalsSaveEdit() {
-    if (this.rental === this.selectedRental) {
-      console.log('equals');
+  // rentalsSaveEdit() {
+  //   if (this.rental === this.selectedRental) {
+  //     console.log('equals');
 
-    }
+  //   }
     // this.angularFirestore.collection('/rentals/').doc(this.newRental.id).update(this.newRental);
     // alert('Rental added');
 
@@ -392,16 +392,16 @@ export class DashboardComponent implements OnInit {
     //     }
     //   });
     // });
-  }
+  // }
 
-  clickRentalsCancelEdit() {
-    this.rental = {} as Rental;
+  // clickRentalsCancelEdit() {
+  //   this.rental = {} as Rental;
 
-    this.dateKitOut = null;
-    this.dateKitDue = null;
+  //   this.dateKitOut = null;
+  //   this.dateKitDue = null;
 
-    this.toggleShowRentalDetail();
-  }
+  //   this.toggleShowRentalDetail();
+  // }
 
   sliceAppState() {
     this.store.select(inventorySelectors.inventoryItems).subscribe(inventoryItems => {

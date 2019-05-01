@@ -5,7 +5,7 @@ export class Rental {
     displayId: string;
     playerFullName: string;
     inventoryItems: string[];
-    rentalType: string;
+    type: string;
     startDate: Timestamp;
     dueDate: Timestamp;
     endDate: Timestamp;
@@ -19,7 +19,7 @@ export class Rental {
         this.displayId = data.displayId;
         this.playerFullName = data.playerFullName;
         this.inventoryItems = data.inventoryItems;
-        this.rentalType = data.rentalType;
+        this.type = data.type;
         this.startDate = data.startDate;
         this.dueDate = data.dueDate;
         this.endDate = data.endDate;
@@ -35,7 +35,7 @@ export class Rental {
             displayId: this.displayId,
             playerFullName: this.playerFullName,
             inventoryItems: this.inventoryItems,
-            rentalType: this.rentalType,
+            type: this.type,
             startDate: this.startDate,
             dueDate: this.dueDate,
             endDate: this.endDate,
@@ -52,7 +52,7 @@ export class RentalData {
     displayId: string;
     playerFullName: string;
     inventoryItems: string[];
-    rentalType: string;
+    type: string;
     startDate: Timestamp;
     dueDate: Timestamp;
     endDate: Timestamp;

@@ -23,6 +23,8 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PlayersAddComponent } from './components/players/players-add/players-add.component';
 import { PlayersDetailComponent } from './components/players/players-detail/players-detail.component';
+import { InventoryAddComponent } from './components/inventory/inventory-add/inventory-add.component';
+import { InventoryDetailComponent } from './components/inventory/inventory-detail/inventory-detail.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { PlayersDetailComponent } from './components/players/players-detail/play
     DashboardComponent,
     PlayersAddComponent,
     PlayersDetailComponent,
+    InventoryAddComponent,
+    InventoryDetailComponent,
   ],
   imports: [
     BrowserModule,

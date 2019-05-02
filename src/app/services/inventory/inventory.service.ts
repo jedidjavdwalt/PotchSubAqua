@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/app.state';
 import { InventoryItem } from 'src/app/models/InventoryItem';
 import { AngularFirestore } from '@angular/fire/firestore';
 
@@ -34,7 +32,8 @@ export class InventoryService {
     // displayId
     inventoryItem.displayId = this.calculateDisplayId(inventoryItem.number, inventoryItem.brand, inventoryItem.type);
 
-    return this.addInventoryItem(inventoryItem);
+    this.addInventoryItem(inventoryItem);
+    return inventoryItem.displayId + ' added';
   }
 
   calculateDocId(inventoryItemNumber: number, brand: string, type: string) {
@@ -51,20 +50,12 @@ export class InventoryService {
     return inventoryItemNumber + '. ' + brand + ' ' + type;
   }
 
-  addInventoryItem(inventoryItem): string {
-    let alert = null;
-
+  addInventoryItem(inventoryItem) {
     // add inventory item
     this.angularFirestore.collection('/inventory/').doc(inventoryItem.docId).get().subscribe(snapShot => {
       if (!snapShot.exists) {
-        this.angularFirestore.collection('inventory').doc(inventoryItem.docId).set(inventoryItem);
-        alert = inventoryItem.displayId + ' added';
-      } else {
-        alert = inventoryItem.displayId + ' already exists';
+        this.angularFirestore.collection('/inventory/').doc(inventoryItem.docId).set(inventoryItem);
       }
     });
-
-    inventoryItem = {} as InventoryItem;
-    return alert;
   }
 }

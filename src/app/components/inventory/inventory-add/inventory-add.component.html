@@ -1,0 +1,89 @@
+<button class="btn btn-secondary btn-block" disabled>
+  <div class="form-row pb-2">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          Type
+        </span>
+      </div>
+
+      <select class="form-control" [(ngModel)]="newInventoryItem.type" required>
+        <option hidden selected value="undefined">type</option>
+        <option>Mask</option>
+        <option>Snorkel</option>
+        <option>Glove</option>
+        <option>Stick</option>
+        <option>Fins</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-row pb-2">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          Number
+        </span>
+      </div>
+
+      <input type="number" class="form-control" [(ngModel)]="newInventoryItem.number" placeholder="number" required>
+    </div>
+  </div>
+
+  <div class="form-row pb-2">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          Brand
+        </span>
+      </div>
+
+      <input type="text" class="form-control" [(ngModel)]="newInventoryItem.brand" placeholder="brand" required>
+    </div>
+  </div>
+
+  <div class="form-row pb-2">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          Color
+        </span>
+      </div>
+
+      <input type="text" class="form-control" [(ngModel)]="newInventoryItem.color" placeholder="color" required>
+    </div>
+  </div>
+
+  <div class="form-row pb-2">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          Description
+        </span>
+      </div>
+
+      <input type="text" class="form-control" [(ngModel)]="newInventoryItem.description" placeholder="description"
+        required>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          Status
+        </span>
+      </div>
+
+      <select class="form-control" [(ngModel)]="newInventoryItem.status" required>
+        <option hidden selected value="undefined">status</option>
+        <option>Available</option>
+        <option>Rented</option>
+      </select>
+    </div>
+  </div>
+</button>
+
+<button class="btn btn-success btn-block" (click)="addClicked()">
+  Add
+</button>

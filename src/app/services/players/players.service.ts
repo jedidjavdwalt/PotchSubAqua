@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/app.state';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Player } from 'src/app/models/Player';
 import * as firebase from 'firebase';
@@ -12,7 +10,6 @@ import * as moment from 'moment';
 export class PlayersService {
 
   constructor(
-    private store: Store<AppState>,
     private angularFirestore: AngularFirestore,
   ) { }
 

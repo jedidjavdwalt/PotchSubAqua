@@ -13,7 +13,7 @@ import { Store } from '@ngrx/store';
 export class PlayersAddComponent implements OnInit {
 
   newPlayer = {} as Player;
-  newBirtDate = null;
+  newBirthDate = null;
 
   // @Output() playerToAdd = new EventEmitter<Player>();
 
@@ -22,9 +22,9 @@ export class PlayersAddComponent implements OnInit {
   ) { }
 
   addClicked() {
-    alert(this.playersService.createPlayerToAdd(this.newBirtDate, this.newPlayer));
+    alert(this.playersService.createPlayerToAdd(this.newBirthDate, this.newPlayer));
     this.newPlayer = {} as Player;
-    this.newBirtDate = null;
+    this.newBirthDate = null;
 
     // this.playerToAdd.emit(this.newPlayer);
   }

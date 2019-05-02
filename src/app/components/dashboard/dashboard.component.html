@@ -202,7 +202,7 @@
             <ng-container *ngIf="shouldShowPlayersList">
               <div class="col-4 pb-2" *ngFor="let player of players">
                 <button class="btn btn-secondary btn-block" (click)="displayPlayersDetail(player)">
-                  {{player.player}}
+                  {{player.playerFullName}}
                 </button>
               </div>
             </ng-container>

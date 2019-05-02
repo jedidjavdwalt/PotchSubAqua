@@ -17,16 +17,14 @@ export class PlayersService {
   ) { }
 
   createPlayerToAdd(birthDate: string, playerToAdd: Player): string {
-    console.log('createPlayerToAdd');
-    
     let player = {} as Player;
 
     // playerFullName, playerCell, gender, parentFullName, parentCell
     player = playerToAdd;
 
     if (!player.playerFullName ||
-      !player.gender ||
-      !player.ageGroup) {
+      !player.gender) {
+
       return 'You forgot to fill in some fields';
     }
 
@@ -52,7 +50,8 @@ export class PlayersService {
       return 'You forgot to add a parent';
     }
 
-    return this.addPlayer(player);
+    this.addPlayer(player);
+    return player.playerFullName + ' added';
   }
 
   calculateDocumentId(playerFullName: string) {
@@ -89,20 +88,12 @@ export class PlayersService {
     return ageGroup;
   }
 
-  addPlayer(player: Player): string {
-    let alert = null;
-
+  addPlayer(player: Player) {
     // add player
     this.angularFirestore.collection('/players/').doc(player.docId).get().subscribe(snapShot => {
       if (!snapShot.exists) {
         this.angularFirestore.collection('/players/').doc(player.docId).set(player);
-        alert = player.playerFullName + 'added';
-      } else {
-        alert = player.playerFullName + ' already exists';
       }
     });
-
-    player = {} as Player;
-    return alert;
   }
 }

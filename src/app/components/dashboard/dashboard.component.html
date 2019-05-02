@@ -226,7 +226,10 @@
             </ng-container>
 
             <!-- players detail -->
-            <app-players-detail *ngIf="shouldShowPlayersDetail" [selectedPlayer]="selectedPlayer"></app-players-detail>
+            <div class="col-12 pb-2">
+              <app-players-detail *ngIf="shouldShowPlayersDetail" [selectedPlayer]="selectedPlayer">
+              </app-players-detail>
+            </div>
 
             <!-- inventory detail -->
             <ng-container *ngIf="shouldShowInventoryDetail">
@@ -451,9 +454,10 @@
             </ng-container>
 
             <!-- add players -->
-            <app-players-add *ngIf="shouldShowPlayersAdd"></app-players-add>
+            <div class="col-12 pb-2">
+              <app-players-add *ngIf="shouldShowPlayersAdd"></app-players-add>
+            </div>
 
-            
             <!-- add inventory -->
             <ng-container *ngIf="shouldShowInventoryAdd">
               <div class="col-12">
@@ -465,7 +469,7 @@
                           Type
                         </span>
                       </div>
-            
+
                       <select class="form-control" [(ngModel)]="newInventoryItem.type" required>
                         <option hidden selected value="undefined">type</option>
                         <option>Mask</option>
@@ -476,7 +480,7 @@
                       </select>
                     </div>
                   </div>
-            
+
                   <div class="form-row pb-2">
                     <div class="input-group">
                       <div class="input-group-prepend">
@@ -484,12 +488,12 @@
                           Number
                         </span>
                       </div>
-            
+
                       <input type="number" class="form-control" [(ngModel)]="newInventoryItem.number"
                         placeholder="number" required>
                     </div>
                   </div>
-            
+
                   <div class="form-row pb-2">
                     <div class="input-group">
                       <div class="input-group-prepend">
@@ -497,12 +501,12 @@
                           Brand
                         </span>
                       </div>
-            
+
                       <input type="text" class="form-control" [(ngModel)]="newInventoryItem.brand" placeholder="brand"
                         required>
                     </div>
                   </div>
-            
+
                   <div class="form-row pb-2">
                     <div class="input-group">
                       <div class="input-group-prepend">
@@ -510,12 +514,12 @@
                           Color
                         </span>
                       </div>
-            
+
                       <input type="text" class="form-control" [(ngModel)]="newInventoryItem.color" placeholder="color"
                         required>
                     </div>
                   </div>
-            
+
                   <div class="form-row pb-2">
                     <div class="input-group">
                       <div class="input-group-prepend">
@@ -523,12 +527,12 @@
                           Description
                         </span>
                       </div>
-            
+
                       <input type="text" class="form-control" [(ngModel)]="newInventoryItem.description"
                         placeholder="description" required>
                     </div>
                   </div>
-            
+
                   <div class="form-row">
                     <div class="input-group">
                       <div class="input-group-prepend">
@@ -536,7 +540,7 @@
                           Status
                         </span>
                       </div>
-            
+
                       <select class="form-control" [(ngModel)]="newInventoryItem.status" required>
                         <option hidden selected value="undefined">status</option>
                         <option>Available</option>
@@ -545,13 +549,13 @@
                     </div>
                   </div>
                 </button>
-            
+
                 <button class="btn btn-success btn-block" (click)="clickAddInventory()">
                   Add
                 </button>
               </div>
             </ng-container>
-            
+
             <!-- add rentals -->
             <ng-container *ngIf="shouldShowRentalsAdd">
               <div class="col-12">

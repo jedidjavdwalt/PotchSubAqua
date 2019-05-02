@@ -15,8 +15,6 @@ export class PlayersAddComponent implements OnInit {
   newPlayer = {} as Player;
   newBirthDate = null;
 
-  // @Output() playerToAdd = new EventEmitter<Player>();
-
   constructor(
     private playersService: PlayersService,
   ) { }
@@ -25,8 +23,6 @@ export class PlayersAddComponent implements OnInit {
     alert(this.playersService.createPlayerToAdd(this.newBirthDate, this.newPlayer));
     this.newPlayer = {} as Player;
     this.newBirthDate = null;
-
-    // this.playerToAdd.emit(this.newPlayer);
   }
 
   ngOnInit() {

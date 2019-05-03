@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { InventoryItem } from 'src/app/models/InventoryItem';
 
 @Component({
   selector: 'app-inventory-detail',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./inventory-detail.component.css']
 })
 export class InventoryDetailComponent implements OnInit {
+
+  @Input() selectedInventoryItem: InventoryItem;
 
   constructor() { }
 

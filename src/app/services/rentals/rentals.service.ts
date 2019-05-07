@@ -18,11 +18,22 @@ export class RentalsService {
     private angularFirestore: AngularFirestore,
   ) { }
 
-  createRentalToAdd(rentalToAdd: Rental): string {
-    let rental: Rental = {} as Rental;
+  createRentalToAdd(
+    rentalToAdd: Rental,
+    selectedRentalMask?: string,
+    selectedRentalSnorkel?: string,
+    selectedRentalGlove?: string,
+    selectedRentalStick?: string,
+    selectedRentalFins?: string
+  ): string {
+    let rental: Rental = Object.assign(Rental);
 
     // playerFullName, rentalType, feePaid
     rental = rentalToAdd;
+
+    if (!rental.feePaid) {
+      rental.feePaid = null;
+    }
 
     if (!rental.playerFullName ||
       !rental.type) {
@@ -30,6 +41,28 @@ export class RentalsService {
     }
 
     // inventoryItems
+    rental.inventoryItems = [];
+
+    if (selectedRentalMask !== null) {
+      rental.inventoryItems.push(selectedRentalMask);
+    }
+
+    if (selectedRentalSnorkel !== null) {
+      rental.inventoryItems.push(selectedRentalSnorkel);
+    }
+
+    if (selectedRentalGlove !== null) {
+      rental.inventoryItems.push(selectedRentalGlove);
+    }
+
+    if (selectedRentalStick !== null) {
+      rental.inventoryItems.push(selectedRentalStick);
+    }
+
+    if (selectedRentalFins !== null) {
+      rental.inventoryItems.push(selectedRentalFins);
+    }
+
     if (rental.inventoryItems.length === 0) {
       return 'You forgot to select any inventory items';
     }
@@ -38,10 +71,10 @@ export class RentalsService {
     rental.startDate = this.calculateStartDate();
 
     // docId
-    rental.docId = this.calculateDocId(moment(rental.startDate).format().slice(0, 10), rental.playerFullName);
+    rental.docId = this.calculateDocId(moment(rental.startDate.toDate()).format().slice(0, 10), rental.playerFullName);
 
     // displayId
-    rental.displayId = this.calculateDisplayId(moment(rental.startDate).format().slice(0, 10), rental.playerFullName);
+    rental.displayId = this.calculateDisplayId(moment(rental.startDate.toDate()).format().slice(0, 10), rental.playerFullName);
 
     // dueDate
     rental.dueDate = this.calculateDueDate(rental.type);
@@ -58,15 +91,21 @@ export class RentalsService {
     // actionRequired
     rental.actionRequired = this.calculateActionRequired(rental);
 
-    return this.addRental(rental);
+    this.addRental(rental);
+    return rental.displayId + ' added';
   }
 
   calculateDocId(startDate: string, playerFullName: string) {
     let newId = startDate + '_' + playerFullName;
 
-    while (newId.indexOf(' ') !== -1) {
+    while (newId.indexOf('-') !== -1 || newId.indexOf(' ') !== -1) {
+      newId = newId.replace('-', '_');
       newId = newId.replace(' ', '_');
     }
+
+    // while (newId.indexOf('-') !== -1) {
+    //   newId = newId.replace(' ', '_');
+    // }
 
     return newId;
   }
@@ -160,8 +199,6 @@ export class RentalsService {
       });
     });
 
-    inventoryItemToUpdate = {} as InventoryItem;
-    rental = {} as Rental;
     return alert;
   }
 }

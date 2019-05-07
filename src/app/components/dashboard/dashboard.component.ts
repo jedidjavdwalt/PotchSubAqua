@@ -262,33 +262,6 @@ export class DashboardComponent implements OnInit {
     this.toggleShowRentalsAdd();
   }
 
-  clickAddRentals() {
-    if (this.selectedRentalMask) {
-      this.rental.inventoryItems.push(this.selectedRentalMask);
-    }
-    if (this.selectedRentalSnorkel) {
-      this.rental.inventoryItems.push(this.selectedRentalSnorkel);
-    }
-    if (this.selectedRentalGlove) {
-      this.rental.inventoryItems.push(this.selectedRentalGlove);
-    }
-    if (this.selectedRentalStick) {
-      this.rental.inventoryItems.push(this.selectedRentalStick);
-    }
-    if (this.selectedRentalFins) {
-      this.rental.inventoryItems.push(this.selectedRentalFins);
-    }
-
-    this.rentalsService.createRentalToAdd(this.rental);
-
-    this.rental = {} as Rental;
-    this.selectedRentalMask = null;
-    this.selectedRentalSnorkel = null;
-    this.selectedRentalGlove = null;
-    this.selectedRentalStick = null;
-    this.selectedRentalFins = null;
-  }
-
   // displayRentalsEdit() {
   //   this.rental = new Rental(Object.assign({}, this.selectedRental));
   //   // this.newRental = this.selectedRental;

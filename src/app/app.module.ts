@@ -25,6 +25,8 @@ import { PlayersAddComponent } from './components/players/players-add/players-ad
 import { PlayersDetailComponent } from './components/players/players-detail/players-detail.component';
 import { InventoryAddComponent } from './components/inventory/inventory-add/inventory-add.component';
 import { InventoryDetailComponent } from './components/inventory/inventory-detail/inventory-detail.component';
+import { RentalsAddComponent } from './components/rentals/rentals-add/rentals-add.component';
+import { RentalsDetailComponent } from './components/rentals/rentals-detail/rentals-detail.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { InventoryDetailComponent } from './components/inventory/inventory-detai
     PlayersDetailComponent,
     InventoryAddComponent,
     InventoryDetailComponent,
+    RentalsAddComponent,
+    RentalsDetailComponent,
   ],
   imports: [
     BrowserModule,

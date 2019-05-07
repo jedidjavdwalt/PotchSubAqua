@@ -1,0 +1,96 @@
+<button class="btn btn-secondary btn-block" disabled>
+  <div class="form-row pb-2">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          Player
+        </span>
+      </div>
+
+      <select class="form-control" [(ngModel)]="newRental.playerFullName" required>
+        <option hidden selected value="undefined">player</option>
+        <option *ngFor="let player of players">{{player.playerFullName}}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-row justify-content-center">
+    <div class="col-4">
+      <select class="form-control mb-2" [(ngModel)]="selectedRentalMask" required>
+        <option hidden selected value="undefined">mask</option>
+        <option *ngFor="let availableMask of availableMasks">
+          {{availableMask.displayId}}
+        </option>
+      </select>
+    </div>
+
+    <div class="col-4">
+      <select class="form-control mb-2" [(ngModel)]="selectedRentalSnorkel" required>
+        <option hidden selected value="undefined">snorkel</option>
+        <option *ngFor="let availableSnorkel of availableSnorkels">
+          {{availableSnorkel.displayId}}
+        </option>
+      </select>
+    </div>
+
+    <div class="col-4">
+      <select class="form-control mb-2" [(ngModel)]="selectedRentalGlove" required>
+        <option hidden selected value="undefined">glove</option>
+        <option *ngFor="let availableGlove of availableGloves">
+          {{availableGlove.displayId}}
+        </option>
+      </select>
+    </div>
+
+    <div class="col-4">
+      <select class="form-control mb-2" [(ngModel)]="selectedRentalStick" required>
+        <option hidden selected value="undefined">stick</option>
+        <option *ngFor="let availableStick of availableSticks">
+          {{availableStick.displayId}}
+        </option>
+      </select>
+    </div>
+
+    <div class="col-4">
+      <select class="form-control mb-2" [(ngModel)]="selectedRentalFins" required>
+        <option hidden selected value="undefined">fins</option>
+        <option *ngFor="let availableFin of availableFins">
+          {{availableFin.displayId}}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-row pb-2">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          Type
+        </span>
+      </div>
+
+      <select class="form-control" [(ngModel)]="newRental.type" required>
+        <option hidden selected value="undefined">type</option>
+        <option>Day</option>
+        <option>Beginner</option>
+        <option>Seasonal</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-row pb-2">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          Fee Paid
+        </span>
+      </div>
+
+      <input type="number" class="form-control" [(ngModel)]="newRental.feePaid" placeholder="fee paid" required>
+    </div>
+  </div>
+</button>
+
+<button class="btn btn-success btn-block" (click)="addClicked()">
+  Add
+</button>

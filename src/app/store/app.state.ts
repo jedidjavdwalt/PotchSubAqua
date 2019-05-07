@@ -25,4 +25,8 @@ export interface AppState {
         selectedRental: Rental;
     };
 
+    alertsState: {
+        alerts: string[];
+    };
+
 }

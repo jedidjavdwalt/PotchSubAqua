@@ -14,6 +14,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import * as playersReducers from '../app/store/reducers/players.reducers';
 import * as inventoryReducers from '../app/store/reducers/inventory.reducers';
 import * as rentalsReducers from '../app/store/reducers/rentals.reducers';
+import * as alertsReducers from '../app/store/reducers/alerts.reducers';
 
 import * as playersEffects from '../app/store/effects/players.effects';
 import * as inventoryEffects from '../app/store/effects/inventory.effects';
@@ -48,6 +49,7 @@ import { RentalsDetailComponent } from './components/rentals/rentals-detail/rent
       playersState: playersReducers.playersReducer,
       inventoryState: inventoryReducers.inventoryReducer,
       rentalsState: rentalsReducers.rentalsReducer,
+      alertsState: alertsReducers.alertsReducer,
     }),
     EffectsModule.forRoot([
       playersEffects.PlayersEffects,

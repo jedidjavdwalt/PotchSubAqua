@@ -3,6 +3,9 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Player } from 'src/app/models/Player';
 import * as firebase from 'firebase';
 import * as moment from 'moment';
+import { Timestamp } from '@firebase/firestore-types';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.state';
 
 @Injectable({
   providedIn: 'root'
@@ -11,44 +14,44 @@ export class PlayersService {
 
   constructor(
     private angularFirestore: AngularFirestore,
+    private store: Store<AppState>,
   ) { }
 
-  createPlayerToAdd(birthDate: string, playerToAdd: Player): string {
+  createPlayerToAdd(playerToAdd: Player) {
     let player = {} as Player;
 
     // playerFullName, playerCell, gender, parentFullName, parentCell
     player = playerToAdd;
 
-    if (!player.playerFullName ||
-      !player.gender) {
+    // if (!player.playerFullName ||
+    //   !player.gender) {
 
-      return 'You forgot to fill in some fields';
-    }
+    //   return 'You forgot to fill in some fields';
+    // }
 
-    if (!player.playerCell &&
-      !player.parentCell) {
-      return 'You forgot to fill in a cell number';
-    }
+    // if (!player.playerCell &&
+    //   !player.parentCell) {
+    //   return 'You forgot to fill in a cell number';
+    // }
 
     // docId
     player.docId = this.calculateDocumentId(player.playerFullName);
 
     // birthDate
-    player.birthDate = this.convertDateStringToTimestamp(birthDate);
+    // player.birthDate = this.convertDateStringToTimestamp(birthDate);
 
-    if (isNaN(player.birthDate.seconds)) {
-      return 'You forgot to fill in some fields';
-    }
+    // if (isNaN(player.birthDate.seconds)) {
+    //   return 'You forgot to fill in some fields';
+    // }
 
     // ageGroup
-    player.ageGroup = this.calculatePlayerAgeGroup(birthDate);
+    player.ageGroup = this.calculatePlayerAgeGroup(player.birthDate);
 
-    if (!player.parentFullName && player.ageGroup !== 'Senior') {
-      return 'You forgot to add a parent';
-    }
+    // if (!player.parentFullName && player.ageGroup !== 'Senior') {
+    //   return 'You forgot to add a parent';
+    // }
 
     this.addPlayer(player);
-    return player.playerFullName + ' added';
   }
 
   calculateDocumentId(playerFullName: string) {
@@ -61,11 +64,7 @@ export class PlayersService {
     return newId;
   }
 
-  convertDateStringToTimestamp(dateString: string) {
-    return firebase.firestore.Timestamp.fromDate(new Date(dateString));
-  }
-
-  calculatePlayerAgeGroup(birthDate: string) {
+  calculatePlayerAgeGroup(birthDate: Timestamp) {
     const currentYear = moment().year();
     const firstDayOfYear = moment(`${currentYear}-01-01`);
     const convertedBirthDate = moment(birthDate);
@@ -89,7 +88,16 @@ export class PlayersService {
     // add player
     this.angularFirestore.collection('/players/').doc(player.docId).get().subscribe(snapShot => {
       if (!snapShot.exists) {
-        this.angularFirestore.collection('/players/').doc(player.docId).set(player);
+        this.angularFirestore.collection('/players/').doc(player.docId).set(player).then(() => {
+          alert(player.playerFullName + ' added');
+          // this.store.dispatch(new alertsActions.AddAlert(player.playerFullName + ' added'));
+        }).catch(error => {
+          alert(error);
+          // this.store.dispatch(new alertsActions.AddAlert(error));
+        });
+      } else {
+        alert(player.playerFullName + ' already exists');
+        // this.store.dispatch(new alertsActions.AddAlert(player.playerFullName + ' already exists'));
       }
     });
   }

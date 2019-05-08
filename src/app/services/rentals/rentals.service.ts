@@ -35,7 +35,7 @@ export class RentalsService {
       rental.feePaid = null;
     }
 
-    if (!rental.playerFullName ||
+    if (!rental.player ||
       !rental.type) {
       return 'You forgot to select a player or type';
     }
@@ -71,10 +71,10 @@ export class RentalsService {
     rental.startDate = this.calculateStartDate();
 
     // docId
-    rental.docId = this.calculateDocId(moment(rental.startDate.toDate()).format().slice(0, 10), rental.playerFullName);
+    rental.docId = this.calculateDocId(moment(rental.startDate.toDate()).format().slice(0, 10), rental.player);
 
     // displayId
-    rental.displayId = this.calculateDisplayId(moment(rental.startDate.toDate()).format().slice(0, 10), rental.playerFullName);
+    rental.displayId = this.calculateDisplayId(moment(rental.startDate.toDate()).format().slice(0, 10), rental.player);
 
     // dueDate
     rental.dueDate = this.calculateDueDate(rental.type);

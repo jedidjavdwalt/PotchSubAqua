@@ -3,7 +3,7 @@ import { Timestamp } from '@firebase/firestore-types';
 export class Rental {
     docId: string;
     displayId: string;
-    playerFullName: string;
+    player: string;
     inventoryItems: string[];
     type: string;
     startDate: Timestamp;
@@ -17,7 +17,7 @@ export class Rental {
     constructor(data: RentalData) {
         this.docId = data.docId;
         this.displayId = data.displayId;
-        this.playerFullName = data.playerFullName;
+        this.player = data.player;
         this.inventoryItems = data.inventoryItems;
         this.type = data.type;
         this.startDate = data.startDate;
@@ -33,7 +33,7 @@ export class Rental {
         return {
             docId: this.docId,
             displayId: this.displayId,
-            playerFullName: this.playerFullName,
+            player: this.player,
             inventoryItems: this.inventoryItems,
             type: this.type,
             startDate: this.startDate,
@@ -50,7 +50,7 @@ export class Rental {
 export class RentalData {
     docId: string;
     displayId: string;
-    playerFullName: string;
+    player: string;
     inventoryItems: string[];
     type: string;
     startDate: Timestamp;

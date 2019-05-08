@@ -1,11 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Player } from 'src/app/models/Player';
-import * as firebase from 'firebase';
 import * as moment from 'moment';
 import { Timestamp } from '@firebase/firestore-types';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/app.state';
 
 @Injectable({
   providedIn: 'root'
@@ -14,42 +11,14 @@ export class PlayersService {
 
   constructor(
     private angularFirestore: AngularFirestore,
-    private store: Store<AppState>,
   ) { }
 
   createPlayerToAdd(playerToAdd: Player) {
     let player = {} as Player;
 
-    // playerFullName, playerCell, gender, parentFullName, parentCell
     player = playerToAdd;
-
-    // if (!player.playerFullName ||
-    //   !player.gender) {
-
-    //   return 'You forgot to fill in some fields';
-    // }
-
-    // if (!player.playerCell &&
-    //   !player.parentCell) {
-    //   return 'You forgot to fill in a cell number';
-    // }
-
-    // docId
     player.docId = this.calculateDocumentId(player.playerFullName);
-
-    // birthDate
-    // player.birthDate = this.convertDateStringToTimestamp(birthDate);
-
-    // if (isNaN(player.birthDate.seconds)) {
-    //   return 'You forgot to fill in some fields';
-    // }
-
-    // ageGroup
     player.ageGroup = this.calculatePlayerAgeGroup(player.birthDate);
-
-    // if (!player.parentFullName && player.ageGroup !== 'Senior') {
-    //   return 'You forgot to add a parent';
-    // }
 
     this.addPlayer(player);
   }
@@ -85,19 +54,15 @@ export class PlayersService {
   }
 
   addPlayer(player: Player) {
-    // add player
     this.angularFirestore.collection('/players/').doc(player.docId).get().subscribe(snapShot => {
       if (!snapShot.exists) {
         this.angularFirestore.collection('/players/').doc(player.docId).set(player).then(() => {
           alert(player.playerFullName + ' added');
-          // this.store.dispatch(new alertsActions.AddAlert(player.playerFullName + ' added'));
         }).catch(error => {
           alert(error);
-          // this.store.dispatch(new alertsActions.AddAlert(error));
         });
       } else {
         alert(player.playerFullName + ' already exists');
-        // this.store.dispatch(new alertsActions.AddAlert(player.playerFullName + ' already exists'));
       }
     });
   }

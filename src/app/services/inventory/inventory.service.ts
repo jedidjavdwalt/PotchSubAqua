@@ -11,29 +11,15 @@ export class InventoryService {
     private angularFirestore: AngularFirestore,
   ) { }
 
-  createInventoryItemToAdd(inventoryItemToAdd: InventoryItem): string {
+  createInventoryItemToAdd(inventoryItemToAdd: InventoryItem) {
     let inventoryItem = {} as InventoryItem;
 
-    // type, number, brand, color, description, status
     inventoryItem = inventoryItemToAdd;
-
-    if (!inventoryItem.type ||
-      !inventoryItem.number ||
-      !inventoryItem.brand ||
-      !inventoryItem.color ||
-      !inventoryItem.description ||
-      !inventoryItem.status) {
-      return 'You forgot to fill in some fields';
-    }
-
-    // docId
+    inventoryItem.status = 'Available';
     inventoryItem.docId = this.calculateDocId(inventoryItem.number, inventoryItem.brand, inventoryItem.type);
-
-    // displayId
     inventoryItem.displayId = this.calculateDisplayId(inventoryItem.number, inventoryItem.brand, inventoryItem.type);
 
     this.addInventoryItem(inventoryItem);
-    return inventoryItem.displayId + ' added';
   }
 
   calculateDocId(inventoryItemNumber: number, brand: string, type: string) {
@@ -50,12 +36,18 @@ export class InventoryService {
     return inventoryItemNumber + '. ' + brand + ' ' + type;
   }
 
-  addInventoryItem(inventoryItem) {
-    // add inventory item
-    this.angularFirestore.collection('/inventory/').doc(inventoryItem.docId).get().subscribe(snapShot => {
-      if (!snapShot.exists) {
-        this.angularFirestore.collection('/inventory/').doc(inventoryItem.docId).set(inventoryItem);
-      }
-    });
+  addInventoryItem(inventoryItem: InventoryItem) {
+    this.angularFirestore.collection('/inventory/', ref => ref.where('type', '==', inventoryItem.type)
+      .where('number', '==', inventoryItem.number)).get().subscribe(snapShot => {
+        if (snapShot.size > 0) {
+          alert(inventoryItem.type + inventoryItem.number + ' already exists');
+        } else {
+          this.angularFirestore.collection('/inventory/').doc(inventoryItem.docId).set(inventoryItem).then(() => {
+            alert(inventoryItem.displayId + ' added');
+          }).catch(error => {
+            alert(error);
+          });
+        }
+      });
   }
 }

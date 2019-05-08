@@ -1,89 +1,48 @@
-<button class="btn btn-secondary btn-block" disabled>
-  <div class="form-row pb-2">
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text">
-          Type
-        </span>
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="inventoryItemForm">
+      <div class="row">
+        <div class="col-4">
+          <mat-form-field>
+            <mat-select formControlName="type" placeholder="type" required>
+              <mat-option value="Mask">Mask</mat-option>
+              <mat-option value="Snorkel">Snorkel</mat-option>
+              <mat-option value="Glove">Glove</mat-option>
+              <mat-option value="Stick">Stick</mat-option>
+              <mat-option value="Fins">Fins</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-4">
+          <mat-form-field>
+            <input formControlName="number" type="number" matInput placeholder="number" required>
+          </mat-form-field>
+        </div>
+
+        <div class="col-4">
+          <mat-form-field>
+            <input formControlName="brand" type="text" matInput placeholder="brand" required>
+          </mat-form-field>
+        </div>
+
+        <div class="col-4">
+          <mat-form-field>
+            <input formControlName="color" type="text" matInput placeholder="color" required>
+          </mat-form-field>
+        </div>
+
+        <div class="col-4">
+          <mat-form-field>
+            <input formControlName="description" type="text" matInput placeholder="description" required>
+          </mat-form-field>
+        </div>
       </div>
+    </form>
+  </mat-card-content>
 
-      <select class="form-control" [(ngModel)]="newInventoryItem.type" required>
-        <option hidden selected value="undefined">type</option>
-        <option>Mask</option>
-        <option>Snorkel</option>
-        <option>Glove</option>
-        <option>Stick</option>
-        <option>Fins</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="form-row pb-2">
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text">
-          Number
-        </span>
-      </div>
-
-      <input type="number" class="form-control" [(ngModel)]="newInventoryItem.number" placeholder="number" required>
-    </div>
-  </div>
-
-  <div class="form-row pb-2">
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text">
-          Brand
-        </span>
-      </div>
-
-      <input type="text" class="form-control" [(ngModel)]="newInventoryItem.brand" placeholder="brand" required>
-    </div>
-  </div>
-
-  <div class="form-row pb-2">
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text">
-          Color
-        </span>
-      </div>
-
-      <input type="text" class="form-control" [(ngModel)]="newInventoryItem.color" placeholder="color" required>
-    </div>
-  </div>
-
-  <div class="form-row pb-2">
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text">
-          Description
-        </span>
-      </div>
-
-      <input type="text" class="form-control" [(ngModel)]="newInventoryItem.description" placeholder="description"
-        required>
-    </div>
-  </div>
-
-  <div class="form-row">
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text">
-          Status
-        </span>
-      </div>
-
-      <select class="form-control" [(ngModel)]="newInventoryItem.status" required>
-        <option hidden selected value="undefined">status</option>
-        <option>Available</option>
-        <option>Rented</option>
-      </select>
-    </div>
-  </div>
-</button>
-
-<button class="btn btn-success btn-block" (click)="addClicked()">
-  Add
-</button>
+  <mat-card-actions>
+    <button type="submit" (click)="onAddClick()" [disabled]="!inventoryItemForm.valid" mat-raised-button
+      color="primary">Add</button>
+  </mat-card-actions>
+</mat-card>

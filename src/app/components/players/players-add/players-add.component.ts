@@ -11,12 +11,12 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class PlayersAddComponent implements OnInit {
 
   playerForm = this.formBuilder.group({
-    playerFullName: ['', Validators.required],
-    playerCell: ['', Validators.required],
-    gender: ['', Validators.required],
-    birthDate: ['', Validators.required],
-    parentFullName: ['', Validators.required],
-    parentCell: ['', Validators.required],
+    playerFullName: [null, Validators.required],
+    playerCell: [null, Validators.required],
+    gender: [null, Validators.required],
+    birthDate: [null, Validators.required],
+    parentFullName: [null, Validators.required],
+    parentCell: [null, Validators.required],
   });
 
   constructor(
@@ -35,6 +35,7 @@ export class PlayersAddComponent implements OnInit {
     } as Player;
 
     this.playersService.createPlayerToAdd(newPlayer);
+    this.playerForm.reset();
   }
 
   ngOnInit() {

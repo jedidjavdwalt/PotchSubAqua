@@ -1,4 +1,89 @@
-<button class="btn btn-secondary btn-block" disabled>
+<mat-card>
+  <mat-card-content>
+    <form [formGroup]="rentalForm">
+      <div class="row">
+        <div class="col-4">
+          <mat-form-field>
+            <mat-select formControlName="player" placeholder="player" required>
+              <mat-option *ngFor="let player of players" [value]="player.playerFullName">{{player.playerFullName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-4" formGroupName="inventoryItems">
+          <div class="col-4">
+            <mat-form-field>
+              <mat-select formControlName="selectedMask" placeholder="mask">
+                <mat-option *ngFor="let mask of availableMasks" [value]="mask.displayId">{{mask.displayId}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-4">
+            <mat-form-field>
+              <mat-select formControlName="selectedSnorkel" placeholder="snorkel">
+                <mat-option *ngFor="let snorkel of availableSnorkels" [value]="snorkel.displayId">{{snorkel.displayId}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-4">
+            <mat-form-field>
+              <mat-select formControlName="selectedGlove" placeholder="glove">
+                <mat-option *ngFor="let glove of availableGloves" [value]="glove.displayId">{{glove.displayId}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-4">
+            <mat-form-field>
+              <mat-select formControlName="selectedStick" placeholder="stick">
+                <mat-option *ngFor="let stick of availableSticks" [value]="stick.displayId">{{stick.displayId}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="col-4">
+            <mat-form-field>
+              <mat-select formControlName="selectedFins" placeholder="fins">
+                <mat-option *ngFor="let fins of availableFins" [value]="fins.displayId">{{fins.displayId}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col-4">
+          <mat-form-field>
+            <mat-select formControlName="type" placeholder="type" required>
+              <mat-option value="Day">Day</mat-option>
+              <mat-option value="Beginner">Beginner</mat-option>
+              <mat-option value="Season">Season</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="col-4">
+          <mat-form-field>
+            <input formControlName="feePaid" type="number" matInput placeholder="fee paid">
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button type="submit" (click)="onAddClick()" [disabled]="!rentalForm.valid" mat-raised-button
+      color="primary">Add</button>
+  </mat-card-actions>
+</mat-card>
+
+<!-- <button class="btn btn-secondary btn-block" disabled>
   <div class="form-row pb-2">
     <div class="input-group">
       <div class="input-group-prepend">
@@ -93,4 +178,4 @@
 
 <button class="btn btn-success btn-block" (click)="addClicked()">
   Add
-</button>
+</button> -->

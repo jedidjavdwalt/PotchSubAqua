@@ -11,11 +11,11 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class InventoryAddComponent implements OnInit {
 
   inventoryItemForm = this.formBuilder.group({
-    type: ['', Validators.required],
-    number: ['', Validators.required],
-    brand: ['', Validators.required],
-    color: ['', Validators.required],
-    description: ['', Validators.required],
+    type: [null, Validators.required],
+    number: [null, Validators.required],
+    brand: [null, Validators.required],
+    color: [null, Validators.required],
+    description: [null, Validators.required],
   });
 
   constructor(
@@ -33,6 +33,7 @@ export class InventoryAddComponent implements OnInit {
     } as InventoryItem;
 
     this.inventoryService.createInventoryItemToAdd(newInventoryItem);
+    this.inventoryItemForm.reset();
   }
 
   ngOnInit() {

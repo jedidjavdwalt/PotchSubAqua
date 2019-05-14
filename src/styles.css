@@ -2,3 +2,29 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.midnightblue-background {
+    background-color: midnightblue;
+}
+
+.royalblue-background {
+    background-color: royalblue;
+}
+
+.cornflowerblue-background {
+    background-color: cornflowerblue;
+}
+
+
+.lightsteelblue-background {
+    background-color: lightsteelblue;
+}
+
+.lightblue-background {
+    background-color: lightblue;
+}
+
+.powderblue-background {
+    background-color: powderblue;
+}
+

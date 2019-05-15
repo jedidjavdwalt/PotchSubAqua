@@ -30,11 +30,13 @@
       <div class="card lightsteelblue-background mt-3 mb-3">
         <div class="card-body">
           <ng-container *ngIf="secondaryBtn === 'Add'">
-            <app-players-add *ngIf="displayAdd() === 'Players'"></app-players-add>
+            <app-players-add *ngIf="primaryBtn === 'Players'"></app-players-add>
 
-            <app-inventory-add *ngIf="displayAdd() === 'Inventory Items'"></app-inventory-add>
+            <app-inventory-add *ngIf="primaryBtn === 'Inventory Items'"></app-inventory-add>
 
-            <app-rentals-add *ngIf="displayAdd() === 'Rentals'"></app-rentals-add>
+            <app-rentals-add *ngIf="primaryBtn === 'Rentals'" [players]="players" [availableMasks]="availableMasks"
+              [availableSnorkels]="availableSnorkels" [availableGloves]="availableGloves"
+              [availableSticks]="availableSticks" [availableFins]="availableFins"></app-rentals-add>
           </ng-container>
         </div>
       </div>

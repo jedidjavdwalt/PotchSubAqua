@@ -84,6 +84,10 @@ export class DashboardComponent implements OnInit {
   secondaryClicked(btn: string) {
     this.secondaryBtn = btn;
     this.tertiaryBtn = undefined;
+
+    if (this.secondaryBtn === 'Add') {
+      this.displayAdd();
+    }
   }
 
   tertiaryClicked(btn: string) {
@@ -100,12 +104,12 @@ export class DashboardComponent implements OnInit {
     }
 
     if (this.primaryBtn === 'Rentals') {
-      // this.store.dispatch(new playersActions.RequestGetAllPlayers());
-      // this.store.dispatch(new inventoryActions.RequestGetAvailableMasks());
-      // this.store.dispatch(new inventoryActions.RequestGetAvailableSnorkels());
-      // this.store.dispatch(new inventoryActions.RequestGetAvailableGloves());
-      // this.store.dispatch(new inventoryActions.RequestGetAvailableSticks());
-      // this.store.dispatch(new inventoryActions.RequestGetAvailableFins());
+      this.store.dispatch(new playersActions.RequestGetAllPlayers());
+      this.store.dispatch(new inventoryActions.RequestGetAvailableMasks());
+      this.store.dispatch(new inventoryActions.RequestGetAvailableSnorkels());
+      this.store.dispatch(new inventoryActions.RequestGetAvailableGloves());
+      this.store.dispatch(new inventoryActions.RequestGetAvailableSticks());
+      this.store.dispatch(new inventoryActions.RequestGetAvailableFins());
 
       return 'Rentals';
     }

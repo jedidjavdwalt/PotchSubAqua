@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
   players = [];
   selectedPlayer = null;
 
-  inventory = [];
+  inventoryItems = [];
   selectedInventoryItem = null;
 
   rentals = [];
@@ -43,17 +43,17 @@ export class DashboardComponent implements OnInit {
   buttons = [
     {
       id: 'Players', secondary: [
-        { id: 'Senior', tertiary: [{ id: 'Ladies' }, { id: 'Men' }] },
-        { id: 'U19', tertiary: [{ id: 'Ladies' }, { id: 'Men' }] },
-        { id: 'U15', tertiary: [{ id: 'Ladies' }, { id: 'Men' }] },
-        { id: 'U13', tertiary: [{ id: 'Ladies' }, { id: 'Men' }] },
-        { id: 'U10', tertiary: [{ id: 'Ladies' }, { id: 'Men' }] },
+        { id: 'Senior', tertiary: [{ id: 'Female' }, { id: 'Male' }] },
+        { id: 'U19', tertiary: [{ id: 'Female' }, { id: 'Male' }] },
+        { id: 'U15', tertiary: [{ id: 'Female' }, { id: 'Male' }] },
+        { id: 'U13', tertiary: [{ id: 'Female' }, { id: 'Male' }] },
+        { id: 'U10', tertiary: [{ id: 'Female' }, { id: 'Male' }] },
         { id: 'Add' },
       ]
     },
     {
       id: 'Inventory Items', secondary: [
-        { id: 'Statues', tertiary: [{ id: 'Available' }, { id: 'Rented' }] },
+        { id: 'Status', tertiary: [{ id: 'Available' }, { id: 'Rented' }] },
         { id: 'Inventory Item Type', tertiary: [{ id: 'Mask' }, { id: 'Snorkel' }, { id: 'Glove' }, { id: 'Stick' }, { id: 'Fins' }] },
         { id: 'Add' },
       ]
@@ -85,13 +85,31 @@ export class DashboardComponent implements OnInit {
     this.secondaryBtn = btn;
     this.tertiaryBtn = undefined;
 
-    if (this.secondaryBtn === 'Add') {
-      this.displayAdd();
-    }
+    this.secondaryBtn === 'Add'
+      ? this.displayAdd()
+      : this.displayList();
   }
 
   tertiaryClicked(btn: string) {
     this.tertiaryBtn = btn;
+
+    this.displayList();
+  }
+
+  shouldDisplayPlayersList() {
+    if (this.primaryBtn === 'Players' && this.secondaryBtn && this.secondaryBtn !== 'Add') {
+      return true;
+    }
+
+    return false;
+  }
+
+  shouldDisplayInventoryItemsList() {
+    if (this.primaryBtn === 'Inventory Items' && this.secondaryBtn && this.secondaryBtn !== 'Add' && this.tertiaryBtn) {
+      return true;
+    }
+
+    return false;
   }
 
   displayAdd() {
@@ -117,25 +135,25 @@ export class DashboardComponent implements OnInit {
 
   displayList() {
     if (this.primaryBtn === 'Players') {
-      // !this.tertiaryBtn
-      //   ? this.store.dispatch(new playersActions.RequestGetPlayersByAgeGroup(this.secondaryBtn))
-      //   : this.store.dispatch(new playersActions.RequestGetPlayersByGender(this.tertiaryBtn, this.secondaryBtn));
+      !this.tertiaryBtn
+        ? this.store.dispatch(new playersActions.RequestGetPlayersByAgeGroup(this.secondaryBtn))
+        : this.store.dispatch(new playersActions.RequestGetPlayersByGender(this.tertiaryBtn, this.secondaryBtn));
 
       return 'Players';
     }
 
-    if (this.primaryBtn === 'Inventory Items') {
-      // this.secondaryBtn === 'Status'
-      //   ? this.store.dispatch(new inventoryActions.RequestGetInventoryItemsByStatus(this.tertiaryBtn))
-      //   : this.store.dispatch(new inventoryActions.RequestGetInventoryItemsByType(this.tertiaryBtn));
+    if (this.primaryBtn === 'Inventory Items' && this.tertiaryBtn) {
+      this.secondaryBtn === 'Status'
+        ? this.store.dispatch(new inventoryActions.RequestGetInventoryItemsByStatus(this.tertiaryBtn))
+        : this.store.dispatch(new inventoryActions.RequestGetInventoryItemsByType(this.tertiaryBtn));
 
       return 'Inventory Items';
     }
 
     if (this.primaryBtn === 'Rentals') {
-      // this.secondaryBtn === 'Action Required'
-      //   ? this.store.dispatch(new rentalsActions.RequestGetRentalsByActionRequired(this.tertiaryBtn))
-      //   : this.store.dispatch(new rentalsActions.RequestGetRentalsByType(this.tertiaryBtn));
+      this.secondaryBtn === 'Action Required'
+        ? this.store.dispatch(new rentalsActions.RequestGetRentalsByActionRequired(this.tertiaryBtn))
+        : this.store.dispatch(new rentalsActions.RequestGetRentalsByType(this.tertiaryBtn));
 
       return 'Rentals';
     }
@@ -155,8 +173,8 @@ export class DashboardComponent implements OnInit {
 
   sliceAppState() {
     this.store.select(inventorySelectors.inventoryItems).subscribe(inventoryItems => {
-      this.inventory = inventoryItems;
-      this.inventory.sort((a, b) => (a.number > b.number) ? 1 : -1);
+      this.inventoryItems = inventoryItems;
+      this.inventoryItems.sort((a, b) => (a.number > b.number) ? 1 : -1);
     });
 
     this.store.select(inventorySelectors.selectedInventoryItem).subscribe(selectedInventoryItem => {

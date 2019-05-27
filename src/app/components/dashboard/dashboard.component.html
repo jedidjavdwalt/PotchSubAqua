@@ -38,6 +38,30 @@
               [availableSnorkels]="availableSnorkels" [availableGloves]="availableGloves"
               [availableSticks]="availableSticks" [availableFins]="availableFins"></app-rentals-add>
           </ng-container>
+
+          <ng-container *ngIf="shouldDisplayPlayersList()">
+            <div class="row">
+              <div class="col-4" *ngFor="let player of players">
+                <div class="card lightblue-background">
+                  <div class="card-body">
+                    <span>{{ player.playerFullName }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="shouldDisplayInventoryItemsList()">
+            <div class="row">
+              <div class="col-4" *ngFor="let inventoryItem of inventoryItems">
+                <div class="card lightblue-background">
+                  <div class="card-body">
+                    <span>{{ inventoryItem.displayId }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
         </div>
       </div>
     </div>

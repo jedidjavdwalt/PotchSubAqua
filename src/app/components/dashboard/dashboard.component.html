@@ -62,6 +62,18 @@
               </div>
             </div>
           </ng-container>
+
+          <ng-container *ngIf="shouldDisplayRentalsList()">
+            <div class="row">
+              <div class="col-4" *ngFor="let rental of rentals">
+                <div class="card lightblue-background">
+                  <div class="card-body">
+                    <span>{{ rental.displayId }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
         </div>
       </div>
     </div>

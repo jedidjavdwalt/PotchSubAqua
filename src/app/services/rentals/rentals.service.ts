@@ -106,7 +106,7 @@ export class RentalsService {
   calculateActionRequired(rental: Rental) {
     let actionRequired: string;
 
-    rental.type === 'Day' && rental.feePaid !== rental.feeDue
+    rental.feePaid !== rental.feeDue
       ? actionRequired = 'Player'
       : actionRequired = 'None';
 

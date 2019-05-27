@@ -51,7 +51,7 @@ export class RentalsAddComponent implements OnInit {
       !newSelectedStick.value &&
       !newSelectedFins.value
     ) {
-      alert('no inventory items selected');
+      alert('No inventory items selected');
     } else {
       const newInventoryItems = [];
 

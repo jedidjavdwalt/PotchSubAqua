@@ -112,6 +112,14 @@ export class DashboardComponent implements OnInit {
     return false;
   }
 
+  shouldDisplayRentalsList() {
+    if (this.primaryBtn === 'Rentals' && this.secondaryBtn && this.secondaryBtn !== 'Add' && this.tertiaryBtn) {
+      return true;
+    }
+
+    return false;
+  }
+
   displayAdd() {
     if (this.primaryBtn === 'Players') {
       return 'Players';
@@ -150,7 +158,7 @@ export class DashboardComponent implements OnInit {
       return 'Inventory Items';
     }
 
-    if (this.primaryBtn === 'Rentals') {
+    if (this.primaryBtn === 'Rentals' && this.tertiaryBtn) {
       this.secondaryBtn === 'Action Required'
         ? this.store.dispatch(new rentalsActions.RequestGetRentalsByActionRequired(this.tertiaryBtn))
         : this.store.dispatch(new rentalsActions.RequestGetRentalsByType(this.tertiaryBtn));

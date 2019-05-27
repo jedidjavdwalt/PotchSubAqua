@@ -29,8 +29,8 @@ export function inventoryReducer(state = initialInventoryState, action: actions.
             newState.inventoryItems = [...newState.inventoryItems, getInventoryItemSuccessAction.payload];
             return newState;
 
-        case actions.GET_SELECTED_INVENTORY_ITEM_SUCCESS:
-            const getSelectedInventoryItemSuccessAction = action as actions.GetSelectedInventoryItemSuccess;
+        case actions.SET_SELECTED_INVENTORY_ITEM:
+            const getSelectedInventoryItemSuccessAction = action as actions.SetSelectedInventoryItem;
             newState.selectedInventoryItem = getSelectedInventoryItemSuccessAction.payload;
             return newState;
 

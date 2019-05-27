@@ -42,11 +42,15 @@
           <ng-container *ngIf="shouldDisplayPlayersList()">
             <div class="row">
               <div class="col-4" *ngFor="let player of players">
-                <div class="card lightblue-background">
+                <!-- <div class="card lightblue-background" (click)="displayPlayersDetail()">
                   <div class="card-body">
                     <span>{{ player.playerFullName }}</span>
                   </div>
-                </div>
+                </div> -->
+
+                <button class="btn btn-block lightblue-background" (click)="displayPlayersDetail(player)">
+                  {{ player.playerFullName }}
+                </button>
               </div>
             </div>
           </ng-container>
@@ -54,7 +58,7 @@
           <ng-container *ngIf="shouldDisplayInventoryItemsList()">
             <div class="row">
               <div class="col-4" *ngFor="let inventoryItem of inventoryItems">
-                <div class="card lightblue-background">
+                <div class="card lightblue-background" (click)="displayInventoryDetail()">
                   <div class="card-body">
                     <span>{{ inventoryItem.displayId }}</span>
                   </div>
@@ -66,7 +70,7 @@
           <ng-container *ngIf="shouldDisplayRentalsList()">
             <div class="row">
               <div class="col-4" *ngFor="let rental of rentals">
-                <div class="card lightblue-background">
+                <div class="card lightblue-background" (click)="displayRentalsDetail()">
                   <div class="card-body">
                     <span>{{ rental.displayId }}</span>
                   </div>
@@ -74,6 +78,12 @@
               </div>
             </div>
           </ng-container>
+
+          <app-players-detail *ngIf="selectedPlayer" [selectedPlayer]="selectedPlayer"></app-players-detail>
+
+          <app-inventory-detail *ngIf="selectedInventoryItem"></app-inventory-detail>
+
+          <app-rentals-detail *ngIf="selectedRental"></app-rentals-detail>
         </div>
       </div>
     </div>

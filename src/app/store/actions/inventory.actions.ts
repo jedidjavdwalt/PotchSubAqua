@@ -5,7 +5,8 @@ export const REQUEST_GET_INVENTORY_ITEMS_BY_STATUS = '[inventoryState] REQUEST_G
 export const REQUEST_GET_INVENTORY_ITEMS_BY_TYPE = '[inventoryState] REQUEST_GET_INVENTORY_ITEMS_BY_TYPE';
 export const GET_INVENTORY_ITEM_SUCCESS = '[inventoryState] GET_INVENTORY_ITEM_SUCCESS';
 
-export const GET_SELECTED_INVENTORY_ITEM_SUCCESS = '[inventoryState] GET_SELECTED_INVENTORY_ITEM_SUCCESS';
+export const SET_SELECTED_INVENTORY_ITEM = '[inventoryState] SET_SELECTED_INVENTORY_ITEM';
+export const CLEAR_SELECTED_INVENTORY_ITEM = '[inventoryState] CLEAR_SELECTED_INVENTORY_ITEM';
 
 export const REQUEST_GET_AVAILABLE_MASKS = '[inventoryState] REQUEST_GET_AVAILABLE_MASKS';
 export const GET_AVAILABLE_MASK_SUCCESS = '[inventoryState] GET_AVAILABLE_MASKS_SUCCESS';
@@ -39,59 +40,64 @@ export class GetInventoryItemSuccess implements Action {
     constructor(public payload: InventoryItem) { }
 }
 
-export class GetSelectedInventoryItemSuccess implements Action {
-    type = GET_SELECTED_INVENTORY_ITEM_SUCCESS;
-    constructor(public payload: InventoryItem) {}
+export class SetSelectedInventoryItem implements Action {
+    type = SET_SELECTED_INVENTORY_ITEM;
+    constructor(public payload: InventoryItem) { }
+}
+
+export class ClearSelectedInventoryItem implements Action {
+    type = CLEAR_SELECTED_INVENTORY_ITEM;
+    constructor() { }
 }
 
 export class RequestGetAvailableMasks implements Action {
     type = REQUEST_GET_AVAILABLE_MASKS;
-    constructor() {}
+    constructor() { }
 }
 
 export class GetAvailableMaskSuccess implements Action {
     type = GET_AVAILABLE_MASK_SUCCESS;
-    constructor(public payload: InventoryItem) {}
+    constructor(public payload: InventoryItem) { }
 }
 
 export class RequestGetAvailableSnorkels implements Action {
     type = REQUEST_GET_AVAILABLE_SNORKELS;
-    constructor() {}
+    constructor() { }
 }
 
 export class GetAvailableSnorkelSuccess implements Action {
     type = GET_AVAILABLE_SNORKEL_SUCCESS;
-    constructor(public payload: InventoryItem) {}
+    constructor(public payload: InventoryItem) { }
 }
 
 export class RequestGetAvailableGloves implements Action {
     type = REQUEST_GET_AVAILABLE_GLOVES;
-    constructor() {}
+    constructor() { }
 }
 
 export class GetAvailableGloveSuccess implements Action {
     type = GET_AVAILABLE_GLOVE_SUCCESS;
-    constructor(public payload: InventoryItem) {}
+    constructor(public payload: InventoryItem) { }
 }
 
 export class RequestGetAvailableSticks implements Action {
     type = REQUEST_GET_AVAILABLE_STICKS;
-    constructor() {}
+    constructor() { }
 }
 
 export class GetAvailableStickSuccess implements Action {
     type = GET_AVAILABLE_STICK_SUCCESS;
-    constructor(public payload: InventoryItem) {}
+    constructor(public payload: InventoryItem) { }
 }
 
 export class RequestGetAvailableFins implements Action {
     type = REQUEST_GET_AVAILABLE_FINS;
-    constructor() {}
+    constructor() { }
 }
 
 export class GetAvailableFinsSuccess implements Action {
     type = GET_AVAILABLE_FINS_SUCCESS;
-    constructor(public payload: InventoryItem) {}
+    constructor(public payload: InventoryItem) { }
 }
 
 export class UnimplementedAction implements Action {
@@ -103,7 +109,8 @@ export type InventoryActions =
     | RequestGetInventoryItemsByStatus
     | RequestGetInventoryItemsByType
     | GetInventoryItemSuccess
-    | GetSelectedInventoryItemSuccess
+    | SetSelectedInventoryItem
+    | ClearSelectedInventoryItem
     | RequestGetAvailableMasks
     | GetAvailableMaskSuccess
     | RequestGetAvailableSnorkels

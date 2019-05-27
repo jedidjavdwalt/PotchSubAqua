@@ -168,15 +168,21 @@ export class DashboardComponent implements OnInit {
   }
 
   displayPlayersDetail(selectedPlayer: Player) {
-    this.store.dispatch(new playersActions.GetSelectedPlayerSuccess(selectedPlayer));
+    this.store.dispatch(new playersActions.SetSelectedPlayer(selectedPlayer));
+    this.store.dispatch(new inventoryActions.ClearSelectedInventoryItem());
+    this.store.dispatch(new rentalsActions.ClearSelectedRental());
   }
 
   displayInventoryDetail(selectedInventoryItem: InventoryItem) {
-    this.store.dispatch(new inventoryActions.GetSelectedInventoryItemSuccess(selectedInventoryItem));
+    this.store.dispatch(new inventoryActions.SetSelectedInventoryItem(selectedInventoryItem));
+    this.store.dispatch(new playersActions.ClearSelectedPlayer());
+    this.store.dispatch(new rentalsActions.ClearSelectedRental());
   }
 
   displayRentalsDetail(selectedRental: Rental) {
-    this.store.dispatch(new rentalsActions.GetSelectedRentalSuccess(selectedRental));
+    this.store.dispatch(new rentalsActions.SetSelectedRental(selectedRental));
+    this.store.dispatch(new playersActions.ClearSelectedPlayer());
+    this.store.dispatch(new inventoryActions.ClearSelectedInventoryItem());
   }
 
   sliceAppState() {

@@ -23,9 +23,13 @@ export function rentalsReducer(state = initialRentalsState, action: actions.Rent
             newState.rentals = [...newState.rentals, getRentalSuccessAction.payload];
             return newState;
 
-        case actions.GET_SELECTED_RENTAL_SUCCESS:
-            const getSelectedRentalSuccessAction = action as actions.GetSelectedRentalSuccess;
+        case actions.SET_SELECTED_RENTAL:
+            const getSelectedRentalSuccessAction = action as actions.SetSelectedRental;
             newState.selectedRental = getSelectedRentalSuccessAction.payload;
+            return newState;
+
+        case actions.CLEAR_SELECTED_RENTAL:
+            newState.selectedRental = null;
             return newState;
 
         default:

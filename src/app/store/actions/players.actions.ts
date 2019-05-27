@@ -6,7 +6,8 @@ export const REQUEST_GET_PLAYERS_BY_AGE_GROUP = '[playersState] REQUEST_GET_PLAY
 export const REQUEST_GET_ALL_PLAYERS = '[playersState] REQUEST_GET_ALL_PLAYERS';
 export const GET_PLAYER_SUCCESS = '[playersState] GET_PLAYER_SUCCESS';
 
-export const GET_SELECTED_PLAYER_SUCCESS = '[playersState] GET_SELECTED_PLAYER_SUCCESS';
+export const SET_SELECTED_PLAYER = '[playersState] SET_SELECTED_PLAYER';
+export const CLEAR_SELECTED_PLAYER = '[playersState] CLEAR_SELECTED_PLAYER';
 
 export const UNIMPLEMENTED_ACTION = '[playersState] UNIMPLEMENTED_ACTION';
 
@@ -22,7 +23,7 @@ export class RequestGetPlayersByAgeGroup implements Action {
 
 export class RequestGetAllPlayers implements Action {
     type = REQUEST_GET_ALL_PLAYERS;
-    constructor() {}
+    constructor() { }
 }
 
 export class GetPlayerSuccess implements Action {
@@ -30,9 +31,14 @@ export class GetPlayerSuccess implements Action {
     constructor(public payload: Player) { }
 }
 
-export class GetSelectedPlayerSuccess implements Action {
-    type = GET_SELECTED_PLAYER_SUCCESS;
+export class SetSelectedPlayer implements Action {
+    type = SET_SELECTED_PLAYER;
     constructor(public payload: Player) { }
+}
+
+export class ClearSelectedPlayer implements Action {
+    type = CLEAR_SELECTED_PLAYER;
+    constructor() { }
 }
 
 export class UnimplementdAction implements Action {
@@ -45,5 +51,6 @@ export type PlayersActions =
     | RequestGetPlayersByAgeGroup
     | RequestGetAllPlayers
     | GetPlayerSuccess
-    | GetSelectedPlayerSuccess
+    | SetSelectedPlayer
+    | ClearSelectedPlayer
     | UnimplementdAction;

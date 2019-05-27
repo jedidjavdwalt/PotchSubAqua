@@ -27,9 +27,13 @@ export function playersReducer(state = initialPlayersState, action: actions.Play
             newState.players = [...newState.players, getPlayerSuccessAction.payload];
             return newState;
 
-        case actions.GET_SELECTED_PLAYER_SUCCESS:
-            const getSelectedPlayerSuccessAction = action as actions.GetSelectedPlayerSuccess;
+        case actions.SET_SELECTED_PLAYER:
+            const getSelectedPlayerSuccessAction = action as actions.SetSelectedPlayer;
             newState.selectedPlayer = getSelectedPlayerSuccessAction.payload;
+            return newState;
+
+        case actions.CLEAR_SELECTED_PLAYER:
+            newState.selectedPlayer = null;
             return newState;
 
         default:

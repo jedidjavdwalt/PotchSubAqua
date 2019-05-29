@@ -1,101 +1,72 @@
 <div class="card powderblue-background mt-2 mb-2">
   <div class="card-body">
     <div class="row">
-      <div class="col-6">
-        <div class="row">
-          <div class="col-12 text-right">
-            Player:
-          </div>
-        </div>
-
-        <ng-container *ngIf="selectedPlayer.playerCell">
-          <div class="row">
-            <div class="col-12 text-right">
-              Player Cell:
-            </div>
-          </div>
-        </ng-container>
-
-
-        <div class="row">
-          <div class="col-12 text-right">
-            Gender:
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-12 text-right">
-            Birth Date:
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-12 text-right">
-            Age Group:
-          </div>
-        </div>
-
-        <div class="row" *ngIf="selectedPlayer.parentFullName">
-          <div class="col-12 text-right">
-            Parent:
-          </div>
-        </div>
-
-        <ng-container *ngIf="selectedPlayer.parentCell">
-          <div class="row">
-            <div class="col-12 text-right">
-              Parent Cell:
-            </div>
-          </div>
-        </ng-container>
+      <div class="col-6 text-right">
+        Player Full Name:
       </div>
 
-      <div class="col-6">
-        <div class="row">
-          <div class="col-12 text-left">
-            {{selectedPlayer.playerFullName}}
-          </div>
-        </div>
+      <div class="col-6 text-left">
+        {{selectedPlayer.playerFullName}}
+      </div>
+    </div>
 
-        <ng-container *ngIf="selectedPlayer.playerCell">
-          <div class="row">
-            <div class="col-12 text-left">
-              {{selectedPlayer.playerCell}}
-            </div>
-          </div>
-        </ng-container>
+    <div class="row" *ngIf="selectedPlayer.playerCell">
+      <div class="col-6 text-right">
+        Player Cell:
+      </div>
 
-        <div class="row">
-          <div class="col-12 text-left">
-            {{selectedPlayer.gender}}
-          </div>
-        </div>
+      <div class="col-6 text-left">
+        {{selectedPlayer.playerCell}}
+      </div>
+    </div>
 
-        <div class="row">
-          <div class="col-12 text-left">
-            {{selectedPlayer.birthDate.toDate() | date:'d MMM y'}}
-          </div>
-        </div>
+    <div class="row">
+      <div class="col-6 text-right">
+        Gender:
+      </div>
 
-        <div class="row">
-          <div class="col-12 text-left">
-            {{selectedPlayer.ageGroup}}
-          </div>
-        </div>
+      <div class="col-6 text-left">
+        {{selectedPlayer.gender}}
+      </div>
+    </div>
 
-        <div class="row" *ngIf="selectedPlayer.parentFullName">
-          <div class="col-12 text-left">
-            {{selectedPlayer.parentFullName}}
-          </div>
-        </div>
+    <div class="row">
+      <div class="col-6 text-right">
+        Birth Date:
+      </div>
 
-        <ng-container *ngIf="selectedPlayer.parentCell">
-          <div class="row">
-            <div class="col-12 text-left">
-              {{selectedPlayer.parentCell}}
-            </div>
-          </div>
-        </ng-container>
+      <div class="col-6 text-left">
+        {{selectedPlayer.birthDate.toDate() | date:'d MMM y'}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6 text-right">
+        Age Group:
+      </div>
+
+      <div class="col-6 text-left">
+        {{selectedPlayer.ageGroup}}
+      </div>
+    </div>
+
+    <div class="row" *ngIf="selectedPlayer.parentFullName">
+      <div class="col-6 text-right">
+        Parent Full Name:
+      </div>
+
+      <div class="col-6 text-left">
+        {{selectedPlayer.parentFullName}}
+      </div>
+    </div>
+
+    <div class="row" *ngIf="selectedPlayer.parentCell">
+      <div class="col-6 text-right">
+        Parent Cell:
+      </div>
+
+      <div class="col-6 text-left">
+        {{selectedPlayer.parentCell}}
       </div>
     </div>
   </div>

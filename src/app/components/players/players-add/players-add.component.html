@@ -1,4 +1,64 @@
-<mat-card>
+<div class="card powderblue-background border-none">
+  <div class="card-body">
+    <form [formGroup]="playerForm">
+
+      <div class="form-group row">
+        <label class="col-6 col-form-label text-right">Player Full Name:</label>
+        <div class="col-6 text-left">
+          <input formControlName="playerFullName" type="text" class="form-control" placeholder="Player Full Name"
+            required>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-6 col-form-label text-right">Player Cell:</label>
+        <div class="col-6 text-left">
+          <input formControlName="playerFullName" type="tel" class="form-control" placeholder="Player Cell" required>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-6 col-form-label text-right">Gender:</label>
+        <div class="col-6 text-left">
+          <select formControlName="gender" class="form-control" required>
+            <option value="Female">Female</option>
+            <option value="Male">Male</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-6 col-form-label text-right">Birth Date:</label>
+        <div class="col-6 text-left">
+          <input formControlName="birthDate" type="date" [max]="calculateMaxDate()" class="form-control" required>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-6 col-form-label text-right">Parent Full Name:</label>
+        <div class="col-6 text-left">
+          <input formControlName="parentFullName" type="text" class="form-control" placeholder="Parent Full Name"
+            required>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label class="col-6 col-form-label text-right">Parent Cell:</label>
+        <div class="col-6 text-left">
+          <input formControlName="parentCell" type="tel" class="form-control" placeholder="Parent Cell" required>
+        </div>
+      </div>
+    </form>
+
+    <div class="row">
+      <div class="col-12 text-center">
+        <button class="btn btn-block midnightblue-background text-white" (click)="onAddClick()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <mat-card>
   <mat-card-content>
     <form [formGroup]="playerForm">
       <div class="row">
@@ -45,8 +105,9 @@
       </div>
     </form>
   </mat-card-content>
-  
+
   <mat-card-actions>
-    <button type="submit" (click)="onAddClick()" [disabled]="!playerForm.valid" mat-raised-button color="primary">Add</button>
+    <button type="submit" (click)="onAddClick()" [disabled]="!playerForm.valid" mat-raised-button
+      color="primary">Add</button>
   </mat-card-actions>
-</mat-card>
+</mat-card> -->

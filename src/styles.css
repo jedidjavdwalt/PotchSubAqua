@@ -20,11 +20,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background-color: lightsteelblue;
 }
 
-.lightblue-background {
-    background-color: lightblue;
-}
-
 .powderblue-background {
     background-color: powderblue;
+}
+
+.border-none {
+    border: none;
 }
 

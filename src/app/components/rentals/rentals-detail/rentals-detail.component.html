@@ -1,3 +1,129 @@
-<p>
-  rentals-detail works!
-</p>
+<div class="card powderblue-background mt-2 mb-2">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-6">
+        <div class="row">
+          <div class="col-12 text-right">
+            Player:
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-right">
+            Inventory Items:
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-right">
+            Type:
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-right">
+            Start Date:
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-right">
+            Due Date:
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-right">
+            End Date:
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-right">
+            Fee Due:
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-right">
+            Fee Paid:
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-right">
+            Fee Returned:
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-right">
+            Action Required:
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div class="row">
+          <div class="col-12 text-left">
+            {{selectedRental.player}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-left" *ngFor="let inventoryItem of selectedRental.inventoryItems">
+            {{inventoryItem}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-left">
+            {{selectedRental.type}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-left">
+            {{selectedRental.startDate}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-left">
+            {{selectedRental.dueDate}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-left">
+            {{selectedRental.endDate}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-left">
+            {{selectedRental.feeDue}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-left">
+            {{selectedRental.feePaid}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-left">
+            {{selectedRental.feeReturned}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12 text-left">
+            {{selectedRental.actionRequired}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

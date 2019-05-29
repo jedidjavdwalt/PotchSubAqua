@@ -186,6 +186,14 @@ export class DashboardComponent implements OnInit {
   }
 
   sliceAppState() {
+    this.store.select(playersSelectors.players).subscribe(players => {
+      this.players = players;
+    });
+
+    this.store.select(playersSelectors.selectedPlayer).subscribe(selectedPlayer => {
+      this.selectedPlayer = selectedPlayer;
+    });
+
     this.store.select(inventorySelectors.inventoryItems).subscribe(inventoryItems => {
       this.inventoryItems = inventoryItems;
       this.inventoryItems.sort((a, b) => (a.number > b.number) ? 1 : -1);
@@ -193,14 +201,6 @@ export class DashboardComponent implements OnInit {
 
     this.store.select(inventorySelectors.selectedInventoryItem).subscribe(selectedInventoryItem => {
       this.selectedInventoryItem = selectedInventoryItem;
-    });
-
-    this.store.select(playersSelectors.players).subscribe(players => {
-      this.players = players;
-    });
-
-    this.store.select(playersSelectors.selectedPlayer).subscribe(selectedPlayer => {
-      this.selectedPlayer = selectedPlayer;
     });
 
     this.store.select(rentalsSelectors.rentals).subscribe(rentals => {

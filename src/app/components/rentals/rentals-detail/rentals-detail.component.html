@@ -1,128 +1,112 @@
 <div class="card powderblue-background mt-2 mb-2">
   <div class="card-body">
     <div class="row">
-      <div class="col-6">
-        <div class="row">
-          <div class="col-12 text-right">
-            Player:
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-12 text-right">
-            Inventory Items:
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-12 text-right">
-            Type:
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-12 text-right">
-            Start Date:
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-12 text-right">
-            Due Date:
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-12 text-right">
-            End Date:
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-12 text-right">
-            Fee Due:
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-12 text-right">
-            Fee Paid:
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-12 text-right">
-            Fee Returned:
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-12 text-right">
-            Action Required:
-          </div>
-        </div>
+      <div class="col-6 text-right">
+        Player:
       </div>
 
-      <div class="col-6">
-        <div class="row">
-          <div class="col-12 text-left">
-            {{selectedRental.player}}
-          </div>
-        </div>
+      <div class="col-6 text-left">
+        {{selectedRental.player}}
+      </div>
+    </div>
 
-        <div class="row">
-          <div class="col-12 text-left" *ngFor="let inventoryItem of selectedRental.inventoryItems">
-            {{inventoryItem}}
-          </div>
-        </div>
+    <div class="row">
+      <div class="col-6 text-right">
+        Inventory Items:
+      </div>
 
-        <div class="row">
-          <div class="col-12 text-left">
-            {{selectedRental.type}}
-          </div>
+      <ng-container *ngIf="selectedRental.inventoryItems.length === 1">
+        <div class="col-6 text-left">
+          {{selectedRental.inventoryItems[0]}}
         </div>
+      </ng-container>
 
-        <div class="row">
-          <div class="col-12 text-left">
-            {{selectedRental.startDate}}
-          </div>
+      <ng-container *ngIf="selectedRental.inventoryItems.length > 1">
+        <div class="col-6 text-left">
+          <span *ngFor="let inventoryItem of selectedRental.inventoryItems">
+            {{inventoryItem}},
+          </span>
         </div>
+      </ng-container>
+    </div>
 
-        <div class="row">
-          <div class="col-12 text-left">
-            {{selectedRental.dueDate}}
-          </div>
-        </div>
+    <div class="row">
+      <div class="col-6 text-right">
+        Type:
+      </div>
 
-        <div class="row">
-          <div class="col-12 text-left">
-            {{selectedRental.endDate}}
-          </div>
-        </div>
+      <div class="col-6 text-left">
+        {{selectedRental.type}}
+      </div>
+    </div>
 
-        <div class="row">
-          <div class="col-12 text-left">
-            {{selectedRental.feeDue}}
-          </div>
-        </div>
+    <div class="row">
+      <div class="col-6 text-right">
+        Start Date:
+      </div>
 
-        <div class="row">
-          <div class="col-12 text-left">
-            {{selectedRental.feePaid}}
-          </div>
-        </div>
+      <div class="col-6 text-left">
+        {{selectedRental.startDate.toDate() | date:'d MMM y'}}
+      </div>
+    </div>
 
-        <div class="row">
-          <div class="col-12 text-left">
-            {{selectedRental.feeReturned}}
-          </div>
-        </div>
+    <div class="row">
+      <div class="col-6 text-right">
+        Due Date:
+      </div>
 
-        <div class="row">
-          <div class="col-12 text-left">
-            {{selectedRental.actionRequired}}
-          </div>
-        </div>
+      <div class="col-6 text-left">
+        {{selectedRental.dueDate.toDate() | date:'d MMM y'}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6 text-right">
+        End Date:
+      </div>
+
+      <div class="col-6 text-left" *ngIf="selectedRental.endDate">
+        {{selectedRental.endDate.toDate() | date:'d MMM y'}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6 text-right">
+        Fee Due:
+      </div>
+
+      <div class="col-6 text-left">
+        {{selectedRental.feeDue}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6 text-right">
+        Fee Paid:
+      </div>
+
+      <div class="col-6 text-left" *ngIf="selectedRental.feePaid">
+        {{selectedRental.feePaid}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6 text-right">
+        Fee Returned:
+      </div>
+
+      <div class="col-6 text-left" *ngIf="selectedRental.feeReturned">
+        {{selectedRental.feeReturned}}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6 text-right">
+        Action Required:
+      </div>
+
+      <div class="col-6 text-left">
+        {{selectedRental.actionRequired}}
       </div>
     </div>
   </div>

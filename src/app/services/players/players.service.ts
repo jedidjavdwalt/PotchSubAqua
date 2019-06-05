@@ -16,9 +16,8 @@ export class PlayersService {
 
     player = playerToAdd;
     player.docId = this.calculateDocumentId(player.playerFullName);
-    // player.ageGroup = this.calculatePlayerAgeGroup(player.birthDate);
 
-    // this.addPlayer(player);
+    this.addPlayer(player);
   }
 
   calculateDocumentId(playerFullName: string) {

@@ -5,7 +5,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import * as firebase from 'firebase';
 import { Timestamp } from '@firebase/firestore-types';
-import { CustomValidatorsService } from 'src/app/services/custom-validators/custom-validators.service';
 
 @Component({
   selector: 'app-players-add',
@@ -20,13 +19,19 @@ export class PlayersAddComponent implements OnInit {
 
   parentForm = this.formBuilder.group({
     parentFullName: [null, Validators.required],
-    parentCell: [null, CustomValidatorsService.tel],
+    parentCell: [null, Validators.required],
   });
 
-  playerForm = this.formBuilder.group({
-    gender: [null, Validators.required],
+  juniorPlayerForm = this.formBuilder.group({
     playerFullName: [null, Validators.required],
-    playerCell: [null, CustomValidatorsService.tel],
+    playerCell: [null],
+    gender: [null, Validators.required],
+  });
+
+  seniorPlayerForm = this.formBuilder.group({
+    playerFullName: [null, Validators.required],
+    playerCell: [null, Validators.required],
+    gender: [null, Validators.required],
   });
 
   constructor(
@@ -34,13 +39,31 @@ export class PlayersAddComponent implements OnInit {
     private formBuilder: FormBuilder,
   ) { }
 
-  calculateMaxDate(): string {
-    const currentYear = moment().year();
-    const firstDayOfYear = moment(`${currentYear}-01-01`);
-    return firstDayOfYear.subtract(7, 'years').format('YYYY-MM-DD');
+  get birthDate() {
+    return this.birthDateForm.get('birthDate');
   }
 
-  parentRequired() {
+  get parentFullName() {
+    return this.parentForm.get('parentFullName');
+  }
+
+  get parentCell() {
+    return this.parentForm.get('parentCell');
+  }
+
+  get playerFullName() {
+    return this.juniorPlayerForm.get('playerFullName');
+  }
+
+  get playerCell() {
+    return this.juniorPlayerForm.get('playerCell');
+  }
+
+  get gender() {
+    return this.juniorPlayerForm.get('gender');
+  }
+
+  parentRequired(): boolean {
     if (this.birthDate.valid && this.calculatePlayerAgeGroup(this.calculateBirthDate()) !== 'Senior') {
       return true;
     }
@@ -48,35 +71,17 @@ export class PlayersAddComponent implements OnInit {
     return false;
   }
 
-  get playerFullName() {
-    return this.playerForm.get('playerFullName');
-  }
-
-  get playerCell() {
-    return this.playerForm.get('playerCell');
-  }
-
-  get gender() {
-    return this.playerForm.get('gender');
-  }
-
-  get birthDate() {
-    return this.playerForm.get('birthDate');
-  }
-
-  get parentFullName() {
-    return this.playerForm.get('parentFullName');
-  }
-
-  get parentCell() {
-    return this.playerForm.get('parentCell');
+  calculateMaxDate(): string {
+    const currentYear = moment().year();
+    const firstDayOfYear = moment(`${currentYear}-01-01`);
+    return firstDayOfYear.subtract(7, 'years').format('YYYY-MM-DD');
   }
 
   calculateBirthDate(): Timestamp {
-    return firebase.firestore.Timestamp.fromDate(moment(this.playerForm.controls.birthDate.value).toDate());
+    return firebase.firestore.Timestamp.fromDate(moment(this.birthDate.value).toDate());
   }
 
-  calculatePlayerAgeGroup(birthDate: Timestamp) {
+  calculatePlayerAgeGroup(birthDate: Timestamp): string {
     const currentYear = moment().year();
     const firstDayOfYear = moment(`${currentYear}-01-01`);
     const convertedBirthDate = moment.unix(birthDate.seconds);
@@ -99,17 +104,17 @@ export class PlayersAddComponent implements OnInit {
 
   onAddClick() {
     const newPlayer = {
-      playerFullName: this.playerForm.controls.playerFullName.value,
-      playerCell: this.playerForm.controls.playerCell.value,
-      gender: this.playerForm.controls.gender.value,
       birthDate: this.calculateBirthDate(),
-      parentFullName: this.playerForm.controls.parentFullName.value,
-      parentCell: this.playerForm.controls.parentCell.value,
+      parentFullName: this.juniorPlayerForm.controls.parentFullName.value,
+      parentCell: this.juniorPlayerForm.controls.parentCell.value,
+      playerFullName: this.juniorPlayerForm.controls.playerFullName.value,
+      playerCell: this.juniorPlayerForm.controls.playerCell.value,
+      gender: this.juniorPlayerForm.controls.gender.value,
       ageGroup: this.calculatePlayerAgeGroup(this.calculateBirthDate()),
     } as Player;
 
     this.playersService.createPlayerToAdd(newPlayer);
-    this.playerForm.reset();
+    this.juniorPlayerForm.reset();
   }
 
   ngOnInit() {

@@ -4,9 +4,11 @@
     <!-- birthDateForm -->
     <form [formGroup]="birthDateForm">
       <div class="form-group row">
-        <label class="col-6 col-form-label text-right">Birth Date:</label>
-        <div class="col-6 text-left">
+        <label class="col-3 col-form-label text-right">Birth Date:</label>
+        <div class="col-9 text-left">
           <input formControlName="birthDate" type="date" [max]="calculateMaxDate()" class="form-control" required>
+
+          <span class="text-left" *ngIf="!birthDate.valid">*required</span>
         </div>
       </div>
     </form>
@@ -14,17 +16,21 @@
     <!-- parentForm -->
     <form *ngIf="parentRequired()" [formGroup]="parentForm">
       <div class="form-group row">
-        <label class="col-6 col-form-label text-right">Parent Full Name:</label>
-        <div class="col-6 text-left">
+        <label class="col-3 col-form-label text-right">Parent Full Name:</label>
+        <div class="col-9 text-left">
           <input formControlName="parentFullName" type="text" class="form-control" placeholder="Parent Full Name"
             required>
+
+          <span class="text-left" *ngIf="!parentFullName.valid">*required</span>
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-6 col-form-label text-right">Parent Cell:</label>
-        <div class="col-6 text-left">
-          <input formControlName="parentCell" type="tel" class="form-control" placeholder="Parent Cell" required>
+        <label class="col-3 col-form-label text-right">Parent Cell:</label>
+        <div class="col-9 text-left">
+          <input formControlName="parentCell" type="number" class="form-control" placeholder="Parent Cell" required>
+
+          <span class="text-left" *ngIf="!parentCell.valid">*required</span>
         </div>
       </div>
     </form>
@@ -32,54 +38,65 @@
     <!-- juniorPlayerForm -->
     <form *ngIf="parentRequired()" [formGroup]="juniorPlayerForm">
       <div class="form-group row">
-        <label class="col-6 col-form-label text-right">Player Full Name:</label>
-        <div class="col-6 text-left">
-          <input formControlName="playerFullName" type="text" class="form-control" placeholder="Player Full Name"
+        <label class="col-3 col-form-label text-right">Player Full Name:</label>
+        <div class="col-9 text-left">
+          <input formControlName="juniorPlayerFullName" type="text" class="form-control" placeholder="Player Full Name"
             required>
+
+          <span class="text-left" *ngIf="!juniorPlayerFullName.valid">*required</span>
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-6 col-form-label text-right">Player Cell:</label>
-        <div class="col-6 text-left">
-          <input formControlName="playerCell" type="tel" class="form-control" placeholder="Player Cell" required>
+        <label class="col-3 col-form-label text-right">Player Cell:</label>
+        <div class="col-9 text-left">
+          <input formControlName="juniorPlayerCell" type="number" class="form-control" placeholder="Player Cell">
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-6 col-form-label text-right">Gender:</label>
-        <div class="col-6 text-left">
-          <select formControlName="gender" class="form-control" required>
+        <label class="col-3 col-form-label text-right">Gender:</label>
+        <div class="col-9 text-left">
+          <select formControlName="juniorPlayerGender" class="form-control" required>
             <option value="Female">Female</option>
             <option value="Male">Male</option>
           </select>
+
+          <span class="text-left" *ngIf="!juniorPlayerGender.valid">*required</span>
         </div>
       </div>
     </form>
 
+    <!-- seniorPlayerForm -->
     <form *ngIf="birthDate.value && !parentRequired()" [formGroup]="seniorPlayerForm">
       <div class="form-group row">
-        <label class="col-6 col-form-label text-right">Player Full Name:</label>
-        <div class="col-6 text-left">
-          <input formControlName="playerFullName" type="text" class="form-control" placeholder="Player Full Name"
+        <label class="col-3 col-form-label text-right">Player Full Name:</label>
+        <div class="col-9 text-left">
+          <input formControlName="seniorPlayerFullName" type="text" class="form-control" placeholder="Player Full Name"
             required>
+
+          <span class="text-left" *ngIf="!seniorPlayerFullName.valid">*required</span>
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-6 col-form-label text-right">Player Cell:</label>
-        <div class="col-6 text-left">
-          <input formControlName="playerCell" type="tel" class="form-control" placeholder="Player Cell" required>
+        <label class="col-3 col-form-label text-right">Player Cell:</label>
+        <div class="col-9 text-left">
+          <input formControlName="seniorPlayerCell" type="number" class="form-control" placeholder="Player Cell" required>
+
+          <span class="text-left" *ngIf="!seniorPlayerCell.valid">*required</span>
         </div>
       </div>
 
       <div class="form-group row">
-        <label class="col-6 col-form-label text-right">Gender:</label>
-        <div class="col-6 text-left">
-          <select formControlName="gender" class="form-control" required>
+        <label class="col-3 col-form-label text-right">Gender:</label>
+        <div class="col-9 text-left">
+          <select formControlName="seniorPlayerGender" class="form-control" required>
             <option value="Female">Female</option>
             <option value="Male">Male</option>
           </select>
+
+          <span class="text-left" *ngIf="!seniorPlayerGender.valid">*required</span>
         </div>
       </div>
     </form>
@@ -87,11 +104,14 @@
     <div class="row">
       <div class="col-12 text-center">
         <ng-container *ngIf="parentRequired()">
-          <button class="btn btn-block midnightblue-background text-white" [disabled]="!birthDateForm.valid || !parentForm.valid || !juniorPlayerForm.valid" (click)="onAddClick()">Add</button>
+          <button class="btn btn-block midnightblue-background text-white"
+            [disabled]="!birthDateForm.valid || !parentForm.valid || !juniorPlayerForm.valid"
+            (click)="onAddClick()">Add</button>
         </ng-container>
 
         <ng-container *ngIf="!parentRequired()">
-          <button class="btn btn-block midnightblue-background text-white" [disabled]="!birthDateForm.valid && !seniorPlayerForm.valid" (click)="onAddClick()">Add</button>
+          <button class="btn btn-block midnightblue-background text-white"
+            [disabled]="!birthDateForm.valid || !seniorPlayerForm.valid" (click)="onAddClick()">Add</button>
         </ng-container>
       </div>
     </div>
@@ -102,19 +122,19 @@
   <mat-card-content>
     <form [formGroup]="playerForm">
       <div class="row">
-        <div class="col-4">
+        <div class="col-3">
           <mat-form-field>
             <input formControlName="playerFullName" type="text" matInput placeholder="player full name" required>
           </mat-form-field>
         </div>
 
-        <div class="col-4">
+        <div class="col-3">
           <mat-form-field>
             <input formControlName="playerCell" type="tel" matInput placeholder="player cell" required>
           </mat-form-field>
         </div>
 
-        <div class="col-4">
+        <div class="col-3">
           <mat-form-field>
             <mat-select formControlName="gender" placeholder="gender" required>
               <mat-option value="Female">Female</mat-option>
@@ -123,7 +143,7 @@
           </mat-form-field>
         </div>
 
-        <div class="col-4">
+        <div class="col-3">
           <mat-form-field>
             <input formControlName="birthDate" matInput [matDatepicker]="picker" placeholder="birth date" required>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -131,13 +151,13 @@
           </mat-form-field>
         </div>
 
-        <div class="col-4">
+        <div class="col-3">
           <mat-form-field>
             <input formControlName="parentFullName" type="text" matInput placeholder="parent full name" required>
           </mat-form-field>
         </div>
 
-        <div class="col-4">
+        <div class="col-3">
           <mat-form-field>
             <input formControlName="parentCell" type="tel" matInput placeholder="parent cell" required>
           </mat-form-field>

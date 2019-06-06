@@ -5,6 +5,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import * as firebase from 'firebase';
 import { Timestamp } from '@firebase/firestore-types';
+import { CustomValidators } from 'src/app/models/CustomValidators';
 
 @Component({
   selector: 'app-players-add',
@@ -18,20 +19,20 @@ export class PlayersAddComponent implements OnInit {
   });
 
   parentForm = this.formBuilder.group({
-    parentFullName: [null, Validators.required],
-    parentCell: [null, Validators.required],
+    parentFullName: [null, [Validators.required, CustomValidators.fullName()]],
+    parentCell: [null, [Validators.required, CustomValidators.tel()]],
   });
 
   juniorPlayerForm = this.formBuilder.group({
-    playerFullName: [null, Validators.required],
-    playerCell: [null],
-    gender: [null, Validators.required],
+    juniorPlayerFullName: [null, [Validators.required, CustomValidators.fullName()]],
+    juniorPlayerCell: [null, CustomValidators.tel()],
+    juniorPlayerGender: [null, Validators.required],
   });
 
   seniorPlayerForm = this.formBuilder.group({
-    playerFullName: [null, Validators.required],
-    playerCell: [null, Validators.required],
-    gender: [null, Validators.required],
+    seniorPlayerFullName: [null, [Validators.required, CustomValidators.fullName()]],
+    seniorPlayerCell: [null, [Validators.required, CustomValidators.tel()]],
+    seniorPlayerGender: [null, Validators.required],
   });
 
   constructor(
@@ -51,16 +52,28 @@ export class PlayersAddComponent implements OnInit {
     return this.parentForm.get('parentCell');
   }
 
-  get playerFullName() {
-    return this.juniorPlayerForm.get('playerFullName');
+  get juniorPlayerFullName() {
+    return this.juniorPlayerForm.get('juniorPlayerFullName');
   }
 
-  get playerCell() {
-    return this.juniorPlayerForm.get('playerCell');
+  get juniorPlayerCell() {
+    return this.juniorPlayerForm.get('juniorPlayerCell');
   }
 
-  get gender() {
-    return this.juniorPlayerForm.get('gender');
+  get juniorPlayerGender() {
+    return this.juniorPlayerForm.get('juniorPlayerGender');
+  }
+
+  get seniorPlayerFullName() {
+    return this.seniorPlayerForm.get('seniorPlayerFullName');
+  }
+
+  get seniorPlayerCell() {
+    return this.seniorPlayerForm.get('seniorPlayerCell');
+  }
+
+  get seniorPlayerGender() {
+    return this.seniorPlayerForm.get('seniorPlayerGender');
   }
 
   parentRequired(): boolean {
@@ -103,22 +116,39 @@ export class PlayersAddComponent implements OnInit {
   }
 
   onAddClick() {
-    const newPlayer = {
-      birthDate: this.calculateBirthDate(),
-      parentFullName: this.juniorPlayerForm.controls.parentFullName.value,
-      parentCell: this.juniorPlayerForm.controls.parentCell.value,
-      playerFullName: this.juniorPlayerForm.controls.playerFullName.value,
-      playerCell: this.juniorPlayerForm.controls.playerCell.value,
-      gender: this.juniorPlayerForm.controls.gender.value,
-      ageGroup: this.calculatePlayerAgeGroup(this.calculateBirthDate()),
-    } as Player;
+    let newPlayer = {} as Player;
+    if (this.parentRequired()) {
+      newPlayer = {
+        birthDate: this.calculateBirthDate(),
+        parentFullName: this.parentFullName.value,
+        parentCell: this.parentCell.value,
+        playerFullName: this.juniorPlayerFullName.value,
+        playerCell: this.juniorPlayerCell.value,
+        gender: this.juniorPlayerGender.value,
+        ageGroup: this.calculatePlayerAgeGroup(this.calculateBirthDate()),
+      } as Player;
+    }
+
+    if (!this.parentRequired()) {
+      newPlayer = {
+        birthDate: this.calculateBirthDate(),
+        parentFullName: this.parentFullName.value,
+        parentCell: this.parentCell.value,
+        playerFullName: this.seniorPlayerFullName.value,
+        playerCell: this.seniorPlayerCell.value,
+        gender: this.seniorPlayerGender.value,
+        ageGroup: this.calculatePlayerAgeGroup(this.calculateBirthDate()),
+      } as Player;
+    }
 
     this.playersService.createPlayerToAdd(newPlayer);
+
+    this.birthDateForm.reset();
+    this.parentForm.reset();
     this.juniorPlayerForm.reset();
+    this.seniorPlayerForm.reset();
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() { }
 
 }

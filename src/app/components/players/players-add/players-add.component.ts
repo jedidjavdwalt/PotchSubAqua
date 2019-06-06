@@ -12,6 +12,7 @@ import { CustomValidators } from 'src/app/models/CustomValidators';
   templateUrl: './players-add.component.html',
   styleUrls: ['./players-add.component.css']
 })
+
 export class PlayersAddComponent implements OnInit {
 
   birthDateForm = this.formBuilder.group({

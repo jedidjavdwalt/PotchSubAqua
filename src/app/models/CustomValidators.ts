@@ -4,7 +4,7 @@ export class CustomValidators {
 
   static tel() {
     return (control: AbstractControl): ValidationErrors | null => {
-      if (control.value && (control.value.toString().length < 9 || control.value.toString().length > 9)) {
+      if ((control.value || control.value === 0) && (control.value.toString().length < 9 || control.value.toString().length > 9)) {
         return {
           isNotPhone: true
         };

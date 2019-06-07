@@ -1,48 +1,64 @@
-<mat-card>
-  <mat-card-content>
+<div class="card powderblue-background border-none">
+  <div class="card-body">
     <form [formGroup]="inventoryItemForm">
-      <div class="row">
-        <div class="col-4">
-          <mat-form-field>
-            <mat-select formControlName="type" placeholder="type" required>
-              <mat-option value="Mask">Mask</mat-option>
-              <mat-option value="Snorkel">Snorkel</mat-option>
-              <mat-option value="Glove">Glove</mat-option>
-              <mat-option value="Stick">Stick</mat-option>
-              <mat-option value="Fins">Fins</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
+      <div class="form-group row align-items-center">
+        <label class="col-3 col-form-label text-right">Type:</label>
 
-        <div class="col-4">
-          <mat-form-field>
-            <input formControlName="number" type="number" matInput placeholder="number" required>
-          </mat-form-field>
-        </div>
+        <div class="col-9 text-left">
+          <span *ngIf="type.pristine || !type.value">*required</span>
 
-        <div class="col-4">
-          <mat-form-field>
-            <input formControlName="brand" type="text" matInput placeholder="brand" required>
-          </mat-form-field>
+          <select formControlName="type" class="form-control" required>
+            <option value="Mask">Mask</option>
+            <option value="Snorkel">Snorkel</option>
+            <option value="Glove">Glove</option>
+            <option value="Stick">Stick</option>
+            <option value="Fins">Fins</option>
+          </select>
         </div>
+      </div>
 
-        <div class="col-4">
-          <mat-form-field>
-            <input formControlName="color" type="text" matInput placeholder="color" required>
-          </mat-form-field>
+      <div class="form-group row align-items-center">
+        <label class="col-3 col-form-label text-right">Number:</label>
+        <div class="col-9 text-left">
+          <span *ngIf="number.pristine || !number.value">*required</span>
+
+          <input formControlName="number" type="number" class="form-control" placeholder="Number" required>
         </div>
+      </div>
 
-        <div class="col-4">
-          <mat-form-field>
-            <input formControlName="description" type="text" matInput placeholder="description" required>
-          </mat-form-field>
+      <div class="form-group row align-items-center">
+        <label class="col-3 col-form-label text-right">Brand:</label>
+        <div class="col-9 text-left">
+          <span *ngIf="brand.pristine || !brand.value">*required</span>
+
+          <input formControlName="brand" type="text" class="form-control" placeholder="Brand" required>
+        </div>
+      </div>
+
+      <div class="form-group row align-items-center">
+        <label class="col-3 col-form-label text-right">Color:</label>
+        <div class="col-9 text-left">
+          <span *ngIf="color.pristine || !color.value">*required</span>
+
+          <input formControlName="color" type="text" class="form-control" placeholder="Color" required>
+        </div>
+      </div>
+
+      <div class="form-group row align-items-center">
+        <label class="col-3 col-form-label text-right">Description:</label>
+        <div class="col-9 text-left">
+          <span *ngIf="description.pristine || !description.value">*required</span>
+
+          <input formControlName="description" type="text" class="form-control" placeholder="Description" required>
         </div>
       </div>
     </form>
-  </mat-card-content>
 
-  <mat-card-actions>
-    <button type="submit" (click)="onAddClick()" [disabled]="!inventoryItemForm.valid" mat-raised-button
-      color="primary">Add</button>
-  </mat-card-actions>
-</mat-card>
+    <div class="row">
+      <div class="col-12 text-center">
+        <button class="btn btn-block midnightblue-background text-white"
+          [disabled]="inventoryItemForm.invalid" (click)="onAddClick()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>

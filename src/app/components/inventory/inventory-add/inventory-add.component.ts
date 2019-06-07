@@ -23,6 +23,26 @@ export class InventoryAddComponent implements OnInit {
     private formBuilder: FormBuilder,
   ) { }
 
+  get type() {
+    return this.inventoryItemForm.get('type');
+  }
+
+  get number() {
+    return this.inventoryItemForm.get('number');
+  }
+
+  get brand() {
+    return this.inventoryItemForm.get('brand');
+  }
+
+  get color() {
+    return this.inventoryItemForm.get('color');
+  }
+
+  get description() {
+    return this.inventoryItemForm.get('description');
+  }
+
   onAddClick() {
     const newInventoryItem = {
       type: this.inventoryItemForm.controls.type.value,
@@ -33,9 +53,9 @@ export class InventoryAddComponent implements OnInit {
     } as InventoryItem;
 
     this.inventoryService.createInventoryItemToAdd(newInventoryItem);
+
     this.inventoryItemForm.reset();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 }

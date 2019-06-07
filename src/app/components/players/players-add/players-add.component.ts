@@ -118,6 +118,7 @@ export class PlayersAddComponent implements OnInit {
 
   onAddClick() {
     let newPlayer = {} as Player;
+
     if (this.parentRequired()) {
       newPlayer = {
         birthDate: this.calculateBirthDate(),

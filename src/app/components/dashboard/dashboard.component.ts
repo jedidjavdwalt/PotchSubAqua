@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit {
   selectedInventoryItem = null;
 
   rentals = [];
-  selectedRental = {} as Rental;
+  selectedRental = null;
   availableMasks = [];
   availableSnorkels = [];
   availableGloves = [];
@@ -69,16 +69,32 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
-    private angularFirestore: AngularFirestore,
-    private playersService: PlayersService,
-    private inventoryService: InventoryService,
-    private rentalsService: RentalsService,
   ) { }
 
   primaryClicked(btn: string) {
     this.primaryBtn = btn;
     this.secondaryBtn = undefined;
     this.tertiaryBtn = undefined;
+
+    switch (this.primaryBtn) {
+      case 'Players':
+        this.selectedInventoryItem = null;
+        this.selectedRental = null;
+        break;
+
+      case 'Inventory Items':
+        this.selectedPlayer = null;
+        this.selectedRental = null;
+        break;
+
+      case 'Rentals':
+        this.selectedPlayer = null;
+        this.selectedInventoryItem = null;
+        break;
+
+      default:
+        break;
+    }
   }
 
   secondaryClicked(btn: string) {
@@ -88,12 +104,120 @@ export class DashboardComponent implements OnInit {
     this.secondaryBtn === 'Add'
       ? this.displayAdd()
       : this.displayList();
+
+    switch (this.secondaryBtn) {
+      case 'Senior':
+        this.selectedPlayer = null;
+        break;
+
+      case 'U19':
+        this.selectedPlayer = null;
+        break;
+
+      case 'U15':
+        this.selectedPlayer = null;
+        break;
+
+      case 'U13':
+        this.selectedPlayer = null;
+        break;
+
+      case 'U10':
+        this.selectedPlayer = null;
+        break;
+
+      case 'Add':
+        this.selectedPlayer = null;
+        this.selectedInventoryItem = null;
+        this.selectedRental = null;
+        break;
+
+      case 'Status':
+        this.selectedInventoryItem = null;
+        break;
+
+      case 'Inventory Item Type':
+        this.selectedInventoryItem = null;
+        break;
+
+      case 'Action Required':
+        this.selectedRental = null;
+        break;
+
+      case 'Rental Type':
+        this.selectedRental = null;
+        break;
+
+      default:
+        break;
+    }
   }
 
   tertiaryClicked(btn: string) {
     this.tertiaryBtn = btn;
 
     this.displayList();
+
+    switch (this.tertiaryBtn) {
+      case 'Female':
+        this.selectedPlayer = null;
+        break;
+
+      case 'Male':
+        this.selectedPlayer = null;
+        break;
+
+      case 'Available':
+        this.selectedInventoryItem = null;
+        break;
+
+      case 'Rented':
+        this.selectedInventoryItem = null;
+        break;
+
+      case 'Mask':
+        this.selectedInventoryItem = null;
+        break;
+
+      case 'Snorkel':
+        this.selectedInventoryItem = null;
+        break;
+
+      case 'Glove':
+        this.selectedInventoryItem = null;
+        break;
+
+      case 'Stick':
+        this.selectedInventoryItem = null;
+        break;
+
+      case 'Fins':
+        this.selectedInventoryItem = null;
+        break;
+
+      case 'Admin':
+        this.selectedRental = null;
+        break;
+
+      case 'Player':
+        this.selectedRental = null;
+        break;
+
+      case 'Day':
+        this.selectedRental = null;
+        break;
+
+      case 'Beginner':
+        this.selectedRental = null;
+        break;
+
+      case 'Season':
+        this.selectedRental = null;
+        break;
+
+      default:
+        break;
+    }
   }
 
   shouldDisplayPlayersList() {
@@ -104,7 +228,7 @@ export class DashboardComponent implements OnInit {
     return false;
   }
 
-  shouldDisplayInventoryItemsList() {
+  shouldDisplayInventoryItemsList(btn?: string) {
     if (this.primaryBtn === 'Inventory Items' && this.secondaryBtn && this.secondaryBtn !== 'Add' && this.tertiaryBtn) {
       return true;
     }
@@ -112,7 +236,7 @@ export class DashboardComponent implements OnInit {
     return false;
   }
 
-  shouldDisplayRentalsList() {
+  shouldDisplayRentalsList(btn?: string) {
     if (this.primaryBtn === 'Rentals' && this.secondaryBtn && this.secondaryBtn !== 'Add' && this.tertiaryBtn) {
       return true;
     }

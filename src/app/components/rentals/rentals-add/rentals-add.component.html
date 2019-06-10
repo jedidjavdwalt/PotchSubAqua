@@ -1,44 +1,45 @@
-<div class="card powderblue-background border-none">
-  <div class="card-body">
-    <div class="row">
-      <div class="col-6">
-        <!-- rentalForm -->
-        <form [formGroup]="rentalForm">
-          <div class="form-group row align-items-center">
-            <label class="col-3 col-form-label text-right">Player:</label>
-            <div class="col-9 text-left">
-              <span *ngIf="player.pristine">*required</span>
+<div class="card cornflowerblue-background border-none">
+  <div class="card-body text-white">
 
-              <select formControlName="player" class="form-control" required>
-                <option *ngFor="let player of players" [value]="player.playerFullName">{{player.playerFullName}}
-                </option>
-              </select>
-            </div>
-          </div>
+    <!-- rentalForm -->
+    <form [formGroup]="rentalForm">
+      <div class="form-group row align-items-center">
+        <label class="col-3 col-form-label text-right">Player:</label>
+        <div class="col-9 text-left">
+          <span *ngIf="player.pristine">*required</span>
 
-          <div class="form-group row align-items-center">
-            <label class="col-3 col-form-label text-right">Type:</label>
-            <div class="col-9 text-left">
-              <span *ngIf="type.pristine">*required</span>
-
-              <select formControlName="type" class="form-control" required>
-                <option value="Day">Day</option>
-                <option value="Beginner">Beginner</option>
-                <option value="Season">Season</option>
-              </select>
-            </div>
-          </div>
-
-          <div class="form-group row align-items-center">
-            <label class="col-3 col-form-label text-right">Fee Paid:</label>
-            <div class="col-9 text-left">
-              <input formControlName="feePaid" type="number" class="form-control" placeholder="Fee Paid">
-            </div>
-          </div>
-        </form>
+          <select formControlName="player" class="form-control" required>
+            <option *ngFor="let player of players" [value]="player.playerFullName">{{player.playerFullName}}
+            </option>
+          </select>
+        </div>
       </div>
 
-      <div class="col-6">
+      <div class="form-group row align-items-center">
+        <label class="col-3 col-form-label text-right">Type:</label>
+        <div class="col-9 text-left">
+          <span *ngIf="type.pristine">*required</span>
+
+          <select formControlName="type" class="form-control" required>
+            <option value="Day">Day</option>
+            <option value="Beginner">Beginner</option>
+            <option value="Season">Season</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group row align-items-center">
+        <label class="col-3 col-form-label text-right">Fee Paid:</label>
+        <div class="col-9 text-left">
+          <input formControlName="feePaid" type="number" class="form-control" placeholder="Fee Paid">
+        </div>
+      </div>
+    </form>
+
+    <div class="card royalblue-background border-none">
+      <div class="card-body">
+
+        <!-- inventoryItemsForm -->
         <div class="row">
           <div class="col-3"></div>
 
@@ -57,7 +58,6 @@
           </div>
         </div>
 
-        <!-- inventoryItemsForm -->
         <form [formGroup]="inventoryItemsForm">
           <div class="form-group row align-items-center">
             <label class="col-3 col-form-label text-right">Mask:</label>
@@ -112,10 +112,11 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row mt-3">
       <div class="col-12 text-center">
         <button class="btn btn-block midnightblue-background text-white"
-          [disabled]="rentalForm.invalid || (selectedMask.pristine && selectedSnorkel.pristine && selectedGlove.pristine && selectedStick.pristine && selectedFins.pristine)" (click)="onAddClick()">Add</button>
+          [disabled]="rentalForm.invalid || (selectedMask.pristine && selectedSnorkel.pristine && selectedGlove.pristine && selectedStick.pristine && selectedFins.pristine)"
+          (click)="onAddClick()">Add</button>
       </div>
     </div>
   </div>

@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-3">
       <div class="card lightsteelblue-background border-none">
-        <div class="card-body">
+        <div class="card-body text-white">
           <ng-container *ngFor="let button of buttons">
             <button class="btn btn-block midnightblue-background text-white" (click)="primaryClicked(button.id)">
               {{ button.id }}
@@ -28,7 +28,7 @@
 
     <div class="col-9">
       <div class="card lightsteelblue-background border-none">
-        <div class="card-body">
+        <div class="card-body text-white">
           <ng-container *ngIf="secondaryBtn === 'Add'">
             <app-players-add *ngIf="primaryBtn === 'Players'"></app-players-add>
 
@@ -42,7 +42,7 @@
           <ng-container *ngIf="shouldDisplayPlayersList()">
             <div class="row">
               <div class="col-4 mb-2" *ngFor="let player of players">
-                <button class="btn btn-block powderblue-background text-white" (click)="displayPlayersDetail(player)">
+                <button class="btn btn-block cornflowerblue-background text-white" (click)="displayPlayersDetail(player)">
                   {{ player.playerFullName }}
                 </button>
               </div>
@@ -52,7 +52,7 @@
           <ng-container *ngIf="shouldDisplayInventoryItemsList()">
             <div class="row">
               <div class="col-4 mb-2" *ngFor="let inventoryItem of inventoryItems">
-                <button class="btn btn-block powderblue-background text-white" (click)="displayInventoryDetail(inventoryItem)">
+                <button class="btn btn-block cornflowerblue-background text-white" (click)="displayInventoryDetail(inventoryItem)">
                   {{ inventoryItem.displayId }}
                 </button>
               </div>
@@ -62,7 +62,7 @@
           <ng-container *ngIf="shouldDisplayRentalsList()">
             <div class="row">
               <div class="col-6 mb-2" *ngFor="let rental of rentals">
-                <button class="btn btn-block powderblue-background text-white" (click)="displayRentalsDetail(rental)">
+                <button class="btn btn-block cornflowerblue-background text-white" (click)="displayRentalsDetail(rental)">
                   {{ rental.displayId }}
                 </button>
               </div>

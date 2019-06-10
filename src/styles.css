@@ -15,14 +15,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     background-color: cornflowerblue;
 }
 
-
 .lightsteelblue-background {
     background-color: lightsteelblue;
 }
 
-.powderblue-background {
+/* .powderblue-background {
     background-color: powderblue;
-}
+} */
 
 .border-none {
     border: none;

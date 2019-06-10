@@ -1,181 +1,122 @@
-<mat-card>
-  <mat-card-content>
-    <form [formGroup]="rentalForm">
-      <div class="row">
-        <div class="col-4">
-          <mat-form-field>
-            <mat-select formControlName="player" placeholder="player" required>
-              <mat-option *ngFor="let player of players" [value]="player.playerFullName">{{player.playerFullName}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
+<div class="card powderblue-background border-none">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-6">
+        <!-- rentalForm -->
+        <form [formGroup]="rentalForm">
+          <div class="form-group row align-items-center">
+            <label class="col-3 col-form-label text-right">Player:</label>
+            <div class="col-9 text-left">
+              <span *ngIf="player.pristine">*required</span>
 
-        <div class="col-4" formGroupName="inventoryItems">
-          <div class="col-4">
-            <mat-form-field>
-              <mat-select formControlName="selectedMask" placeholder="mask">
-                <mat-option *ngFor="let mask of availableMasks" [value]="mask.displayId">{{mask.displayId}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+              <select formControlName="player" class="form-control" required>
+                <option *ngFor="let player of players" [value]="player.playerFullName">{{player.playerFullName}}
+                </option>
+              </select>
+            </div>
           </div>
 
-          <div class="col-4">
-            <mat-form-field>
-              <mat-select formControlName="selectedSnorkel" placeholder="snorkel">
-                <mat-option *ngFor="let snorkel of availableSnorkels" [value]="snorkel.displayId">{{snorkel.displayId}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+          <div class="form-group row align-items-center">
+            <label class="col-3 col-form-label text-right">Type:</label>
+            <div class="col-9 text-left">
+              <span *ngIf="type.pristine">*required</span>
+
+              <select formControlName="type" class="form-control" required>
+                <option value="Day">Day</option>
+                <option value="Beginner">Beginner</option>
+                <option value="Season">Season</option>
+              </select>
+            </div>
           </div>
 
-          <div class="col-4">
-            <mat-form-field>
-              <mat-select formControlName="selectedGlove" placeholder="glove">
-                <mat-option *ngFor="let glove of availableGloves" [value]="glove.displayId">{{glove.displayId}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+          <div class="form-group row align-items-center">
+            <label class="col-3 col-form-label text-right">Fee Paid:</label>
+            <div class="col-9 text-left">
+              <input formControlName="feePaid" type="number" class="form-control" placeholder="Fee Paid">
+            </div>
           </div>
+        </form>
+      </div>
 
-          <div class="col-4">
-            <mat-form-field>
-              <mat-select formControlName="selectedStick" placeholder="stick">
-                <mat-option *ngFor="let stick of availableSticks" [value]="stick.displayId">{{stick.displayId}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
+      <div class="col-6">
+        <div class="row">
+          <div class="col-3"></div>
 
-          <div class="col-4">
-            <mat-form-field>
-              <mat-select formControlName="selectedFins" placeholder="fins">
-                <mat-option *ngFor="let fins of availableFins" [value]="fins.displayId">{{fins.displayId}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+          <div class="col-9">
+            <span>Inventory Items:</span>
           </div>
         </div>
 
-        <div class="col-4">
-          <mat-form-field>
-            <mat-select formControlName="type" placeholder="type" required>
-              <mat-option value="Day">Day</mat-option>
-              <mat-option value="Beginner">Beginner</mat-option>
-              <mat-option value="Season">Season</mat-option>
-            </mat-select>
-          </mat-form-field>
+        <div class="row">
+          <div class="col-3"></div>
+
+          <div class="col-9">
+            <span
+              *ngIf="selectedMask.pristine && selectedSnorkel.pristine && selectedGlove.pristine && selectedStick.pristine && selectedFins.pristine">*at
+              least one inventory item required</span>
+          </div>
         </div>
 
-        <div class="col-4">
-          <mat-form-field>
-            <input formControlName="feePaid" type="number" matInput placeholder="fee paid">
-          </mat-form-field>
-        </div>
+        <!-- inventoryItemsForm -->
+        <form [formGroup]="inventoryItemsForm">
+          <div class="form-group row align-items-center">
+            <label class="col-3 col-form-label text-right">Mask:</label>
+            <div class="col-9 text-left">
+              <select formControlName="selectedMask" class="form-control" required>
+                <option *ngFor="let availableMask of availableMasks" [value]="availableMask.displayId">
+                  {{availableMask.displayId}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row align-items-center">
+            <label class="col-3 col-form-label text-right">Snorkel:</label>
+            <div class="col-9 text-left">
+              <select formControlName="selectedSnorkel" class="form-control" required>
+                <option *ngFor="let availableSnorkel of availableSnorkels" [value]="availableSnorkel.displayId">
+                  {{availableSnorkel.displayId}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row align-items-center">
+            <label class="col-3 col-form-label text-right">Glove:</label>
+            <div class="col-9 text-left">
+              <select formControlName="selectedGlove" class="form-control" required>
+                <option *ngFor="let availableGlove of availableGloves" [value]="availableGlove.displayId">
+                  {{availableGlove.displayId}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row align-items-center">
+            <label class="col-3 col-form-label text-right">Stick:</label>
+            <div class="col-9 text-left">
+              <select formControlName="selectedStick" class="form-control" required>
+                <option *ngFor="let availableStick of availableSticks" [value]="availableStick.displayId">
+                  {{availableStick.displayId}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group row align-items-center">
+            <label class="col-3 col-form-label text-right">Fins:</label>
+            <div class="col-9 text-left">
+              <select formControlName="selectedFins" class="form-control" required>
+                <option *ngFor="let fins of availableFins" [value]="fins.displayId">
+                  {{fins.displayId}}</option>
+              </select>
+            </div>
+          </div>
+        </form>
       </div>
-    </form>
-  </mat-card-content>
+    </div>
 
-  <mat-card-actions>
-    <button type="submit" (click)="onAddClick()" [disabled]="!rentalForm.valid" mat-raised-button
-      color="primary">Add</button>
-  </mat-card-actions>
-</mat-card>
-
-<!-- <button class="btn btn-secondary btn-block" disabled>
-  <div class="form-row pb-2">
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text">
-          Player
-        </span>
+    <div class="row">
+      <div class="col-12 text-center">
+        <button class="btn btn-block midnightblue-background text-white"
+          [disabled]="rentalForm.invalid || (selectedMask.pristine && selectedSnorkel.pristine && selectedGlove.pristine && selectedStick.pristine && selectedFins.pristine)" (click)="onAddClick()">Add</button>
       </div>
-
-      <select class="form-control" [(ngModel)]="newRental.playerFullName" required>
-        <option hidden selected value="undefined">player</option>
-        <option *ngFor="let player of players">{{player.playerFullName}}</option>
-      </select>
     </div>
   </div>
-
-  <div class="form-row justify-content-center">
-    <div class="col-4">
-      <select class="form-control mb-2" [(ngModel)]="selectedRentalMask" required>
-        <option hidden selected value="undefined">mask</option>
-        <option *ngFor="let availableMask of availableMasks">
-          {{availableMask.displayId}}
-        </option>
-      </select>
-    </div>
-
-    <div class="col-4">
-      <select class="form-control mb-2" [(ngModel)]="selectedRentalSnorkel" required>
-        <option hidden selected value="undefined">snorkel</option>
-        <option *ngFor="let availableSnorkel of availableSnorkels">
-          {{availableSnorkel.displayId}}
-        </option>
-      </select>
-    </div>
-
-    <div class="col-4">
-      <select class="form-control mb-2" [(ngModel)]="selectedRentalGlove" required>
-        <option hidden selected value="undefined">glove</option>
-        <option *ngFor="let availableGlove of availableGloves">
-          {{availableGlove.displayId}}
-        </option>
-      </select>
-    </div>
-
-    <div class="col-4">
-      <select class="form-control mb-2" [(ngModel)]="selectedRentalStick" required>
-        <option hidden selected value="undefined">stick</option>
-        <option *ngFor="let availableStick of availableSticks">
-          {{availableStick.displayId}}
-        </option>
-      </select>
-    </div>
-
-    <div class="col-4">
-      <select class="form-control mb-2" [(ngModel)]="selectedRentalFins" required>
-        <option hidden selected value="undefined">fins</option>
-        <option *ngFor="let availableFin of availableFins">
-          {{availableFin.displayId}}
-        </option>
-      </select>
-    </div>
-  </div>
-
-  <div class="form-row pb-2">
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text">
-          Type
-        </span>
-      </div>
-
-      <select class="form-control" [(ngModel)]="newRental.type" required>
-        <option hidden selected value="undefined">type</option>
-        <option>Day</option>
-        <option>Beginner</option>
-        <option>Seasonal</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="form-row pb-2">
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <span class="input-group-text">
-          Fee Paid
-        </span>
-      </div>
-
-      <input type="number" class="form-control" [(ngModel)]="newRental.feePaid" placeholder="fee paid" required>
-    </div>
-  </div>
-</button>
-
-<button class="btn btn-success btn-block" (click)="addClicked()">
-  Add
-</button> -->
+</div>

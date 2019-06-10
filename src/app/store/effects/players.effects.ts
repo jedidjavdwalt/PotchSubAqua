@@ -23,8 +23,6 @@ export class PlayersEffects {
         }),
         mergeMap(actions => actions),
         map(action => {
-            console.log(action.payload);
-
             if (action.type === 'added') {
                 return new actions.GetPlayerSuccess(new Player(action.payload.doc.data() as PlayerData));
             }

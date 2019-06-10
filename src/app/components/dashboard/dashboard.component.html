@@ -61,7 +61,7 @@
 
           <ng-container *ngIf="shouldDisplayRentalsList()">
             <div class="row">
-              <div class="col-4 mb-2" *ngFor="let rental of rentals">
+              <div class="col-6 mb-2" *ngFor="let rental of rentals">
                 <button class="btn btn-block powderblue-background text-white" (click)="displayRentalsDetail(rental)">
                   {{ rental.displayId }}
                 </button>

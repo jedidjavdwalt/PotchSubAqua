@@ -114,14 +114,11 @@ export class RentalsService {
   }
 
   addRental(rental: Rental) {
-    this.angularFirestore.collection('/rentals/').doc(rental.docId).get().subscribe(snapShot => {
-      if (!snapShot.exists) {
-        this.angularFirestore.collection('/rentals/').doc(rental.docId).set(rental);
-        alert(rental.displayId + ' added');
-        this.updateInventoryItemsStatuses(rental);
-      } else {
-        alert(rental.displayId + ' already exists');
-      }
+    this.angularFirestore.collection('/rentals/').doc(rental.docId).set(rental).then(() => {
+      alert(rental.displayId + ' added');
+      this.updateInventoryItemsStatuses(rental);
+    }).catch(error => {
+      alert(error);
     });
   }
 
@@ -133,19 +130,24 @@ export class RentalsService {
         if (snapShot.size === 1) {
           inventoryItemToUpdate = new InventoryItem(snapShot.docs[0].data() as InventoryItemData);
           inventoryItemToUpdate.status = 'Rented';
-          this.angularFirestore.collection('/inventory/').doc(inventoryItemToUpdate.docId).update(inventoryItemToUpdate.toData());
-          if (inventoryItemToUpdate.type === 'Mask') {
-            this.store.dispatch(new inventoryActions.RequestGetAvailableMasks());
-          } else if (inventoryItemToUpdate.type === 'Snorkel') {
-            this.store.dispatch(new inventoryActions.RequestGetAvailableSnorkels());
-          } else if (inventoryItemToUpdate.type === 'Glove') {
-            this.store.dispatch(new inventoryActions.RequestGetAvailableGloves());
-          } else if (inventoryItemToUpdate.type === 'Stick') {
-            this.store.dispatch(new inventoryActions.RequestGetAvailableSticks());
-          } else if (inventoryItemToUpdate.type === 'Fins') {
-            this.store.dispatch(new inventoryActions.RequestGetAvailableFins());
-          }
-          alert(inventoryItemToUpdate.displayId + ' status updated');
+          this.angularFirestore.collection('/inventory/').doc(inventoryItemToUpdate.docId).update(inventoryItemToUpdate.toData())
+          .then(() => {
+            if (inventoryItemToUpdate.type === 'Mask') {
+              this.store.dispatch(new inventoryActions.RequestGetAvailableMasks());
+            } else if (inventoryItemToUpdate.type === 'Snorkel') {
+              this.store.dispatch(new inventoryActions.RequestGetAvailableSnorkels());
+            } else if (inventoryItemToUpdate.type === 'Glove') {
+              this.store.dispatch(new inventoryActions.RequestGetAvailableGloves());
+            } else if (inventoryItemToUpdate.type === 'Stick') {
+              this.store.dispatch(new inventoryActions.RequestGetAvailableSticks());
+            } else if (inventoryItemToUpdate.type === 'Fins') {
+              this.store.dispatch(new inventoryActions.RequestGetAvailableFins());
+            }
+            alert('Inventory item(s) status(es) updated');
+          })
+          .catch(error => {
+            alert(error);
+          });
         } else if (snapShot.size === 0) {
           alert(inventoryItem + ' not found');
           return;

@@ -10,6 +10,7 @@ import { FormBuilder, Validators, FormGroup, FormControl, ValidatorFn, Validatio
   templateUrl: './rentals-add.component.html',
   styleUrls: ['./rentals-add.component.css']
 })
+
 export class RentalsAddComponent implements OnInit {
 
   @Input() players: Player[];
@@ -21,70 +22,88 @@ export class RentalsAddComponent implements OnInit {
 
   rentalForm = new FormGroup({
     player: new FormControl(null, Validators.required),
-    inventoryItems: new FormGroup({
-      selectedMask: new FormControl(null),
-      selectedSnorkel: new FormControl(null),
-      selectedGlove: new FormControl(null),
-      selectedStick: new FormControl(null),
-      selectedFins: new FormControl(null),
-    }),
     type: new FormControl(null, Validators.required),
     feePaid: new FormControl(null),
   });
 
+  inventoryItemsForm = new FormGroup({
+    selectedMask: new FormControl(null),
+    selectedSnorkel: new FormControl(null),
+    selectedGlove: new FormControl(null),
+    selectedStick: new FormControl(null),
+    selectedFins: new FormControl(null),
+  });
+
   constructor(
     private rentalService: RentalsService,
-  ) {
+  ) { }
+
+  get player() {
+    return this.rentalForm.get('player');
+  }
+
+  get type() {
+    return this.rentalForm.get('type');
+  }
+
+  get feePaid() {
+    return this.rentalForm.get('feePaid');
+  }
+
+  get selectedMask() {
+    return this.inventoryItemsForm.get('selectedMask');
+  }
+
+  get selectedSnorkel() {
+    return this.inventoryItemsForm.get('selectedSnorkel');
+  }
+
+  get selectedGlove() {
+    return this.inventoryItemsForm.get('selectedGlove');
+  }
+
+  get selectedStick() {
+    return this.inventoryItemsForm.get('selectedStick');
+  }
+
+  get selectedFins() {
+    return this.inventoryItemsForm.get('selectedFins');
   }
 
   onAddClick() {
-    const newSelectedMask = this.rentalForm.controls.inventoryItems.get('selectedMask');
-    const newSelectedSnorkel = this.rentalForm.controls.inventoryItems.get('selectedSnorkel');
-    const newSelectedGlove = this.rentalForm.controls.inventoryItems.get('selectedGlove');
-    const newSelectedStick = this.rentalForm.controls.inventoryItems.get('selectedStick');
-    const newSelectedFins = this.rentalForm.controls.inventoryItems.get('selectedFins');
+    const newInventoryItems = [];
 
-    if (
-      !newSelectedMask.value &&
-      !newSelectedSnorkel.value &&
-      !newSelectedGlove.value &&
-      !newSelectedStick.value &&
-      !newSelectedFins.value
-    ) {
-      alert('No inventory items selected');
-    } else {
-      const newInventoryItems = [];
-
-      if (newSelectedMask.value) {
-        newInventoryItems.push(newSelectedMask.value);
-      }
-
-      if (newSelectedSnorkel.value) {
-        newInventoryItems.push(newSelectedSnorkel.value);
-      }
-
-      if (newSelectedGlove.value) {
-        newInventoryItems.push(newSelectedGlove.value);
-      }
-
-      if (newSelectedStick.value) {
-        newInventoryItems.push(newSelectedStick.value);
-      }
-
-      if (newSelectedFins.value) {
-        newInventoryItems.push(newSelectedFins.value);
-      }
-
-      const newRental: Rental = {
-        player: this.rentalForm.controls.player.value,
-        inventoryItems: newInventoryItems,
-        type: this.rentalForm.controls.type.value,
-        feePaid: this.rentalForm.controls.feePaid.value,
-      } as Rental;
-
-      this.rentalService.createRentalToAdd(newRental);
-      this.rentalForm.reset();
+    if (this.selectedMask.value) {
+      newInventoryItems.push(this.selectedMask.value);
     }
+
+    if (this.selectedSnorkel.value) {
+      newInventoryItems.push(this.selectedSnorkel.value);
+    }
+
+    if (this.selectedGlove.value) {
+      newInventoryItems.push(this.selectedGlove.value);
+    }
+
+    if (this.selectedStick.value) {
+      newInventoryItems.push(this.selectedStick.value);
+    }
+
+    if (this.selectedFins.value) {
+      newInventoryItems.push(this.selectedFins.value);
+    }
+
+    const newRental: Rental = {
+      player: this.player.value,
+      inventoryItems: newInventoryItems,
+      type: this.type.value,
+      feePaid: this.feePaid.value,
+    } as Rental;
+
+    this.rentalService.createRentalToAdd(newRental);
+
+    this.rentalForm.reset();
+    this.inventoryItemsForm.reset();
   }
 
   ngOnInit() {

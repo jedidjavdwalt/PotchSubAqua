@@ -1,64 +1,86 @@
 <div class="card cornflowerblue-background border-none">
   <div class="card-body text-white">
     <form [formGroup]="inventoryItemForm">
-      <div class="form-group row align-items-center">
-        <label class="col-3 col-form-label text-right">Type:</label>
+      <div class="form-group align-items-center m-0">
+        <div class="row">
+          <div class="col-6">
+            <label class="col-form-label text-right">Type:</label>
+          </div>
 
-        <div class="col-9 text-left">
-          <span *ngIf="type.pristine || !type.value">*required</span>
-
-          <select formControlName="type" class="form-control" required>
-            <option value="Mask">Mask</option>
-            <option value="Snorkel">Snorkel</option>
-            <option value="Glove">Glove</option>
-            <option value="Stick">Stick</option>
-            <option value="Fins">Fins</option>
-          </select>
+          <div class="col-6 text-right align-self-center">
+            <span *ngIf="type.pristine">*required</span>
+          </div>
         </div>
+
+        <select formControlName="type" class="form-control" required>
+          <option value="Mask">Mask</option>
+          <option value="Snorkel">Snorkel</option>
+          <option value="Glove">Glove</option>
+          <option value="Stick">Stick</option>
+          <option value="Fins">Fins</option>
+        </select>
       </div>
 
-      <div class="form-group row align-items-center">
-        <label class="col-3 col-form-label text-right">Number:</label>
-        <div class="col-9 text-left">
-          <span *ngIf="number.pristine || !number.value">*required</span>
+      <div class="form-group align-items-center m-0">
+        <div class="row">
+          <div class="col-6">
+            <label class="col-form-label text-right">Number:</label>
+          </div>
 
-          <input formControlName="number" type="number" class="form-control" placeholder="Number" required>
+          <div class="col-6 text-right align-self-center">
+            <span *ngIf="number.pristine">*required</span>
+          </div>
         </div>
+
+        <input formControlName="number" type="number" class="form-control" placeholder="Number" required>
       </div>
 
-      <div class="form-group row align-items-center">
-        <label class="col-3 col-form-label text-right">Brand:</label>
-        <div class="col-9 text-left">
-          <span *ngIf="brand.pristine || !brand.value">*required</span>
+      <div class="form-group align-items-center m-0">
+        <div class="row">
+          <div class="col-6">
+            <label class="col-form-label text-right">Brand:</label>
+          </div>
 
-          <input formControlName="brand" type="text" class="form-control" placeholder="Brand" required>
+          <div class="col-6 text-right align-self-center">
+            <span *ngIf="brand.pristine">*required</span>
+          </div>
         </div>
+
+        <input formControlName="brand" type="text" class="form-control" placeholder="Brand" required>
       </div>
 
-      <div class="form-group row align-items-center">
-        <label class="col-3 col-form-label text-right">Color:</label>
-        <div class="col-9 text-left">
-          <span *ngIf="color.pristine || !color.value">*required</span>
+      <div class="form-group align-items-center m-0">
+        <div class="row">
+          <div class="col-6">
+            <label class="col-form-label text-right">Color:</label>
+          </div>
 
-          <input formControlName="color" type="text" class="form-control" placeholder="Color" required>
+          <div class="col-6 text-right align-self-center">
+            <span *ngIf="color.pristine">*required</span>
+          </div>
         </div>
+
+        <input formControlName="color" type="text" class="form-control" placeholder="Color" required>
       </div>
 
-      <div class="form-group row align-items-center">
-        <label class="col-3 col-form-label text-right">Description:</label>
-        <div class="col-9 text-left">
-          <span *ngIf="description.pristine || !description.value">*required</span>
+      <div class="form-group align-items-center">
+        <div class="row">
+          <div class="col-6">
+            <label class="col-form-label text-right">Description:</label>
+          </div>
 
-          <input formControlName="description" type="text" class="form-control" placeholder="Description" required>
+          <div class="col-6 text-right align-self-center">
+            <span *ngIf="description.pristine">*required</span>
+          </div>
         </div>
+
+        <input formControlName="description" type="text" class="form-control" placeholder="Description" required>
       </div>
     </form>
 
-    <div class="row">
-      <div class="col-12 text-center">
-        <button class="btn btn-block midnightblue-background text-white"
-          [disabled]="inventoryItemForm.invalid" (click)="onAddClick()">Add</button>
-      </div>
-    </div>
+    <button class="btn btn-block midnightblue-background text-white" [disabled]="inventoryItemForm.invalid"
+      (click)="onAddClick()">
+      Add
+    </button>
   </div>
 </div>

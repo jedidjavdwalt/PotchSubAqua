@@ -107,7 +107,7 @@
             </select>
           </div>
 
-          <div class="form-group align-items-center">
+          <div class="form-group align-items-center m-0">
             <label class="col-form-label text-right">Fins:</label>
 
             <select formControlName="selectedFins" class="form-control">
@@ -121,7 +121,7 @@
       </div>
     </div>
 
-    <button class="btn btn-block midnightblue-background text-white"
+    <button class="btn btn-block midnightblue-background text-white mt-3"
       [disabled]="rentalForm.invalid || (!selectedMask.value && !selectedSnorkel.value && !selectedGlove.value && !selectedStick.value && !selectedFins.value)"
       (click)="onAddClick()">
       Add

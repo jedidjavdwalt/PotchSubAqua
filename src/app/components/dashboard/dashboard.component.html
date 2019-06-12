@@ -1,6 +1,6 @@
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-3">
+  <div class="row pb-3">
+    <div class="col-12 col-lg-3 pt-3">
       <div class="card lightsteelblue-background border-none">
         <div class="card-body text-white">
           <ng-container *ngFor="let button of buttons">
@@ -26,9 +26,10 @@
       </div>
     </div>
 
-    <div class="col-9">
-      <div class="card lightsteelblue-background border-none">
-        <div class="card-body text-white">
+    <div class="col-12 col-lg-9 pt-3">
+      <div class="card lightsteelblue-background border-none"
+        *ngIf="secondaryBtn === 'Add' || shouldDisplayPlayersList() || shouldDisplayInventoryItemsList() || shouldDisplayRentalsList() || selectedPlayer || selectedInventoryItem || selectedRental">
+        <div class="card-body text-white pb-0">
           <ng-container *ngIf="secondaryBtn === 'Add'">
             <app-players-add *ngIf="primaryBtn === 'Players'"></app-players-add>
 
@@ -41,8 +42,9 @@
 
           <ng-container *ngIf="shouldDisplayPlayersList()">
             <div class="row">
-              <div class="col-4 mb-2" *ngFor="let player of players">
-                <button class="btn btn-block cornflowerblue-background text-white" (click)="displayPlayersDetail(player)">
+              <div class="col-12 col-lg-4 mb-3" *ngFor="let player of players">
+                <button class="btn btn-block cornflowerblue-background text-white"
+                  (click)="displayPlayersDetail(player)">
                   {{ player.playerFullName }}
                 </button>
               </div>
@@ -51,8 +53,9 @@
 
           <ng-container *ngIf="shouldDisplayInventoryItemsList()">
             <div class="row">
-              <div class="col-4 mb-2" *ngFor="let inventoryItem of inventoryItems">
-                <button class="btn btn-block cornflowerblue-background text-white" (click)="displayInventoryDetail(inventoryItem)">
+              <div class="col-12 col-lg-4 mb-3" *ngFor="let inventoryItem of inventoryItems">
+                <button class="btn btn-block cornflowerblue-background text-white"
+                  (click)="displayInventoryDetail(inventoryItem)">
                   {{ inventoryItem.displayId }}
                 </button>
               </div>
@@ -61,19 +64,29 @@
 
           <ng-container *ngIf="shouldDisplayRentalsList()">
             <div class="row">
-              <div class="col-6 mb-2" *ngFor="let rental of rentals">
-                <button class="btn btn-block cornflowerblue-background text-white" (click)="displayRentalsDetail(rental)">
+              <div class="col-12 col-lg-6 mb-3" *ngFor="let rental of rentals">
+                <button class="btn btn-block cornflowerblue-background text-white"
+                  (click)="displayRentalsDetail(rental)">
                   {{ rental.displayId }}
                 </button>
               </div>
             </div>
           </ng-container>
 
-          <app-players-detail *ngIf="selectedPlayer" [selectedPlayer]="selectedPlayer"></app-players-detail>
+          <div class="row">
+            <div class="col-12 mb-3" *ngIf="selectedPlayer">
+              <app-players-detail [selectedPlayer]="selectedPlayer"></app-players-detail>
+            </div>
 
-          <app-inventory-detail *ngIf="selectedInventoryItem" [selectedInventoryItem]="selectedInventoryItem"></app-inventory-detail>
+            <div class="col-12 mb-3" *ngIf="selectedInventoryItem">
+              <app-inventory-detail [selectedInventoryItem]="selectedInventoryItem">
+              </app-inventory-detail>
+            </div>
 
-          <app-rentals-detail *ngIf="selectedRental" [selectedRental]="selectedRental"></app-rentals-detail>
+            <div class="col-12 mb-3" *ngIf="selectedRental">
+              <app-rentals-detail [selectedRental]="selectedRental"></app-rentals-detail>
+            </div>
+          </div>
         </div>
       </div>
     </div>

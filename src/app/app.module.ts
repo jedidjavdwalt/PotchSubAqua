@@ -1,22 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from '@angular/fire';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-  MatDatepickerModule,
-  MatInputModule,
-  MatNativeDateModule,
-  MatSelectModule,
-  MatOptionModule,
-  MatFormFieldModule,
-  MatCardModule,
-  MatButtonModule
-} from '@angular/material';
 
 import { environment } from '../environments/environment';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -52,7 +41,6 @@ import { RentalsDetailComponent } from './components/rentals/rentals-detail/rent
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
     StoreModule.forRoot({
       playersState: playersReducers.playersReducer,
@@ -67,14 +55,6 @@ import { RentalsDetailComponent } from './components/rentals/rentals-detail/rent
     StoreDevtoolsModule.instrument(),
     FormsModule,
     ReactiveFormsModule,
-    MatDatepickerModule,
-    MatInputModule,
-    MatNativeDateModule,
-    MatSelectModule,
-    MatOptionModule,
-    MatFormFieldModule,
-    MatCardModule,
-    MatButtonModule,
   ],
   providers: [
     AngularFirestore,

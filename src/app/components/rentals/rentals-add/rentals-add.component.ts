@@ -73,6 +73,9 @@ export class RentalsAddComponent implements OnInit {
   onAddClick() {
     const newInventoryItems = [];
 
+    console.log(this.selectedMask.value);
+    
+
     if (this.selectedMask.value) {
       newInventoryItems.push(this.selectedMask.value);
     }

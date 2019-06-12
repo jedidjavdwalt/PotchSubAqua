@@ -3,128 +3,168 @@
 
     <!-- birthDateForm -->
     <form [formGroup]="birthDateForm">
-      <div class="form-group row align-items-center">
-        <label class="col-3 col-form-label text-right">Birth Date:</label>
-        <div class="col-9 text-left">
-          <span *ngIf="birthDate.pristine">*required</span>
-          <span *ngIf="birthDate.dirty && birthDate.invalid">*invalid birth date</span>
+      <div class="form-group align-items-center m-0">
+        <div class="row">
+          <div class="col-6">
+            <label class="col-form-label text-right">Birth Date:</label>
+          </div>
 
-          <input formControlName="birthDate" type="date" [max]="calculateMaxDate()" class="form-control" required>
+          <div class="col-6 text-right align-self-center">
+            <span *ngIf="birthDate.pristine">*required</span>
+            <span *ngIf="birthDate.dirty && birthDate.invalid">*invalid birth date</span>
+          </div>
         </div>
+
+        <input formControlName="birthDate" type="date" [max]="calculateMaxDate()" class="form-control" required>
       </div>
     </form>
 
     <!-- parentForm -->
     <form *ngIf="parentRequired()" [formGroup]="parentForm">
-      <div class="form-group row align-items-center">
-        <label class="col-3 col-form-label text-right">Parent Full Name:</label>
-        <div class="col-9 text-left">
-          <span *ngIf="parentFullName.pristine">*required</span>
-          <span *ngIf="parentFullName.dirty && parentFullName.invalid">*name and surname required</span>
+      <div class="form-group align-items-center m-0">
+        <div class="row">
+          <div class="col-6">
+            <label class="col-form-label text-right">Parent Full Name:</label>
+          </div>
 
-          <input formControlName="parentFullName" type="text" class="form-control" placeholder="Parent Full Name"
-            required>
+          <div class="col-6 text-right align-self-center">
+            <span *ngIf="parentFullName.pristine">*required</span>
+            <span *ngIf="parentFullName.dirty && parentFullName.invalid">*name and surname required</span>
+          </div>
         </div>
+
+        <input formControlName="parentFullName" type="text" class="form-control" placeholder="Parent Full Name"
+          required>
       </div>
 
-      <div class="form-group row align-items-center">
-        <label class="col-3 col-form-label text-right">Parent Cell:</label>
-        <div class="col-9 text-left">
-          <span *ngIf="parentCell.pristine">*required</span>
-          <span *ngIf="parentCell.dirty && parentCell.invalid">*valid cell required</span>
+      <div class="form-group align-items-center m-0">
+        <div class="row">
+          <div class="col-6">
+            <label class="col-form-label text-right">Parent Cell:</label>
+          </div>
 
-          <input formControlName="parentCell" type="number" class="form-control" placeholder="Parent Cell" required>
+          <div class="col-6 text-right align-self-center">
+            <span *ngIf="parentCell.pristine">*required</span>
+            <span *ngIf="parentCell.dirty && parentCell.invalid">*valid cell required</span>
+          </div>
         </div>
+
+        <input formControlName="parentCell" type="number" class="form-control" placeholder="Parent Cell" required>
       </div>
     </form>
 
     <!-- juniorPlayerForm -->
     <form *ngIf="parentRequired()" [formGroup]="juniorPlayerForm">
-      <div class="form-group row align-items-center">
-        <label class="col-3 col-form-label text-right">Player Full Name:</label>
-        <div class="col-9 text-left">
-          <span *ngIf="juniorPlayerFullName.pristine">*required</span>
-          <span *ngIf="juniorPlayerFullName.dirty && juniorPlayerFullName.invalid">*name and surname required</span>
+      <div class="form-group align-items-center m-0">
+        <div class="row">
+          <div class="col-6">
+            <label class="col-form-label text-right">Player Full Name:</label>
+          </div>
 
-          <input formControlName="juniorPlayerFullName" type="text" class="form-control" placeholder="Player Full Name"
-            required>
+          <div class="col-6 text-right align-self-center">
+            <span *ngIf="juniorPlayerFullName.pristine">*required</span>
+            <span *ngIf="juniorPlayerFullName.dirty && juniorPlayerFullName.invalid">*name and surname required</span>
+          </div>
         </div>
+
+        <input formControlName="juniorPlayerFullName" type="text" class="form-control" placeholder="Player Full Name"
+          required>
       </div>
 
-      <div class="form-group row align-items-center">
-        <label class="col-3 col-form-label text-right">Player Cell:</label>
-        <div class="col-9 text-left">
-          <span *ngIf="juniorPlayerCell.dirty && juniorPlayerCell.invalid">*valid cell required</span>
+      <div class="form-group align-items-center m-0">
+        <div class="row">
+          <div class="col-6">
+            <label class="col-form-label text-right">Player Cell:</label>
+          </div>
 
-          <input formControlName="juniorPlayerCell" type="number" class="form-control" placeholder="Player Cell">
+          <div class="col-6 text-right align-self-center">
+            <span *ngIf="juniorPlayerCell.dirty && juniorPlayerCell.invalid">*valid cell required</span>
+          </div>
         </div>
+
+        <input formControlName="juniorPlayerCell" type="number" class="form-control" placeholder="Player Cell">
       </div>
 
-      <div class="form-group row align-items-center">
-        <label class="col-3 col-form-label text-right">Gender:</label>
-        <div class="col-9 text-left">
-          <span *ngIf="juniorPlayerGender.pristine">*required</span>
-          <span *ngIf="juniorPlayerGender.dirty && juniorPlayerGender.invalid">*valid selection required</span>
+      <div class="form-group align-items-center m-0">
+        <div class="row">
+          <div class="col-6">
+            <label class="col-form-label text-right">Gender:</label>
+          </div>
 
-          <select formControlName="juniorPlayerGender" class="form-control" required>
-            <option value="Female">Female</option>
-            <option value="Male">Male</option>
-          </select>
+          <div class="col-6 text-right align-self-center">
+            <span *ngIf="juniorPlayerGender.pristine">*required</span>
+            <span *ngIf="juniorPlayerGender.dirty && juniorPlayerGender.invalid">*valid selection required</span>
+          </div>
         </div>
+
+        <select formControlName="juniorPlayerGender" class="form-control" required>
+          <option value="Female">Female</option>
+          <option value="Male">Male</option>
+        </select>
       </div>
     </form>
 
     <!-- seniorPlayerForm -->
     <form *ngIf="birthDate.dirty && !parentRequired()" [formGroup]="seniorPlayerForm">
-      <div class="form-group row align-items-center">
-        <label class="col-3 col-form-label text-right">Player Full Name:</label>
-        <div class="col-9 text-left">
-          <span *ngIf="seniorPlayerFullName.pristine">*required</span>
-          <span *ngIf="seniorPlayerFullName.dirty && seniorPlayerFullName.invalid">*name and surname required</span>
+      <div class="form-group align-items-center m-0">
+        <div class="row">
+          <div class="col-6">
+            <label class="col-form-label text-right">Player Full Name:</label>
+          </div>
 
-          <input formControlName="seniorPlayerFullName" type="text" class="form-control" placeholder="Player Full Name"
-            required>
+          <div class="col-6 text-right align-self-center">
+            <span *ngIf="seniorPlayerFullName.pristine">*required</span>
+            <span *ngIf="seniorPlayerFullName.dirty && seniorPlayerFullName.invalid">*name and surname required</span>
+          </div>
         </div>
+
+        <input formControlName="seniorPlayerFullName" type="text" class="form-control" placeholder="Player Full Name"
+          required>
       </div>
 
-      <div class="form-group row align-items-center">
-        <label class="col-3 col-form-label text-right">Player Cell:</label>
-        <div class="col-9 text-left">
-          <span *ngIf="seniorPlayerCell.pristine">*required</span>
-          <span *ngIf="seniorPlayerCell.dirty && seniorPlayerCell.invalid">*valid cell required</span>
+      <div class="form-group align-items-center m-0">
+        <div class="row">
+          <div class="col-6">
+            <label class="col-form-label text-right">Player Cell:</label>
+          </div>
 
-          <input formControlName="seniorPlayerCell" type="number" class="form-control" placeholder="Player Cell"
-            required>
+          <div class="col-6 text-right align-self-center">
+            <span *ngIf="seniorPlayerCell.pristine">*required</span>
+            <span *ngIf="seniorPlayerCell.dirty && seniorPlayerCell.invalid">*valid cell required</span>
+          </div>
         </div>
+
+        <input formControlName="seniorPlayerCell" type="number" class="form-control" placeholder="Player Cell" required>
       </div>
 
-      <div class="form-group row align-items-center">
-        <label class="col-3 col-form-label text-right">Gender:</label>
-        <div class="col-9 text-left">
-          <span *ngIf="seniorPlayerGender.pristine">*required</span>
-          <span *ngIf="seniorPlayerGender.dirty && seniorPlayerGender.invalid">*valid selection required</span>
+      <div class="form-group align-items-center m-0">
+        <div class="row">
+          <div class="col-6">
+            <label class="col-form-label text-right">Gender:</label>
+          </div>
 
-          <select formControlName="seniorPlayerGender" class="form-control" required>
-            <option value="Female">Female</option>
-            <option value="Male">Male</option>
-          </select>
+          <div class="col-6 text-right align-self-center">
+            <span *ngIf="seniorPlayerGender.pristine">*required</span>
+            <span *ngIf="seniorPlayerGender.dirty && seniorPlayerGender.invalid">*valid selection required</span>
+          </div>
         </div>
+
+        <select formControlName="seniorPlayerGender" class="form-control" required>
+          <option value="Female">Female</option>
+          <option value="Male">Male</option>
+        </select>
       </div>
     </form>
 
-    <div class="row">
-      <div class="col-12 text-center">
-        <ng-container *ngIf="parentRequired()">
-          <button class="btn btn-block midnightblue-background text-white"
-            [disabled]="birthDateForm.invalid || parentForm.invalid || juniorPlayerForm.invalid"
-            (click)="onAddClick()">Add</button>
-        </ng-container>
+    <ng-container *ngIf="parentRequired()">
+      <button class="btn btn-block midnightblue-background text-white mt-3"
+        [disabled]="birthDateForm.invalid || parentForm.invalid || juniorPlayerForm.invalid"
+        (click)="onAddClick()">Add</button>
+    </ng-container>
 
-        <ng-container *ngIf="!parentRequired()">
-          <button class="btn btn-block midnightblue-background text-white"
-            [disabled]="birthDateForm.invalid || seniorPlayerForm.invalid" (click)="onAddClick()">Add</button>
-        </ng-container>
-      </div>
-    </div>
+    <ng-container *ngIf="!parentRequired()">
+      <button class="btn btn-block midnightblue-background text-white mt-3"
+        [disabled]="birthDateForm.invalid || seniorPlayerForm.invalid" (click)="onAddClick()">Add</button>
+    </ng-container>
   </div>
 </div>

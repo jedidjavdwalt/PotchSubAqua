@@ -30,48 +30,46 @@
       <div class="card lightsteelblue-background border-none"
         *ngIf="secondaryBtn === 'Add' || shouldDisplayPlayersList() || shouldDisplayInventoryItemsList() || shouldDisplayRentalsList() || selectedPlayer || selectedInventoryItem || selectedRental">
         <div class="card-body text-white pb-0">
-          <ng-container *ngIf="secondaryBtn === 'Add'">
-            <app-players-add *ngIf="primaryBtn === 'Players'"></app-players-add>
-
-            <app-inventory-add *ngIf="primaryBtn === 'Inventory Items'"></app-inventory-add>
-
-            <app-rentals-add *ngIf="primaryBtn === 'Rentals'" [players]="players" [availableMasks]="availableMasks"
-              [availableSnorkels]="availableSnorkels" [availableGloves]="availableGloves"
-              [availableSticks]="availableSticks" [availableFins]="availableFins"></app-rentals-add>
-          </ng-container>
-
-          <ng-container *ngIf="shouldDisplayPlayersList()">
-            <div class="row">
-              <div class="col-12 col-lg-4 mb-3" *ngFor="let player of players">
-                <button class="btn btn-block cornflowerblue-background text-white"
-                  (click)="displayPlayersDetail(player)">
-                  {{ player.playerFullName }}
-                </button>
-              </div>
+          <div class="row" *ngIf="secondaryBtn === 'Add'">
+            <div class="col-12 mb-3" *ngIf="primaryBtn === 'Players'">
+              <app-players-add></app-players-add>
             </div>
-          </ng-container>
 
-          <ng-container *ngIf="shouldDisplayInventoryItemsList()">
-            <div class="row">
-              <div class="col-12 col-lg-4 mb-3" *ngFor="let inventoryItem of inventoryItems">
-                <button class="btn btn-block cornflowerblue-background text-white"
-                  (click)="displayInventoryDetail(inventoryItem)">
-                  {{ inventoryItem.displayId }}
-                </button>
-              </div>
+            <div class="col-12 mb-3" *ngIf="primaryBtn === 'Inventory Items'">
+              <app-inventory-add></app-inventory-add>
             </div>
-          </ng-container>
 
-          <ng-container *ngIf="shouldDisplayRentalsList()">
-            <div class="row">
-              <div class="col-12 col-lg-6 mb-3" *ngFor="let rental of rentals">
-                <button class="btn btn-block cornflowerblue-background text-white"
-                  (click)="displayRentalsDetail(rental)">
-                  {{ rental.displayId }}
-                </button>
-              </div>
+            <div class="col-12 mb-3" *ngIf="primaryBtn === 'Rentals'">
+              <app-rentals-add [players]="players" [availableMasks]="availableMasks"
+                [availableSnorkels]="availableSnorkels" [availableGloves]="availableGloves"
+                [availableSticks]="availableSticks" [availableFins]="availableFins"></app-rentals-add>
             </div>
-          </ng-container>
+          </div>
+
+          <div class="row" *ngIf="shouldDisplayPlayersList()">
+            <div class="col-12 col-lg-4 mb-3" *ngFor="let player of players">
+              <button class="btn btn-block cornflowerblue-background text-white" (click)="displayPlayersDetail(player)">
+                {{ player.playerFullName }}
+              </button>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="shouldDisplayInventoryItemsList()">
+            <div class="col-12 col-lg-4 mb-3" *ngFor="let inventoryItem of inventoryItems">
+              <button class="btn btn-block cornflowerblue-background text-white"
+                (click)="displayInventoryDetail(inventoryItem)">
+                {{ inventoryItem.displayId }}
+              </button>
+            </div>
+          </div>
+
+          <div class="row" *ngIf="shouldDisplayRentalsList()">
+            <div class="col-12 col-lg-6 mb-3" *ngFor="let rental of rentals">
+              <button class="btn btn-block cornflowerblue-background text-white" (click)="displayRentalsDetail(rental)">
+                {{ rental.displayId }}
+              </button>
+            </div>
+          </div>
 
           <div class="row">
             <div class="col-12 mb-3" *ngIf="selectedPlayer">

@@ -69,6 +69,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
+    private rentalService: RentalsService,
   ) { }
 
   primaryClicked(btn: string) {
@@ -358,6 +359,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.sliceAppState();
+    this.rentalService.getRentalsToCheck();
   }
 
 }

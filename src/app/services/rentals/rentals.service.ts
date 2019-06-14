@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Rental } from 'src/app/models/Rental';
+import { Rental, RentalData } from 'src/app/models/Rental';
 import * as firebase from 'firebase';
 import * as moment from 'moment';
 import { InventoryItem, InventoryItemData } from 'src/app/models/InventoryItem';
 import * as inventoryActions from '../../store/actions/inventory.actions';
+import * as rentalActions from '../../store/actions/rentals.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,25 @@ export class RentalsService {
     private store: Store<AppState>,
     private angularFirestore: AngularFirestore,
   ) { }
+
+  getRentalsToCheck() {
+    // if (moment().date() !== 1) {
+    //   return;
+    // }
+
+    const rentals: Rental[] = [];
+
+    this.angularFirestore.collection('/rentals/').get().subscribe(snapShot => {
+        snapShot.docs.forEach(doc => {
+          rentals.push(new Rental(doc.data() as RentalData));
+        });
+        rentals.forEach(rental => this.checkRental(rental));
+      });
+  }
+
+  checkRental(rental: Rental) {
+    console.log(rental);
+  }
 
   createRentalToAdd(rentalToAdd: Rental) {
     let rental: Rental = Object.assign(Rental);
@@ -131,23 +151,23 @@ export class RentalsService {
           inventoryItemToUpdate = new InventoryItem(snapShot.docs[0].data() as InventoryItemData);
           inventoryItemToUpdate.status = 'Rented';
           this.angularFirestore.collection('/inventory/').doc(inventoryItemToUpdate.docId).update(inventoryItemToUpdate.toData())
-          .then(() => {
-            if (inventoryItemToUpdate.type === 'Mask') {
-              this.store.dispatch(new inventoryActions.RequestGetAvailableMasks());
-            } else if (inventoryItemToUpdate.type === 'Snorkel') {
-              this.store.dispatch(new inventoryActions.RequestGetAvailableSnorkels());
-            } else if (inventoryItemToUpdate.type === 'Glove') {
-              this.store.dispatch(new inventoryActions.RequestGetAvailableGloves());
-            } else if (inventoryItemToUpdate.type === 'Stick') {
-              this.store.dispatch(new inventoryActions.RequestGetAvailableSticks());
-            } else if (inventoryItemToUpdate.type === 'Fins') {
-              this.store.dispatch(new inventoryActions.RequestGetAvailableFins());
-            }
-            alert('Inventory item(s) status(es) updated');
-          })
-          .catch(error => {
-            alert(error);
-          });
+            .then(() => {
+              if (inventoryItemToUpdate.type === 'Mask') {
+                this.store.dispatch(new inventoryActions.RequestGetAvailableMasks());
+              } else if (inventoryItemToUpdate.type === 'Snorkel') {
+                this.store.dispatch(new inventoryActions.RequestGetAvailableSnorkels());
+              } else if (inventoryItemToUpdate.type === 'Glove') {
+                this.store.dispatch(new inventoryActions.RequestGetAvailableGloves());
+              } else if (inventoryItemToUpdate.type === 'Stick') {
+                this.store.dispatch(new inventoryActions.RequestGetAvailableSticks());
+              } else if (inventoryItemToUpdate.type === 'Fins') {
+                this.store.dispatch(new inventoryActions.RequestGetAvailableFins());
+              }
+              alert('Inventory item(s) status(es) updated');
+            })
+            .catch(error => {
+              alert(error);
+            });
         } else if (snapShot.size === 0) {
           alert(inventoryItem + ' not found');
           return;

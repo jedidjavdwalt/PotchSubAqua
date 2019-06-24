@@ -255,12 +255,28 @@ export class DashboardComponent implements OnInit {
     }
 
     if (this.primaryBtn === 'Rentals') {
+
       this.store.dispatch(new playersActions.RequestGetAllPlayers());
-      this.store.dispatch(new inventoryActions.RequestGetAvailableMasks());
-      this.store.dispatch(new inventoryActions.RequestGetAvailableSnorkels());
-      this.store.dispatch(new inventoryActions.RequestGetAvailableGloves());
-      this.store.dispatch(new inventoryActions.RequestGetAvailableSticks());
-      this.store.dispatch(new inventoryActions.RequestGetAvailableFins());
+
+      if (!this.availableMasks || !this.availableMasks.length || this.availableMasks.length === 0) {
+        this.store.dispatch(new inventoryActions.RequestGetAvailableMasks());
+      }
+
+      if (!this.availableSnorkels || !this.availableSnorkels.length || this.availableSnorkels.length === 0) {
+        this.store.dispatch(new inventoryActions.RequestGetAvailableSnorkels());
+      }
+
+      if (!this.availableGloves || !this.availableGloves.length || this.availableGloves.length === 0) {
+        this.store.dispatch(new inventoryActions.RequestGetAvailableGloves());
+      }
+
+      if (!this.availableSticks || !this.availableSticks.length || this.availableSticks.length === 0) {
+        this.store.dispatch(new inventoryActions.RequestGetAvailableSticks());
+      }
+
+      if (!this.availableFins || !this.availableFins.length || this.availableFins.length === 0) {
+        this.store.dispatch(new inventoryActions.RequestGetAvailableFins());
+      }
 
       return 'Rentals';
     }

@@ -52,6 +52,10 @@
                 {{ player.playerFullName }}
               </button>
             </div>
+
+            <div class="col-12 mb-3" *ngIf="!players || !players.length || players.length === 0">
+              <span>No results</span>
+            </div>
           </div>
 
           <div class="row" *ngIf="shouldDisplayInventoryItemsList()">
@@ -61,6 +65,10 @@
                 {{ inventoryItem.displayId }}
               </button>
             </div>
+
+            <div class="col-12 mb-3" *ngIf="!inventoryItems || !inventoryItems.length || inventoryItems.length === 0">
+              <span>No results</span>
+            </div>
           </div>
 
           <div class="row" *ngIf="shouldDisplayRentalsList()">
@@ -68,6 +76,10 @@
               <button class="btn btn-block cornflowerblue-background text-white" (click)="displayRentalsDetail(rental)">
                 {{ rental.displayId }}
               </button>
+            </div>
+
+            <div class="col-12 mb-3" *ngIf="!rentals || !rentals.length || rentals.length === 0">
+              <span>No results</span>
             </div>
           </div>
 

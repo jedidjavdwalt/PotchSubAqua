@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Rental } from 'src/app/models/Rental';
 
 @Component({
@@ -10,7 +10,13 @@ export class RentalsDetailComponent implements OnInit {
 
   @Input() selectedRental: Rental;
 
+  @Output() editClicked = new EventEmitter();
+
   constructor() { }
+
+  onEditClick() {
+    this.editClicked.emit();
+  }
 
   ngOnInit() {
   }

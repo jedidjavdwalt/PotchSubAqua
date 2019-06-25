@@ -1,0 +1,19 @@
+<div class="card cornflowerblue-background border-none">
+  <div class="card-body text-white">
+
+    <!-- rentalForm -->
+    <form [formGroup]="rentalForm">
+      <div class="form-group">
+        <div class="row">
+          <div class="col-6">
+            <label class="col-form-label text-right">End Date:</label>
+          </div>
+        </div>
+
+        <!-- [max] -->
+        <input formControlName="endDate" type="date" class="form-control">
+      </div>
+    </form>
+
+  </div>
+</div>

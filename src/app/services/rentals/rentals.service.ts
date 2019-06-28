@@ -19,53 +19,36 @@ export class RentalsService {
     private angularFirestore: AngularFirestore,
   ) { }
 
-  getRentalsToCheck() {
-    // if (moment().date() !== 1) {
-    //   return;
-    // }
+  // getRentalsToCheck() {
+  //   // if (moment().date() !== 1) {
+  //   //   return;
+  //   // }
 
-    const rentals: Rental[] = [];
+  //   const rentals: Rental[] = [];
 
-    this.angularFirestore.collection('/rentals/').get().subscribe(snapShot => {
-        snapShot.docs.forEach(doc => {
-          rentals.push(new Rental(doc.data() as RentalData));
-        });
-        rentals.forEach(rental => this.checkRental(rental));
-      });
-  }
+  //   this.angularFirestore.collection('/rentals/').get().subscribe(snapShot => {
+  //     snapShot.docs.forEach(doc => {
+  //       rentals.push(new Rental(doc.data() as RentalData));
+  //     });
+  //     rentals.forEach(rental => this.checkRental(rental));
+  //   });
+  // }
 
-  checkRental(rental: Rental) {
-    console.log(rental);
-  }
+  // checkRental(rental: Rental) {
+  //   console.log('check rental');
+  // }
 
   createRentalToAdd(rentalToAdd: Rental) {
     let rental: Rental = Object.assign(Rental);
 
-    // playerFullName, inventoryItems, rentalType, feePaid
     rental = rentalToAdd;
-
-    // startDate
     rental.startDate = this.calculateStartDate();
-
-    // docId
     rental.docId = this.calculateDocId(moment(rental.startDate.toDate()).format().slice(0, 10), rental.player);
-
-    // displayId
     rental.displayId = this.calculateDisplayId(moment(rental.startDate.toDate()).format().slice(0, 10), rental.player);
-
-    // dueDate
     rental.dueDate = this.calculateDueDate(rental.type);
-
-    // endDate
     rental.endDate = null;
-
-    // feeDue
     rental.feeDue = this.calculateFeeDue(rental.type);
-
-    // feeReturned
     rental.feeReturned = null;
-
-    // actionRequired
     rental.actionRequired = this.calculateActionRequired(rental);
 
     this.addRental(rental);
@@ -136,20 +119,20 @@ export class RentalsService {
   addRental(rental: Rental) {
     this.angularFirestore.collection('/rentals/').doc(rental.docId).set(rental).then(() => {
       alert(rental.displayId + ' added');
-      this.updateInventoryItemsStatuses(rental);
+      this.updateInventoryItemsStatuses(rental, 'Rented');
     }).catch(error => {
       alert(error);
     });
   }
 
-  updateInventoryItemsStatuses(rental: Rental) {
+  updateInventoryItemsStatuses(rental: Rental, status: string) {
     let inventoryItemToUpdate: InventoryItem = {} as InventoryItem;
 
     rental.inventoryItems.forEach(inventoryItem => {
       this.angularFirestore.collection('/inventory/', ref => ref.where('displayId', '==', inventoryItem)).get().subscribe(snapShot => {
         if (snapShot.size === 1) {
           inventoryItemToUpdate = new InventoryItem(snapShot.docs[0].data() as InventoryItemData);
-          inventoryItemToUpdate.status = 'Rented';
+          inventoryItemToUpdate.status = status;
           this.angularFirestore.collection('/inventory/').doc(inventoryItemToUpdate.docId).update(inventoryItemToUpdate.toData())
             .then(() => {
               if (inventoryItemToUpdate.type === 'Mask') {
@@ -176,5 +159,16 @@ export class RentalsService {
         }
       });
     });
+  }
+
+  editRental(rental: Rental) {
+    console.log(rental);
+
+    // this.angularFirestore.collection('/rentals/').doc(rental.docId).update(rental).then(() => {
+    //   alert(rental.displayId + ' updated');
+    //   this.store.dispatch(new rentalActions.SetSelectedRental(rental));
+    // }).catch(error => {
+    //   alert(error);
+    // });
   }
 }

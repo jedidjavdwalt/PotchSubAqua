@@ -1,5 +1,6 @@
 <div class="container-fluid">
   <div class="row pb-3">
+    <!-- menu -->
     <div class="col-12 col-lg-3 pt-3">
       <div class="card lightsteelblue-background border-none">
         <div class="card-body text-white">
@@ -26,26 +27,34 @@
       </div>
     </div>
 
+    <!-- body -->
     <div class="col-12 col-lg-9 pt-3">
       <div class="card lightsteelblue-background border-none"
-        *ngIf="secondaryBtn === 'Add' || shouldDisplayPlayersList() || shouldDisplayInventoryItemsList() || shouldDisplayRentalsList() || selectedPlayer || selectedInventoryItem || selectedRental">
+        *ngIf="shouldDisplayBody()">
         <div class="card-body text-white pb-0">
-          <div class="row" *ngIf="secondaryBtn === 'Add'">
-            <div class="col-12 mb-3" *ngIf="primaryBtn === 'Players'">
+
+          <!-- add -->
+          <div class="row">
+
+            <!-- players add -->
+            <div class="col-12 mb-3" *ngIf="shouldDisplayPlayersAdd()">
               <app-players-add></app-players-add>
             </div>
 
-            <div class="col-12 mb-3" *ngIf="primaryBtn === 'Inventory Items'">
+            <!-- inventory add -->
+            <div class="col-12 mb-3" *ngIf="shouldDisplayInventoryAdd()">
               <app-inventory-add></app-inventory-add>
             </div>
 
-            <div class="col-12 mb-3" *ngIf="primaryBtn === 'Rentals'">
+            <!-- rentals add -->
+            <div class="col-12 mb-3" *ngIf="shouldDisplayRentalsAdd()">
               <app-rentals-add [players]="players" [availableMasks]="availableMasks"
                 [availableSnorkels]="availableSnorkels" [availableGloves]="availableGloves"
                 [availableSticks]="availableSticks" [availableFins]="availableFins"></app-rentals-add>
             </div>
           </div>
 
+          <!-- players list -->
           <div class="row" *ngIf="shouldDisplayPlayersList()">
             <div class="col-12 col-lg-4 mb-3" *ngFor="let player of players">
               <button class="btn btn-block cornflowerblue-background text-white" (click)="displayPlayersDetail(player)">
@@ -58,7 +67,8 @@
             </div>
           </div>
 
-          <div class="row" *ngIf="shouldDisplayInventoryItemsList()">
+          <!-- inventory list -->
+          <div class="row" *ngIf="shouldDisplayInventoryList()">
             <div class="col-12 col-lg-4 mb-3" *ngFor="let inventoryItem of inventoryItems">
               <button class="btn btn-block cornflowerblue-background text-white"
                 (click)="displayInventoryDetail(inventoryItem)">
@@ -71,6 +81,7 @@
             </div>
           </div>
 
+          <!-- rentals list -->
           <div class="row" *ngIf="shouldDisplayRentalsList()">
             <div class="col-12 col-lg-6 mb-3" *ngFor="let rental of rentals">
               <button class="btn btn-block cornflowerblue-background text-white" (click)="displayRentalsDetail(rental)">
@@ -83,18 +94,30 @@
             </div>
           </div>
 
+          <!-- detail -->
           <div class="row">
-            <div class="col-12 mb-3" *ngIf="selectedPlayer">
+
+            <!-- players detail -->
+            <div class="col-12 mb-3" *ngIf="shouldDisplayPlayersDetail()">
               <app-players-detail [selectedPlayer]="selectedPlayer"></app-players-detail>
             </div>
 
-            <div class="col-12 mb-3" *ngIf="selectedInventoryItem">
+            <!-- inventory detail -->
+            <div class="col-12 mb-3" *ngIf="shouldDisplayInventoryDetail()">
               <app-inventory-detail [selectedInventoryItem]="selectedInventoryItem">
               </app-inventory-detail>
             </div>
 
-            <div class="col-12 mb-3" *ngIf="selectedRental">
-              <app-rentals-detail [selectedRental]="selectedRental"></app-rentals-detail>
+            <!-- rentals detail -->
+            <div class="col-12 mb-3" *ngIf="shouldDisplayRentalsDetail()">
+              <app-rentals-detail [selectedRental]="selectedRental" [isEditing]="isEditing" (editClicked)="isEditing = true"></app-rentals-detail>
+            </div>
+          </div>
+
+          <!-- rentals edit -->
+          <div class="row" *ngIf="shouldDisplayRentalsEdit()">
+            <div class="col-12 mb-3">
+              <app-rentals-edit [selectedRental]="selectedRental" (saveClicked)="isEditing = false"></app-rentals-edit>
             </div>
           </div>
         </div>

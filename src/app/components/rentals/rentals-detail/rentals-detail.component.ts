@@ -9,6 +9,7 @@ import { Rental } from 'src/app/models/Rental';
 export class RentalsDetailComponent implements OnInit {
 
   @Input() selectedRental: Rental;
+  @Input() isEditing: boolean;
 
   @Output() editClicked = new EventEmitter();
 

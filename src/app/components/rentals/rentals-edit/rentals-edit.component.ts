@@ -1,8 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Player } from 'src/app/models/Player';
 import { FormBuilder, Validators } from '@angular/forms';
 import { RentalsService } from 'src/app/services/rentals/rentals.service';
 import { Rental } from 'src/app/models/Rental';
+import * as moment from 'moment';
+import * as firebase from 'firebase';
+import { Timestamp } from '@firebase/firestore-types';
 
 @Component({
   selector: 'app-rentals-edit',
@@ -12,6 +15,8 @@ import { Rental } from 'src/app/models/Rental';
 export class RentalsEditComponent implements OnInit {
 
   @Input() selectedRental: Rental;
+
+  @Output() saveClicked = new EventEmitter();
 
   rentalForm = this.formBuilder.group({
     endDate: [null],
@@ -36,11 +41,25 @@ export class RentalsEditComponent implements OnInit {
     return this.rentalForm.get('feeReturned');
   }
 
+  calculateMaxDate() {
+    const currentDay = moment();
+    return currentDay.format('YYYY-MM-DD');
+  }
+
+  calculateEndDate(): Timestamp {
+    return firebase.firestore.Timestamp.fromDate(moment(this.endDate.value).toDate());
+  }
+
   onSaveClick() {
+    if (!this.endDate.value || !this.feePaid.value || !this.feeReturned.value) {
+      this.saveClicked.emit();
+      return;
+    }
+
     const editedRental = this.selectedRental;
 
     if (this.endDate.value) {
-      editedRental.endDate = this.endDate.value;
+      editedRental.endDate = this.calculateEndDate();
     }
 
     if (this.feePaid.value) {
@@ -54,6 +73,8 @@ export class RentalsEditComponent implements OnInit {
     this.rentalService.editRental(editedRental);
 
     this.rentalForm.reset();
+
+    this.saveClicked.emit();
   }
 
   ngOnInit() {

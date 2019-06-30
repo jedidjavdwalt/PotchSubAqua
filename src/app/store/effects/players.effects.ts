@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import * as actions from '../../store/actions/players.actions';
 import { switchMap, mergeMap, map } from 'rxjs/operators';
 import { Player, PlayerData } from 'src/app/models/Player';
+import * as moment from 'moment';
 
 @Injectable()
 export class PlayersEffects {

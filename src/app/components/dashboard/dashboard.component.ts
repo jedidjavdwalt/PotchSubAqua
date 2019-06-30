@@ -11,6 +11,8 @@ import { InventoryItem } from 'src/app/models/InventoryItem';
 import { Player } from 'src/app/models/Player';
 import { Rental } from 'src/app/models/Rental';
 import { RentalsService } from 'src/app/services/rentals/rentals.service';
+import * as moment from 'moment';
+import { UpdateService } from 'src/app/services/update/update.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -85,7 +87,7 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
-    private rentalService: RentalsService
+    private updateService: UpdateService,
   ) { }
 
   primaryClicked(btn: string) {
@@ -546,6 +548,10 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (moment().dayOfYear() === 1) {
+      this.updateService.updatePlayersAgeGroups();
+    }
+
     this.sliceAppState();
     // this.rentalService.getRentalsToCheck();
   }

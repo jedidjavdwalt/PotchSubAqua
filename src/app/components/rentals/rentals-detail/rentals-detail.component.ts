@@ -15,6 +15,10 @@ export class RentalsDetailComponent implements OnInit {
 
   constructor() { }
 
+  shouldDisplayEditBtn() {
+    return !this.selectedRental.endDate && !this.selectedRental.feePaid && !this.selectedRental.feeReturned;
+  }
+
   onEditClick() {
     this.editClicked.emit();
   }

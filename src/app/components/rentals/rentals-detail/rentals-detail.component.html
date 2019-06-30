@@ -110,7 +110,7 @@
       </div>
     </div>
 
-    <button class="btn btn-block midnightblue-background text-white mt-3" (click)="onEditClick()" *ngIf="!isEditing">
+    <button class="btn btn-block midnightblue-background text-white mt-3" (click)="onEditClick()" *ngIf="!isEditing && shouldDisplayEditBtn()">
       Edit
     </button>
   </div>

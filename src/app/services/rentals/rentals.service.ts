@@ -162,13 +162,11 @@ export class RentalsService {
   }
 
   editRental(rental: Rental) {
-    console.log(rental);
-
-    // this.angularFirestore.collection('/rentals/').doc(rental.docId).update(rental).then(() => {
-    //   alert(rental.displayId + ' updated');
-    //   this.store.dispatch(new rentalActions.SetSelectedRental(rental));
-    // }).catch(error => {
-    //   alert(error);
-    // });
+    this.angularFirestore.collection('/rentals/').doc(rental.docId).update(rental.toData()).then(() => {
+      alert(rental.displayId + ' updated');
+      this.store.dispatch(new rentalActions.SetSelectedRental(rental));
+    }).catch(error => {
+      alert(error);
+    });
   }
 }

@@ -51,7 +51,7 @@ export class RentalsEditComponent implements OnInit {
   }
 
   onSaveClick() {
-    if (!this.endDate.value || !this.feePaid.value || !this.feeReturned.value) {
+    if (!this.endDate.value && !this.feePaid.value && !this.feeReturned.value) {
       this.saveClicked.emit();
       return;
     }

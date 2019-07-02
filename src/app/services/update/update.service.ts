@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Player, PlayerData } from 'src/app/models/Player';
 import { Timestamp } from '@firebase/firestore-types';
 import * as moment from 'moment';
+import { Rental, RentalData } from 'src/app/models/Rental';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class UpdateService {
     private angularFirestore: AngularFirestore,
   ) { }
 
-  calculatePlayerAgeGroup(birthDate: Timestamp): string {
+  calculateAgeGroup(birthDate: Timestamp): string {
     const currentYear = moment().year();
     const firstDayOfYear = moment(`${currentYear}-01-01`);
     const convertedBirthDate = moment.unix(birthDate.seconds);
@@ -38,12 +39,44 @@ export class UpdateService {
     this.angularFirestore.collection('/players/').get().subscribe(snapShot => {
       snapShot.docs.forEach(doc => {
         const tempPlayer = new Player(doc.data() as PlayerData);
-        const newAgeGroup = this.calculatePlayerAgeGroup(tempPlayer.birthDate);
+        const newAgeGroup = this.calculateAgeGroup(tempPlayer.birthDate);
 
         if (tempPlayer.ageGroup !== newAgeGroup) {
           tempPlayer.ageGroup = newAgeGroup;
           this.angularFirestore.doc(tempPlayer.docId).update(tempPlayer.toData()).then(() => {
             alert(tempPlayer.playerFullName + 'ageGroup updated');
+          })
+            .catch(error => {
+              alert(error);
+            });
+        }
+      });
+    });
+  }
+
+  // calculateRentalIsDue(rental: Rental) {
+  //   const currentDate = moment();
+  //   const dueDate = moment(rental.dueDate);
+
+  //   if (currentDate.isAfter(dueDate)) {
+  //     rental.actionRequired = 'Player';
+  //   }
+
+  //   return rental;
+  // }
+
+  updateDueRentals() {
+    this.angularFirestore.collection('/rentals/', ref => ref.where('endDate', '==', 'null')).get().subscribe(snapShot => {
+      snapShot.docs.forEach(doc => {
+        const tempRental = new Rental(doc.data() as RentalData);
+        const currentDate = moment();
+
+        if (currentDate.isAfter(moment(tempRental.dueDate))) {
+          console.log('if');
+
+          tempRental.actionRequired = 'Player';
+          this.angularFirestore.doc(tempRental.docId).update(tempRental.toData()).then(() => {
+            alert(tempRental.displayId + 'actionRequired updated');
           })
             .catch(error => {
               alert(error);

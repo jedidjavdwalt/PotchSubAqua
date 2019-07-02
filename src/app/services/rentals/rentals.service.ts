@@ -19,25 +19,6 @@ export class RentalsService {
     private angularFirestore: AngularFirestore,
   ) { }
 
-  // getRentalsToCheck() {
-  //   // if (moment().date() !== 1) {
-  //   //   return;
-  //   // }
-
-  //   const rentals: Rental[] = [];
-
-  //   this.angularFirestore.collection('/rentals/').get().subscribe(snapShot => {
-  //     snapShot.docs.forEach(doc => {
-  //       rentals.push(new Rental(doc.data() as RentalData));
-  //     });
-  //     rentals.forEach(rental => this.checkRental(rental));
-  //   });
-  // }
-
-  // checkRental(rental: Rental) {
-  //   console.log('check rental');
-  // }
-
   createRentalToAdd(rentalToAdd: Rental) {
     let rental: Rental = Object.assign(Rental);
 

@@ -552,7 +552,8 @@ export class DashboardComponent implements OnInit {
       this.updateService.updatePlayersAgeGroups();
     }
 
+    this.updateService.updateDueRentals();
+
     this.sliceAppState();
-    // this.rentalService.getRentalsToCheck();
   }
 }

@@ -27,6 +27,8 @@ import { InventoryDetailComponent } from './components/inventory/inventory-detai
 import { RentalsAddComponent } from './components/rentals/rentals-add/rentals-add.component';
 import { RentalsDetailComponent } from './components/rentals/rentals-detail/rentals-detail.component';
 import { RentalsEditComponent } from './components/rentals/rentals-edit/rentals-edit.component';
+import { HomeComponent } from './components/home/home.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { RentalsEditComponent } from './components/rentals/rentals-edit/rentals-
     RentalsAddComponent,
     RentalsDetailComponent,
     RentalsEditComponent,
+    HomeComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

@@ -88,13 +88,19 @@ export class RentalsService {
   }
 
   calculateActionRequired(rental: Rental) {
-    let actionRequired: string;
+    if (rental.feePaid !== rental.feeDue) {
+      return 'Player';
+    }
 
-    rental.feePaid !== rental.feeDue
-      ? actionRequired = 'Player'
-      : actionRequired = 'None';
+    if (!rental.endDate && moment().isAfter(moment(rental.dueDate))) {
+      return 'Player';
+    }
 
-    return actionRequired;
+    if (rental.endDate && rental.type !== 'Day' && rental.feeReturned !== rental.feeDue) {
+      return 'Admin';
+    }
+
+    return 'None';
   }
 
   addRental(rental: Rental) {
@@ -142,9 +148,21 @@ export class RentalsService {
     });
   }
 
+  createRentalToEdit(rentalToEdit: Rental) {
+    let rental: Rental = Object.assign(Rental);
+
+    rental = rentalToEdit;
+    rental.actionRequired = this.calculateActionRequired(rental);
+
+    this.editRental(rental);
+  }
+
   editRental(rental: Rental) {
     this.angularFirestore.collection('/rentals/').doc(rental.docId).update(rental.toData()).then(() => {
-      alert(rental.displayId + ' updated');
+      alert(rental.displayId + ' saved');
+      if (rental.endDate) {
+        this.updateInventoryItemsStatuses(rental, 'Available');
+      }
       this.store.dispatch(new rentalActions.SetSelectedRental(rental));
     }).catch(error => {
       alert(error);

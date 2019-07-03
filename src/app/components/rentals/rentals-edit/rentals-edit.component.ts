@@ -70,7 +70,7 @@ export class RentalsEditComponent implements OnInit {
       editedRental.feeReturned = this.feeReturned.value;
     }
 
-    this.rentalService.editRental(editedRental);
+    this.rentalService.createRentalToEdit(editedRental);
 
     this.rentalForm.reset();
 

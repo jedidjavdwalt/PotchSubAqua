@@ -552,7 +552,7 @@ export class DashboardComponent implements OnInit {
       this.updateService.updatePlayersAgeGroups();
     }
 
-    this.updateService.updateDueRentals();
+    this.updateService.updateRentalsActionRequired();
 
     this.sliceAppState();
   }

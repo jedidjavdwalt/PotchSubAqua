@@ -54,26 +54,13 @@ export class UpdateService {
     });
   }
 
-  // calculateRentalIsDue(rental: Rental) {
-  //   const currentDate = moment();
-  //   const dueDate = moment(rental.dueDate);
-
-  //   if (currentDate.isAfter(dueDate)) {
-  //     rental.actionRequired = 'Player';
-  //   }
-
-  //   return rental;
-  // }
-
-  updateDueRentals() {
-    this.angularFirestore.collection('/rentals/', ref => ref.where('endDate', '==', 'null')).get().subscribe(snapShot => {
+  updateRentalsActionRequired() {
+    this.angularFirestore.collection('/rentals/', ref => ref.where('endDate', '==', null)).get().subscribe(snapShot => {
       snapShot.docs.forEach(doc => {
         const tempRental = new Rental(doc.data() as RentalData);
         const currentDate = moment();
 
         if (currentDate.isAfter(moment(tempRental.dueDate))) {
-          console.log('if');
-
           tempRental.actionRequired = 'Player';
           this.angularFirestore.doc(tempRental.docId).update(tempRental.toData()).then(() => {
             alert(tempRental.displayId + 'actionRequired updated');

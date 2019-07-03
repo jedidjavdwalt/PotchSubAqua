@@ -3,7 +3,7 @@
 
     <!-- rentalForm -->
     <form [formGroup]="rentalForm">
-      <div class="form-group">
+      <div class="form-group align-items-center m-0" *ngIf="!selectedRental.endDate">
         <div class="row">
           <div class="col-6">
             <label class="col-form-label text-right">End Date:</label>
@@ -13,13 +13,13 @@
         <input formControlName="endDate" type="date" [max]="calculateMaxDate()" class="form-control">
       </div>
 
-      <div class="form-group align-items-center m-0">
+      <div class="form-group align-items-center m-0" *ngIf="!selectedRental.feePaid">
         <label class="col-form-label">Fee Paid:</label>
 
         <input formControlName="feePaid" type="number" class="form-control" placeholder="Fee Paid">
       </div>
 
-      <div class="form-group align-items-center m-0">
+      <div class="form-group align-items-center m-0" *ngIf="!selectedRental.feeReturned">
         <label class="col-form-label">Fee Returned:</label>
 
         <input formControlName="feeReturned" type="number" class="form-control" placeholder="Fee Returned">

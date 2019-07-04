@@ -1,40 +1,87 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 .midnightblue-background {
-    background-color: midnightblue;
+  background-color: midnightblue;
 }
 
 .royalblue-background {
-    background-color: royalblue;
+  background-color: royalblue;
 }
 
 .cornflowerblue-background {
-    background-color: cornflowerblue;
+  background-color: cornflowerblue;
 }
 
 .lightsteelblue-background {
-    background-color: lightsteelblue;
+  background-color: lightsteelblue;
 }
 
-/* .powderblue-background {
-    background-color: powderblue;
-} */
+.text-midnightblue {
+  color: midnightblue;
+}
+
+.text-cornflowerblue {
+  color: cornflowerblue;
+}
 
 .border-none {
-    border: none;
+  border: none;
+}
+
+.fill-container {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+.fill-container .row.fill-head {
+  flex: 0 1 auto;
+}
+
+.fill-container .row.fill-body {
+  flex: 1 1 auto;
+}
+
+.img {
+  width: 75px;
+  height: 75px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a:link {
+  color: midnightblue;
+}
+
+a:visited {
+  color: midnightblue;
+}
+
+a:hover {
+  color: cornflowerblue;
+}
+
+a:active {
+  color: cornflowerblue;
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    /* display: none; <- Crashes Chrome on hover */
-    -webkit-appearance: none;
-    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
 }
 
-input[type=number] {
-    -moz-appearance:textfield; /* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
 }
-

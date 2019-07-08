@@ -27,4 +27,14 @@ export class UsersService {
         alert(error);
       });
   }
+
+  logout() {
+    return this.angularFireAuth.auth.signOut()
+      .then(result => {
+        this.store.dispatch(new actions.ClearLoggedInUser());
+      })
+      .catch(error => {
+        alert(error);
+      });
+  }
 }

@@ -15,14 +15,13 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
 
   constructor(
-    private userService: UsersService,
+    private usersService: UsersService,
     private store: Store<AppState>,
     private router: Router,
   ) { }
 
-  login() {
-    this.userService.login();
-    // this.router.navigateByUrl('dashboard');
+  loginClicked() {
+    this.usersService.login();
   }
 
   sliceAppState() {

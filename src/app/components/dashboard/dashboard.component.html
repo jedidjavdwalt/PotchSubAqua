@@ -1,9 +1,9 @@
-<div class="container-fluid">
-  <div class="row pb-3">
+<div class="container-fluid fill-container">
+  <div class="row pb-3 fill-body">
     <!-- menu -->
     <div class="col-12 col-lg-3 pt-3">
-      <div class="card lightsteelblue-background border-none">
-        <div class="card-body text-white">
+      <div class="card lightsteelblue-background border-none h-100">
+        <div class="card-body text-white fill-container">
           <ng-container *ngFor="let button of buttons">
             <button class="btn btn-block midnightblue-background text-white" (click)="primaryClicked(button.id)">
               {{ button.id }}
@@ -23,15 +23,23 @@
               </ng-container>
             </ng-container>
           </ng-container>
+
+          <div class="row mt-auto pt-2">
+            <div class="col-12">
+              <button class="btn btn-block midnightblue-background text-white" (click)="logoutClicked()">
+                Logout
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- body -->
     <div class="col-12 col-lg-9 pt-3">
-      <div class="card lightsteelblue-background border-none"
-        *ngIf="shouldDisplayBody()">
+      <div class="card lightsteelblue-background border-none h-100">
         <div class="card-body text-white pb-0">
+          <span *ngIf="!shouldDisplayBody()">Make a selection on the left</span>
 
           <!-- add -->
           <div class="row">
@@ -110,7 +118,8 @@
 
             <!-- rentals detail -->
             <div class="col-12 mb-3" *ngIf="shouldDisplayRentalsDetail()">
-              <app-rentals-detail [selectedRental]="selectedRental" [isEditing]="isEditing" (editClicked)="isEditing = true"></app-rentals-detail>
+              <app-rentals-detail [selectedRental]="selectedRental" [isEditing]="isEditing"
+                (editClicked)="isEditing = true"></app-rentals-detail>
             </div>
           </div>
 

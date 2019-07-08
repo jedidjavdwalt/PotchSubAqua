@@ -18,6 +18,10 @@ export function usersReducer(state = initialUsersState, action: actions.UsersAct
             newState.loggedInUser = getUserSuccessAction.payload;
             return newState;
 
+        case actions.CLEAR_LOGGED_IN_USER:
+            newState.loggedInUser = null;
+            return newState;
+
         default:
             return state;
     }

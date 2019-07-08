@@ -3,6 +3,7 @@ import { User } from 'src/app/models/User';
 
 export const REQUEST_GET_USER = '[usersState] REQUEST_GET_USER';
 export const GET_USER_SUCCESS = '[usersState] GET_USER_SUCCESS';
+export const CLEAR_LOGGED_IN_USER = '[usersState] CLEAR_LOGGED_IN_USER';
 
 export const UNIMPLEMENTED_ACTION = '[usersState] UNIMPLEMENTED_ACTION';
 
@@ -21,8 +22,14 @@ export class UnimplementedAction implements Action {
     constructor() { }
 }
 
+export class ClearLoggedInUser implements Action {
+    type = CLEAR_LOGGED_IN_USER;
+    constructor() {}
+}
+
 export type UsersActions =
     | RequestGetUser
     | GetUserSuccess
+    | ClearLoggedInUser
     | UnimplementedAction;
 

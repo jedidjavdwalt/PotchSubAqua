@@ -9,11 +9,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { environment } from '../environments/environment';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
 
+import * as usersReducers from '../app/store/reducers/users.reducers';
 import * as playersReducers from '../app/store/reducers/players.reducers';
 import * as inventoryReducers from '../app/store/reducers/inventory.reducers';
 import * as rentalsReducers from '../app/store/reducers/rentals.reducers';
 
+import * as usersEffects from '../app/store/effects/users.effects';
 import * as playersEffects from '../app/store/effects/players.effects';
 import * as inventoryEffects from '../app/store/effects/inventory.effects';
 import * as rentalsEffects from '../app/store/effects/rentals.effects';
@@ -49,11 +52,13 @@ import { LoginComponent } from './components/login/login.component';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     StoreModule.forRoot({
+      usersState: usersReducers.usersReducer,
       playersState: playersReducers.playersReducer,
       inventoryState: inventoryReducers.inventoryReducer,
       rentalsState: rentalsReducers.rentalsReducer,
     }),
     EffectsModule.forRoot([
+      usersEffects.UsersEffects,
       playersEffects.PlayersEffects,
       inventoryEffects.InventoryEffects,
       rentalsEffects.RentalsEffects,
@@ -64,6 +69,7 @@ import { LoginComponent } from './components/login/login.component';
   ],
   providers: [
     AngularFirestore,
+    AngularFireAuth,
   ],
   bootstrap: [AppComponent]
 })

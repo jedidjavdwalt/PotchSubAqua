@@ -13,6 +13,8 @@ import { Rental } from 'src/app/models/Rental';
 import { RentalsService } from 'src/app/services/rentals/rentals.service';
 import * as moment from 'moment';
 import { UpdateService } from 'src/app/services/update/update.service';
+import { Router } from '@angular/router';
+import * as usersSelectors from '../../store/selectors/users.selectors';
 
 @Component({
   selector: 'app-dashboard',
@@ -88,6 +90,7 @@ export class DashboardComponent implements OnInit {
   constructor(
     private store: Store<AppState>,
     private updateService: UpdateService,
+    private router: Router,
   ) { }
 
   primaryClicked(btn: string) {
@@ -483,6 +486,12 @@ export class DashboardComponent implements OnInit {
   }
 
   sliceAppState() {
+    this.store.select(usersSelectors.loggedInUser).subscribe(loggedInUser => {
+      if (!loggedInUser) {
+        this.router.navigateByUrl('home');
+      }
+    });
+
     this.store.select(playersSelectors.players).subscribe(players => {
       this.players = players;
     });

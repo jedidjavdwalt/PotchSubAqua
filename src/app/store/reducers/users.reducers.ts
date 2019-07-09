@@ -9,16 +9,16 @@ export function usersReducer(state = initialUsersState, action: actions.UsersAct
 
     switch (action.type) {
 
-        case actions.REQUEST_GET_USER:
+        case actions.GET_USER:
             newState.loggedInUser = null;
             return newState;
 
-        case actions.GET_USER_SUCCESS:
-            const getUserSuccessAction = action as actions.GetUserSuccess;
+        case actions.SET_USER:
+            const getUserSuccessAction = action as actions.SetUser;
             newState.loggedInUser = getUserSuccessAction.payload;
             return newState;
 
-        case actions.CLEAR_LOGGED_IN_USER:
+        case actions.REMOVE_USER:
             newState.loggedInUser = null;
             return newState;
 

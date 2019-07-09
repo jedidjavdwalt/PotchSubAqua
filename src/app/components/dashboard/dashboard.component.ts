@@ -14,8 +14,8 @@ import { RentalsService } from 'src/app/services/rentals/rentals.service';
 import * as moment from 'moment';
 import { UpdateService } from 'src/app/services/update/update.service';
 import { Router } from '@angular/router';
+import * as usersActions from '../../store/actions/users.actions';
 import * as usersSelectors from '../../store/selectors/users.selectors';
-import { UsersService } from 'src/app/services/users/users.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -92,11 +92,11 @@ export class DashboardComponent implements OnInit {
     private store: Store<AppState>,
     private updateService: UpdateService,
     private router: Router,
-    private usersService: UsersService,
   ) { }
 
   logoutClicked() {
-    this.usersService.logout();
+    this.store.dispatch(new usersActions.LogoutUser());
+    // this.usersService.logout();
   }
 
   primaryClicked(btn: string) {

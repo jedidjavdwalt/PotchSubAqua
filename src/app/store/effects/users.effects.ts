@@ -5,7 +5,7 @@ import * as actions from '../../store/actions/users.actions';
 import { switchMap, mergeMap, map } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { User, UserData } from 'src/app/models/User';
-import { UsersService } from 'src/app/services/users/users.service';
+import * as firebase from 'firebase';
 
 @Injectable()
 export class UsersEffects {
@@ -14,20 +14,39 @@ export class UsersEffects {
         private actions$: Actions,
         private angularFirestore: AngularFirestore,
         private angularFireAuth: AngularFireAuth,
-        private usersService: UsersService,
     ) { }
 
     @Effect()
-    RequestGetUser$ = this.actions$.pipe(
-        ofType(actions.REQUEST_GET_USER),
-        switchMap((action: actions.RequestGetUser) => {
+    LoginUser$ = this.actions$.pipe(
+        ofType(actions.LOGIN_USER),
+        switchMap((action: actions.LoginUser) => {
+            return this.angularFireAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+                .then(userCredential => new actions.GetUser(userCredential.user.uid))
+                .catch(error => alert(error));
+        })
+    );
+
+    @Effect()
+    GetUser$ = this.actions$.pipe(
+        ofType(actions.GET_USER),
+        switchMap((action: actions.GetUser) => {
             return this.angularFirestore.collection('/users/').doc(action.payload).get();
         }),
         map(user => {
             if (user) {
-                return new actions.GetUserSuccess(new User(user.data() as UserData));
+                return new actions.SetUser(new User(user.data() as UserData));
             }
             return new actions.UnimplementedAction();
+        })
+    );
+
+    @Effect()
+    LogoutUser$ = this.actions$.pipe(
+        ofType(actions.LOGOUT_USER),
+        switchMap((action: actions.LogoutUser) => {
+            return this.angularFireAuth.auth.signOut()
+                .then(result => new actions.RemoveUser())
+                .catch(error => alert(error));
         })
     );
 }

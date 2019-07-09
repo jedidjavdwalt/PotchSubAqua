@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from 'src/app/services/users/users.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
@@ -15,13 +14,13 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
 
   constructor(
-    private usersService: UsersService,
     private store: Store<AppState>,
     private router: Router,
   ) { }
 
   loginClicked() {
-    this.usersService.login();
+    this.store.dispatch(new actions.LoginUser());
+    // this.usersService.login();
   }
 
   sliceAppState() {

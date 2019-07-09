@@ -20,7 +20,6 @@ export class HomeComponent implements OnInit {
 
   loginClicked() {
     this.store.dispatch(new actions.LoginUser());
-    // this.usersService.login();
   }
 
   sliceAppState() {

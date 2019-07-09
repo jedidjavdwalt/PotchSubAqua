@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { HomeComponent } from './components/home/home.component';
+import { AppRoutingGuard } from './app-routing.guard';
 
 const routes: Routes = [
   {
@@ -12,10 +13,11 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+    canActivate: [AppRoutingGuard],
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
   },
 ];
 

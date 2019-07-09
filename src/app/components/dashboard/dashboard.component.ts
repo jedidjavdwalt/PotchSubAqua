@@ -96,7 +96,6 @@ export class DashboardComponent implements OnInit {
 
   logoutClicked() {
     this.store.dispatch(new usersActions.LogoutUser());
-    // this.usersService.logout();
   }
 
   primaryClicked(btn: string) {

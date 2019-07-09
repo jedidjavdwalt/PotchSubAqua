@@ -20,7 +20,8 @@ export class UsersEffects {
     LoginUser$ = this.actions$.pipe(
         ofType(actions.LOGIN_USER),
         switchMap((action: actions.LoginUser) => {
-            return this.angularFireAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+            return this.angularFireAuth.auth
+                .signInWithPopup(new firebase.auth.GoogleAuthProvider().setCustomParameters({ prompt: 'select_account' }))
                 .then(userCredential => new actions.GetUser(userCredential.user.uid))
                 .catch(error => alert(error));
         })
@@ -33,10 +34,11 @@ export class UsersEffects {
             return this.angularFirestore.collection('/users/').doc(action.payload).get();
         }),
         map(user => {
-            if (user) {
+            if (user.exists) {
                 return new actions.SetUser(new User(user.data() as UserData));
             }
-            return new actions.UnimplementedAction();
+            alert('User does not exist');
+            return new actions.LogoutUser();
         })
     );
 
@@ -44,8 +46,11 @@ export class UsersEffects {
     LogoutUser$ = this.actions$.pipe(
         ofType(actions.LOGOUT_USER),
         switchMap((action: actions.LogoutUser) => {
+            console.log(action);
             return this.angularFireAuth.auth.signOut()
-                .then(result => new actions.RemoveUser())
+                .then(result => {
+                    return new actions.RemoveUser();
+                })
                 .catch(error => alert(error));
         })
     );

@@ -10,7 +10,6 @@ import { CustomValidators } from 'src/app/models/CustomValidators';
 @Component({
   selector: 'app-players-add',
   templateUrl: './players-add.component.html',
-  styleUrls: ['./players-add.component.css']
 })
 
 export class PlayersAddComponent implements OnInit {

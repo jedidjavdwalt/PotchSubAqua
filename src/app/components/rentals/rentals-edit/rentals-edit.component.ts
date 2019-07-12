@@ -10,7 +10,6 @@ import { Timestamp } from '@firebase/firestore-types';
 @Component({
   selector: 'app-rentals-edit',
   templateUrl: './rentals-edit.component.html',
-  styleUrls: ['./rentals-edit.component.css']
 })
 export class RentalsEditComponent implements OnInit {
 

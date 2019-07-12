@@ -46,7 +46,6 @@ export class UsersEffects {
     LogoutUser$ = this.actions$.pipe(
         ofType(actions.LOGOUT_USER),
         switchMap((action: actions.LogoutUser) => {
-            console.log(action);
             return this.angularFireAuth.auth.signOut()
                 .then(result => {
                     return new actions.RemoveUser();

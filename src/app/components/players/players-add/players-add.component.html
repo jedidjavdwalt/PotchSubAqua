@@ -1,4 +1,4 @@
-<div class="card cornflowerblue-background border-none">
+<div class="card bg-cornflowerblue border-none">
   <div class="card-body text-white">
 
     <!-- birthDateForm -->
@@ -157,13 +157,13 @@
     </form>
 
     <ng-container *ngIf="parentRequired()">
-      <button class="btn btn-block midnightblue-background text-white mt-3"
+      <button class="btn btn-block bg-midnightblue text-white mt-3"
         [disabled]="birthDateForm.invalid || parentForm.invalid || juniorPlayerForm.invalid"
         (click)="onAddClick()">Add</button>
     </ng-container>
 
     <ng-container *ngIf="!parentRequired()">
-      <button class="btn btn-block midnightblue-background text-white mt-3"
+      <button class="btn btn-block bg-midnightblue text-white mt-3"
         [disabled]="birthDateForm.invalid || seniorPlayerForm.invalid" (click)="onAddClick()">Add</button>
     </ng-container>
   </div>

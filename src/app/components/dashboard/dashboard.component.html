@@ -2,21 +2,21 @@
   <div class="row pb-3 fill-body">
     <!-- menu -->
     <div class="col-12 col-lg-3 pt-3">
-      <div class="card lightsteelblue-background border-none h-100">
-        <div class="card-body text-white fill-container">
+      <div class="card bg-lightsteelblue border-none h-100">
+        <div class="card-body fill-container">
           <ng-container *ngFor="let button of buttons">
-            <button class="btn btn-block midnightblue-background text-white" (click)="primaryClicked(button.id)">
+            <button class="btn btn-block bg-midnightblue text-white" (click)="primaryClicked(button.id)">
               {{ button.id }}
             </button>
 
             <ng-container *ngFor="let secondary of button.secondary">
-              <button class="btn btn-block royalblue-background text-white" *ngIf="primaryBtn === button.id"
+              <button class="btn btn-block bg-royalblue text-white" *ngIf="primaryBtn === button.id"
                 (click)="secondaryClicked(secondary.id)">
                 {{ secondary.id }}
               </button>
 
               <ng-container *ngFor="let tertiary of secondary.tertiary">
-                <button class="btn btn-block cornflowerblue-background text-white" *ngIf="secondaryBtn === secondary.id"
+                <button class="btn btn-block bg-cornflowerblue text-white" *ngIf="secondaryBtn === secondary.id"
                   (click)="tertiaryClicked(tertiary.id)">
                   {{ tertiary.id }}
                 </button>
@@ -26,7 +26,7 @@
 
           <div class="row mt-auto pt-2">
             <div class="col-12">
-              <button class="btn btn-block midnightblue-background text-white" (click)="logoutClicked()">
+              <button class="btn btn-block bg-midnightblue text-white" (click)="logoutClicked()">
                 Logout
               </button>
             </div>
@@ -37,9 +37,9 @@
 
     <!-- body -->
     <div class="col-12 col-lg-9 pt-3">
-      <div class="card lightsteelblue-background border-none h-100">
-        <div class="card-body text-white pb-0">
-          <span *ngIf="!shouldDisplayBody()">Make a selection on the left</span>
+      <div class="card bg-lightsteelblue border-none h-100">
+        <div class="card-body pb-0">
+          <span class="text-midnightblue" *ngIf="!shouldDisplayBody()">Make a selection on the left</span>
 
           <!-- add -->
           <div class="row">
@@ -65,40 +65,40 @@
           <!-- players list -->
           <div class="row" *ngIf="shouldDisplayPlayersList()">
             <div class="col-12 col-lg-4 mb-3" *ngFor="let player of players">
-              <button class="btn btn-block cornflowerblue-background text-white" (click)="displayPlayersDetail(player)">
+              <button class="btn btn-block bg-royalblue text-white" (click)="displayPlayersDetail(player)">
                 {{ player.playerFullName }}
               </button>
             </div>
 
             <div class="col-12 mb-3" *ngIf="!players || !players.length || players.length === 0">
-              <span>No results</span>
+              <span class="text-midnightblue">No results</span>
             </div>
           </div>
 
           <!-- inventory list -->
           <div class="row" *ngIf="shouldDisplayInventoryList()">
             <div class="col-12 col-lg-4 mb-3" *ngFor="let inventoryItem of inventoryItems">
-              <button class="btn btn-block cornflowerblue-background text-white"
+              <button class="btn btn-block bg-royalblue text-white"
                 (click)="displayInventoryDetail(inventoryItem)">
                 {{ inventoryItem.displayId }}
               </button>
             </div>
 
             <div class="col-12 mb-3" *ngIf="!inventoryItems || !inventoryItems.length || inventoryItems.length === 0">
-              <span>No results</span>
+              <span class="text-midnightblue">No results</span>
             </div>
           </div>
 
           <!-- rentals list -->
           <div class="row" *ngIf="shouldDisplayRentalsList()">
             <div class="col-12 col-lg-6 mb-3" *ngFor="let rental of rentals">
-              <button class="btn btn-block cornflowerblue-background text-white" (click)="displayRentalsDetail(rental)">
+              <button class="btn btn-block bg-royalblue text-white" (click)="displayRentalsDetail(rental)">
                 {{ rental.displayId }}
               </button>
             </div>
 
             <div class="col-12 mb-3" *ngIf="!rentals || !rentals.length || rentals.length === 0">
-              <span>No results</span>
+              <span class="text-midnightblue">No results</span>
             </div>
           </div>
 

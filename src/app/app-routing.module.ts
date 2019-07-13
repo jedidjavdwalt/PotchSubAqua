@@ -7,8 +7,7 @@ import { AppRoutingGuard } from './app-routing.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
-    pathMatch: 'full'
+    component: HomeComponent,
   },
   {
     path: 'dashboard',
@@ -16,8 +15,9 @@ const routes: Routes = [
     canActivate: [AppRoutingGuard],
   },
   {
-    path: 'home',
-    component: HomeComponent,
+    path: '*',
+    redirectTo: '/home',
+    pathMatch: 'full'
   },
 ];
 

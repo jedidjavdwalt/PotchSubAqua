@@ -26,7 +26,7 @@ export class AppRoutingGuard implements CanActivate {
         if (loggedInUser) {
           return true;
         } else {
-          this.router.navigateByUrl('home');
+          this.router.navigateByUrl('');
           return false;
         }
       })

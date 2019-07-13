@@ -47,9 +47,7 @@ export class UsersEffects {
         ofType(actions.LOGOUT_USER),
         switchMap((action: actions.LogoutUser) => {
             return this.angularFireAuth.auth.signOut()
-                .then(result => {
-                    return new actions.RemoveUser();
-                })
+                .then(result => new actions.UnimplementedAction())
                 .catch(error => alert(error));
         })
     );

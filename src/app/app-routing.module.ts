@@ -15,10 +15,10 @@ const routes: Routes = [
     canActivate: [AppRoutingGuard],
   },
   {
-    path: '*',
-    redirectTo: '/home',
-    pathMatch: 'full'
-  },
+    path: '**',
+    redirectTo: '',
+  }
+
 ];
 
 @NgModule({

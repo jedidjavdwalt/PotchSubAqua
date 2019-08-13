@@ -35,9 +35,9 @@
     "moment": "^2.24.0",
     "popper": "^1.0.1",
     "popper.js": "^1.14.7",
-    "rxjs": "6.5.2",
+    "rxjs": "^6.4.0",
     "tslib": "^1.10.0",
-    "zone.js": "0.10.1"
+    "zone.js": "~0.9.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.801.2",

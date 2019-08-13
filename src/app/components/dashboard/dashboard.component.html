@@ -78,8 +78,7 @@
           <!-- inventory list -->
           <div class="row" *ngIf="shouldDisplayInventoryList()">
             <div class="col-12 col-lg-4 mb-3" *ngFor="let inventoryItem of inventoryItems">
-              <button class="btn btn-block bg-royalblue text-white"
-                (click)="displayInventoryDetail(inventoryItem)">
+              <button class="btn btn-block bg-royalblue text-white" (click)="displayInventoryDetail(inventoryItem)">
                 {{ inventoryItem.displayId }}
               </button>
             </div>
@@ -107,7 +106,8 @@
 
             <!-- players detail -->
             <div class="col-12 mb-3" *ngIf="shouldDisplayPlayersDetail()">
-              <app-players-detail [selectedPlayer]="selectedPlayer"></app-players-detail>
+              <app-players-detail [selectedPlayer]="selectedPlayer" [isEditing]="isEditingPlayer"
+                (editClicked)="isEditingPlayer = true"></app-players-detail>
             </div>
 
             <!-- inventory detail -->
@@ -118,15 +118,22 @@
 
             <!-- rentals detail -->
             <div class="col-12 mb-3" *ngIf="shouldDisplayRentalsDetail()">
-              <app-rentals-detail [selectedRental]="selectedRental" [isEditing]="isEditing"
-                (editClicked)="isEditing = true"></app-rentals-detail>
+              <app-rentals-detail [selectedRental]="selectedRental" [isEditing]="isEditingRental"
+                (editClicked)="isEditingRental = true"></app-rentals-detail>
             </div>
           </div>
 
-          <!-- rentals edit -->
-          <div class="row" *ngIf="shouldDisplayRentalsEdit()">
-            <div class="col-12 mb-3">
-              <app-rentals-edit [selectedRental]="selectedRental" (saveClicked)="isEditing = false"></app-rentals-edit>
+          <!-- edit -->
+          <div class="row">
+
+            <!-- players edit -->
+            <div class="col-12 mb-3" *ngIf="shouldDisplayPlayersEdit()">
+              <app-players-edit [selectedPlayer]="selectedPlayer" (saveClicked)="isEditingPlayer = false"></app-players-edit>
+            </div>
+
+            <!-- rentals edit -->
+            <div class="col-12 mb-3" *ngIf="shouldDisplayRentalsEdit()">
+              <app-rentals-edit [selectedRental]="selectedRental" (saveClicked)="isEditingRental = false"></app-rentals-edit>
             </div>
           </div>
         </div>

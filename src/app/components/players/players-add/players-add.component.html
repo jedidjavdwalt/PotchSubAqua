@@ -102,6 +102,29 @@
           <option value="Male">Male</option>
         </select>
       </div>
+
+      <div class="form-group align-items-center m-0">
+        <div class="row">
+          <div class="col-6">
+            <label class="col-form-label">Status:</label>
+          </div>
+
+          <div class="col-6 text-right align-self-center">
+            <span *ngIf="juniorPlayerStatus.pristine">*required</span>
+            <span *ngIf="juniorPlayerStatus.dirty && juniorPlayerStatus.invalid">
+              *valid selection
+              required
+            </span>
+          </div>
+        </div>
+
+        <select formControlName="juniorPlayerStatus" class="form-control" required>
+          <option value="Interested">Interested</option>
+          <option value="Beginner">Beginner</option>
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+      </div>
     </form>
 
     <!-- seniorPlayerForm -->
@@ -152,6 +175,29 @@
         <select formControlName="seniorPlayerGender" class="form-control" required>
           <option value="Female">Female</option>
           <option value="Male">Male</option>
+        </select>
+      </div>
+
+      <div class="form-group align-items-center m-0">
+        <div class="row">
+          <div class="col-6">
+            <label class="col-form-label">Status:</label>
+          </div>
+
+          <div class="col-6 text-right align-self-center">
+            <span *ngIf="seniorPlayerStatus.pristine">*required</span>
+            <span *ngIf="seniorPlayerStatus.dirty && seniorPlayerStatus.invalid">
+              *valid selection
+              required
+            </span>
+          </div>
+        </div>
+
+        <select formControlName="seniorPlayerStatus" class="form-control" required>
+          <option value="Interested">Interested</option>
+          <option value="Beginner">Beginner</option>
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
         </select>
       </div>
     </form>

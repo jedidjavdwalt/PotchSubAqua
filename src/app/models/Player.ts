@@ -10,6 +10,8 @@ export class Player {
     gender: string;
     ageGroup: string;
 
+    status: string;
+
     constructor(data: PlayerData) {
         this.docId = data.docId;
         this.birthDate = data.birthDate;
@@ -19,6 +21,8 @@ export class Player {
         this.playerCell = data.playerCell;
         this.gender = data.gender;
         this.ageGroup = data.ageGroup;
+
+        this.status = data.status;
     }
 
     toData(): PlayerData {
@@ -31,6 +35,8 @@ export class Player {
             playerCell: this.playerCell,
             gender: this.gender,
             ageGroup: this.ageGroup,
+
+            status: this.status,
         } as PlayerData;
     }
 }
@@ -44,4 +50,6 @@ export class PlayerData {
     playerCell: number;
     gender: string;
     ageGroup: string;
+
+    status: string;
 }

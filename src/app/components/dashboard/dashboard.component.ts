@@ -85,7 +85,8 @@ export class DashboardComponent implements OnInit {
     }
   ];
 
-  isEditing = false;
+  isEditingPlayer = false;
+  isEditingRental = false;
 
   constructor(
     private store: Store<AppState>,
@@ -256,7 +257,8 @@ export class DashboardComponent implements OnInit {
       this.shouldDisplayPlayersDetail() ||
       this.shouldDisplayInventoryDetail() ||
       this.shouldDisplayRentalsDetail() ||
-      this.shouldDisplayRentalsEdit()
+      this.shouldDisplayRentalsEdit() ||
+      this.shouldDisplayPlayersEdit()
     ) {
       return true;
     }
@@ -293,7 +295,8 @@ export class DashboardComponent implements OnInit {
       this.primaryBtn === 'Players' &&
       this.secondaryBtn &&
       this.secondaryBtn !== 'Add' &&
-      !this.isEditing
+      !this.isEditingPlayer &&
+      !this.isEditingRental
     ) {
       return true;
     }
@@ -307,7 +310,8 @@ export class DashboardComponent implements OnInit {
       this.secondaryBtn &&
       this.secondaryBtn !== 'Add' &&
       this.tertiaryBtn &&
-      !this.isEditing
+      !this.isEditingPlayer &&
+      !this.isEditingRental
     ) {
       return true;
     }
@@ -321,7 +325,8 @@ export class DashboardComponent implements OnInit {
       this.secondaryBtn &&
       this.secondaryBtn !== 'Add' &&
       this.tertiaryBtn &&
-      !this.isEditing
+      !this.isEditingPlayer &&
+      !this.isEditingRental
     ) {
       return true;
     }
@@ -331,6 +336,19 @@ export class DashboardComponent implements OnInit {
 
   shouldDisplayPlayersDetail(): boolean {
     if (this.selectedPlayer) {
+      return true;
+    }
+
+    return false;
+  }
+
+  shouldDisplayPlayersEdit() {
+    if (
+      this.primaryBtn === 'Players' &&
+      this.secondaryBtn &&
+      this.secondaryBtn !== 'Add' &&
+      this.isEditingPlayer
+    ) {
       return true;
     }
 
@@ -359,7 +377,7 @@ export class DashboardComponent implements OnInit {
       this.secondaryBtn &&
       this.secondaryBtn !== 'Add' &&
       this.tertiaryBtn &&
-      this.isEditing
+      this.isEditingRental
     ) {
       return true;
     }

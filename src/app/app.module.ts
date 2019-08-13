@@ -32,6 +32,7 @@ import { RentalsDetailComponent } from './components/rentals/rentals-detail/rent
 import { RentalsEditComponent } from './components/rentals/rentals-edit/rentals-edit.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
+import { PlayersEditComponent } from './components/players/players-edit/players-edit.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { LoginComponent } from './components/login/login.component';
     RentalsEditComponent,
     HomeComponent,
     LoginComponent,
+    PlayersEditComponent,
   ],
   imports: [
     BrowserModule,

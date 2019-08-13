@@ -27,12 +27,14 @@ export class PlayersAddComponent implements OnInit {
     juniorPlayerFullName: [null, [Validators.required, CustomValidators.fullName()]],
     juniorPlayerCell: [null, CustomValidators.tel()],
     juniorPlayerGender: [null, Validators.required],
+    juniorPlayerStatus: [null, Validators.required],
   });
 
   seniorPlayerForm = this.formBuilder.group({
     seniorPlayerFullName: [null, [Validators.required, CustomValidators.fullName()]],
     seniorPlayerCell: [null, [Validators.required, CustomValidators.tel()]],
     seniorPlayerGender: [null, Validators.required],
+    seniorPlayerStatus: [null, Validators.required],
   });
 
   constructor(
@@ -64,6 +66,10 @@ export class PlayersAddComponent implements OnInit {
     return this.juniorPlayerForm.get('juniorPlayerGender');
   }
 
+  get juniorPlayerStatus() {
+    return this.juniorPlayerForm.get('juniorPlayerStatus');
+  }
+
   get seniorPlayerFullName() {
     return this.seniorPlayerForm.get('seniorPlayerFullName');
   }
@@ -74,6 +80,10 @@ export class PlayersAddComponent implements OnInit {
 
   get seniorPlayerGender() {
     return this.seniorPlayerForm.get('seniorPlayerGender');
+  }
+
+  get seniorPlayerStatus() {
+    return this.seniorPlayerForm.get('seniorPlayerStatus');
   }
 
   parentRequired(): boolean {
@@ -127,6 +137,7 @@ export class PlayersAddComponent implements OnInit {
         playerCell: this.juniorPlayerCell.value,
         gender: this.juniorPlayerGender.value,
         ageGroup: this.calculatePlayerAgeGroup(this.calculateBirthDate()),
+        status: this.juniorPlayerStatus.value,
       } as Player;
     }
 
@@ -139,6 +150,7 @@ export class PlayersAddComponent implements OnInit {
         playerCell: this.seniorPlayerCell.value,
         gender: this.seniorPlayerGender.value,
         ageGroup: this.calculatePlayerAgeGroup(this.calculateBirthDate()),
+        status: this.seniorPlayerStatus.value,
       } as Player;
     }
 

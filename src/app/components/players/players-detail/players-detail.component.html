@@ -69,5 +69,10 @@
         {{selectedPlayer.parentCell}}
       </div>
     </div>
+
+    <button class="btn btn-block bg-midnightblue text-white mt-3" (click)="onEditClick()"
+      *ngIf="!isEditing">
+      Edit
+    </button>
   </div>
 </div>

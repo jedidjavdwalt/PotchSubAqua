@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Player } from 'src/app/models/Player';
 
 @Component({
@@ -8,8 +8,15 @@ import { Player } from 'src/app/models/Player';
 export class PlayersDetailComponent implements OnInit {
 
   @Input() selectedPlayer: Player;
+  @Input() isEditing: boolean;
+
+  @Output() editClicked = new EventEmitter();
 
   constructor() { }
+
+  onEditClick() {
+    this.editClicked.emit();
+  }
 
   ngOnInit() {
   }

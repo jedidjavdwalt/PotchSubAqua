@@ -10,6 +10,10 @@ export function playersReducer(state = initialPlayersState, action: actions.Play
 
     switch (action.type) {
 
+        case actions.REQUEST_GET_PLAYERS_BY_STATUS:
+            newState.players = [];
+            return newState;
+
         case actions.REQUEST_GET_PLAYERS_BY_GENDER:
             newState.players = [];
             return newState;

@@ -70,6 +70,16 @@
       </div>
     </div>
 
+    <div class="row" *ngIf="selectedPlayer.status">
+      <div class="col-6 text-right">
+        Status:
+      </div>
+
+      <div class="col-6 text-left">
+        {{selectedPlayer.status}}
+      </div>
+    </div>
+
     <button class="btn btn-block bg-midnightblue text-white mt-3" (click)="onEditClick()"
       *ngIf="!isEditing">
       Edit

@@ -15,6 +15,24 @@ export class PlayersEffects {
     ) { }
 
     @Effect()
+    GetPlayersByStatus$ = this.actions$.pipe(
+        ofType(actions.REQUEST_GET_PLAYERS_BY_STATUS),
+        switchMap((action: actions.RequestGetPlayersByStatus) => {
+            console.log(action);
+
+            return this.angularFirestore.collection('/players/', ref => ref
+                .where('status', '==', action.status)).stateChanges();
+        }),
+        mergeMap(actions => actions),
+        map(action => {
+            if (action.type === 'added') {
+                return new actions.GetPlayerSuccess(new Player(action.payload.doc.data() as PlayerData));
+            }
+            return new actions.UnimplementdAction();
+        })
+    );
+
+    @Effect()
     GetPlayersByGender$ = this.actions$.pipe(
         ofType(actions.REQUEST_GET_PLAYERS_BY_GENDER),
         switchMap((action: actions.RequestGetPlayersByGender) => {

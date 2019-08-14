@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { Player } from 'src/app/models/Player';
 
+export const REQUEST_GET_PLAYERS_BY_STATUS = '[playersState] REQUEST_GET_PLAYERS_BY_STATUS';
 export const REQUEST_GET_PLAYERS_BY_GENDER = '[playersState] REQUEST_GET_PLAYERS_BY_GENDER';
 export const REQUEST_GET_PLAYERS_BY_AGE_GROUP = '[playersState] REQUEST_GET_PLAYERS_BY_AGE_GROUP';
 export const REQUEST_GET_ALL_PLAYERS = '[playersState] REQUEST_GET_ALL_PLAYERS';
@@ -11,14 +12,19 @@ export const CLEAR_SELECTED_PLAYER = '[playersState] CLEAR_SELECTED_PLAYER';
 
 export const UNIMPLEMENTED_ACTION = '[playersState] UNIMPLEMENTED_ACTION';
 
-export class RequestGetPlayersByGender implements Action {
-    type = REQUEST_GET_PLAYERS_BY_GENDER;
-    constructor(public gender: string, public ageGroup: string) { }
+export class RequestGetPlayersByStatus implements Action {
+  readonly type = REQUEST_GET_PLAYERS_BY_STATUS;
+  constructor(public status: string) { }
 }
 
 export class RequestGetPlayersByAgeGroup implements Action {
     type = REQUEST_GET_PLAYERS_BY_AGE_GROUP;
     constructor(public payload: string) { }
+}
+
+export class RequestGetPlayersByGender implements Action {
+    type = REQUEST_GET_PLAYERS_BY_GENDER;
+    constructor(public gender: string, public ageGroup: string) { }
 }
 
 export class RequestGetAllPlayers implements Action {
@@ -47,6 +53,7 @@ export class UnimplementdAction implements Action {
 }
 
 export type PlayersActions =
+    | RequestGetPlayersByStatus
     | RequestGetPlayersByGender
     | RequestGetPlayersByAgeGroup
     | RequestGetAllPlayers

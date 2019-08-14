@@ -49,13 +49,22 @@ export class DashboardComponent implements OnInit {
         { id: 'U15', tertiary: [{ id: 'Female' }, { id: 'Male' }] },
         { id: 'U13', tertiary: [{ id: 'Female' }, { id: 'Male' }] },
         { id: 'U10', tertiary: [{ id: 'Female' }, { id: 'Male' }] },
+        {
+          id: 'Player Status',
+          tertiary: [
+            { id: 'Active' },
+            { id: 'Beginner' },
+            { id: 'Interested' },
+            { id: 'Inactive' }
+          ]
+        },
         { id: 'Add' }
       ]
     },
     {
       id: 'Inventory Items',
       secondary: [
-        { id: 'Status', tertiary: [{ id: 'Available' }, { id: 'Rented' }] },
+        { id: 'Inventory Item Status', tertiary: [{ id: 'Available' }, { id: 'Rented' }] },
         {
           id: 'Inventory Item Type',
           tertiary: [
@@ -104,6 +113,9 @@ export class DashboardComponent implements OnInit {
     this.secondaryBtn = undefined;
     this.tertiaryBtn = undefined;
 
+    this.isEditingPlayer = false;
+    this.isEditingRental = false;
+
     switch (this.primaryBtn) {
       case 'Players':
         this.selectedInventoryItem = null;
@@ -131,6 +143,9 @@ export class DashboardComponent implements OnInit {
 
     this.secondaryBtn === 'Add' ? this.displayAdd() : this.displayList();
 
+    this.isEditingPlayer = false;
+    this.isEditingRental = false;
+
     switch (this.secondaryBtn) {
       case 'Senior':
         this.selectedPlayer = null;
@@ -152,13 +167,17 @@ export class DashboardComponent implements OnInit {
         this.selectedPlayer = null;
         break;
 
+      case 'Player Status':
+        this.selectedPlayer = null;
+        break;
+
       case 'Add':
         this.selectedPlayer = null;
         this.selectedInventoryItem = null;
         this.selectedRental = null;
         break;
 
-      case 'Status':
+      case 'Inventory Item Status':
         this.selectedInventoryItem = null;
         break;
 
@@ -184,12 +203,31 @@ export class DashboardComponent implements OnInit {
 
     this.displayList();
 
+    this.isEditingPlayer = false;
+    this.isEditingRental = false;
+
     switch (this.tertiaryBtn) {
       case 'Female':
         this.selectedPlayer = null;
         break;
 
       case 'Male':
+        this.selectedPlayer = null;
+        break;
+
+      case 'Active':
+        this.selectedPlayer = null;
+        break;
+
+      case 'Beginner':
+        this.selectedPlayer = null;
+        break;
+
+      case 'Interested':
+        this.selectedPlayer = null;
+        break;
+
+      case 'Inactive':
         this.selectedPlayer = null;
         break;
 
@@ -294,6 +332,7 @@ export class DashboardComponent implements OnInit {
     if (
       this.primaryBtn === 'Players' &&
       this.secondaryBtn &&
+      (this.secondaryBtn !== 'Player Status' || (this.secondaryBtn === 'Player Status' && this.tertiaryBtn)) &&
       this.secondaryBtn !== 'Add' &&
       !this.isEditingPlayer &&
       !this.isEditingRental
@@ -443,22 +482,26 @@ export class DashboardComponent implements OnInit {
 
   displayList() {
     if (this.primaryBtn === 'Players') {
-      !this.tertiaryBtn
+      this.secondaryBtn === 'Player Status' && this.tertiaryBtn
         ? this.store.dispatch(
-          new playersActions.RequestGetPlayersByAgeGroup(this.secondaryBtn)
+          new playersActions.RequestGetPlayersByStatus(this.tertiaryBtn)
         )
-        : this.store.dispatch(
-          new playersActions.RequestGetPlayersByGender(
-            this.tertiaryBtn,
-            this.secondaryBtn
+        : !this.tertiaryBtn
+          ? this.store.dispatch(
+            new playersActions.RequestGetPlayersByAgeGroup(this.secondaryBtn)
           )
-        );
+          : this.store.dispatch(
+            new playersActions.RequestGetPlayersByGender(
+              this.tertiaryBtn,
+              this.secondaryBtn
+            )
+          );
 
       return 'Players';
     }
 
     if (this.primaryBtn === 'Inventory Items' && this.tertiaryBtn) {
-      this.secondaryBtn === 'Status'
+      this.secondaryBtn === 'Inventory Item Status'
         ? this.store.dispatch(
           new inventoryActions.RequestGetInventoryItemsByStatus(
             this.tertiaryBtn

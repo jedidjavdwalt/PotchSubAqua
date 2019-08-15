@@ -1,120 +1,47 @@
-<div class="container-fluid fill-container">
-  <div class="row pb-3 fill-body">
-    <!-- menu -->
-    <div class="col-12 col-lg-3 pt-3">
-      <div class="card bg-lightsteelblue border-none h-100">
-        <div class="card-body fill-container">
-          <div class="row mb-3">
-            <div class="col-12">
-              <img src="\assets\logo\logo-midnightblue.png" class="img mx-auto">
-            </div>
-          </div>
+<div class="container-fluid d-flex flex-column w-100 h-100 p-3 bg-royalblue">
+  <div class="row justify-content-center mb-auto">
+    <div class="col-10">
+      <div class="row align-items-center">
+        <img src="\assets\logo\logo-white.png" height="50">
+        <h3 class="ml-2">Potch Sub Aqua</h3>
 
-          <div class="row">
-            <div class="col-12 text-center text-midnightblue">
-              <h2>Potch Sub Aqua</h2>
-            </div>
-          </div>
-
-          <div class="row mt-auto pt-2">
-            <div class="col-12">
-              <button class="btn btn-block bg-royalblue text-white" (click)="loginClicked()">
-                Login
-              </button>
-            </div>
-          </div>
-        </div>
+        <nav class="nav psa-nav justify-content-center ml-auto">
+          <a class="nav-link clickable" [class.active]="">Home</a>
+          <a class="nav-link ml-2 clickable" (click)="navigateContact()">Contact</a>
+          <a class="nav-link ml-2 clickable" (click)="loginClicked()">Login</a>
+        </nav>
       </div>
     </div>
+  </div>
 
-    <!-- body -->
-    <div class="col-12 col-lg-9 pt-3">
-      <div class="card bg-lightsteelblue border-none h-100">
-        <div class="card-body pb-0 fill-container">
-          <div class="row fill-body">
-            <div class="col-12 col-lg-7 mb-3">
-              <div class="card border-none bg-cornflowerblue h-100">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-12 text-white">
-                      <span class="font-weight-bold" >
-                        Welcome / Welkom...
-                      </span>
+  <div role="main" class="row justify-content-center">
+    <div class="col-10">
+      <h1>Welcome / Welkom...</h1>
+      <p class="lead">
+        Welcome to Potch Sub Aqua Underwater Hockey Club... The home of the
+        North West Potchefstroom
+        Provincial Underwater Hockey Teams... Where we play a breathtaking sport
+        that leaves you
+        breathless!
+      </p>
 
-                      <p>
-                        Welcome to Potch Sub Aqua Underwater Hockey Club... The home of the North West Potchefstroom
-                        Provincial Underwater Hockey Teams... Where we play a breathtaking sport that leaves you
-                        breathless!
-                      </p>
+      <p class="lead">
+        Welkom by Potch Sub Aqua Onderwater Hokkie Klub... Die tuiste van die
+        Noordwes Potchefstroom
+        Provinsiale Onderwater Hokkie Spanne ... Waar ons 'n asemrowende sport
+        speel wat jou asemloos
+        laat!
+      </p>
 
-                      <span>
-                        Welkom by Potch Sub Aqua Onderwater Hokkie Klub... Die tuiste van die Noordwes Potchefstroom
-                        Provinsiale Onderwater Hokkie Spanne ... Waar ons 'n asemrowende sport speel wat jou asemloos
-                        laat!
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <p class="lead">
+        <a href="https://facebook.com/potchsubaqua" target="_blank" class="btn btn-lg psa-btn-white text-royalblue">Learn more / Leer meer</a>
+      </p>
+    </div>
+  </div>
 
-            <div class="col-12 col-lg-5 mb-3">
-              <div class="card bg-cornflowerblue border-none h-100">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-12 text-white">
-                      <span class="font-weight-bold">
-                        Contact us / Kontak ons...
-                      </span>
-
-                      <p>
-                        We welcome any new players... Please call <span class="text-midnightblue">082 771 5777 (Pamela
-                          Mackor)</span> to get in touch with us!
-                      </p>
-
-                      <span>
-                        Ons verwelkom enige nuwe spelers ... Skakel asseblief <span class="text-midnightblue">082 771
-                          5777 (Pamela Mackor)</span> om in
-                        aanraking te kom met ons!
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row fill-body mb-3">
-            <div class="col-12">
-              <div class="card bg-cornflowerblue border-none h-100">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-12 text-white">
-                      <span class="font-weight-bold">
-                        About us... / Oor ons...
-                      </span>
-
-                      <p>
-                        The Potch Sub Aqua Underwater Hockey Club has been in existence since the 1970s and has
-                        contributed not only many Springbok players but also Springbok coaches from its ranks... Take a
-                        look at the <a href="https://www.facebook.com/potchsubaqua" target="_blank">Potch Sub Aqua
-                          Facebook Page</a> for more about us...
-                      </p>
-
-                      <span>
-                        Die Potch Sub Aqua Onderwater Hokkie Klub bestaan reeds sedert die 1970's en het nie net baie
-                        Springbok-spelers, maar ook Springbok-afrigters uit sy geledere bygedra... Gaan kyk na die <a
-                          href="https://www.facebook.com/potchsubaqua" target="_blank">Potch Sub Aqua Facebook Page</a>
-                        vir meer oor ons...
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+  <div class="row justify-content-center text-lightsteelblue mt-auto">
+    <div class="col-10">
+      <p>Website by <a href="https://twitter.com/mdo">Jedidja van der Walt</a>.</p>
     </div>
   </div>
 </div>

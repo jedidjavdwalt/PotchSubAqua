@@ -1,24 +1,24 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
 import * as usersActions from '../../store/actions/users.actions';
 import * as usersSelectors from '../../store/selectors/users.selectors';
-import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
+  selector: 'app-contact',
+  templateUrl: './contact.component.html',
+  styleUrls: ['./contact.component.css']
 })
-export class HomeComponent implements OnInit {
+export class ContactComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
     private router: Router,
   ) { }
 
-  navigateContact() {
-    this.router.navigateByUrl('contact');
+  navigateHome() {
+    this.router.navigateByUrl('home');
   }
 
   loginClicked() {

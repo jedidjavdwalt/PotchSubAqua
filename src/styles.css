@@ -1,19 +1,17 @@
-/* white: bg, text */
-/* lightsteelblue: card */
-/* cornflowerblue: card */
-/* royalblue: btn, emphasis */
-/* midnightblue: text, emphasis */
-
 html,
 body {
   height: 100%;
 }
 
 body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  display: -ms-flexbox;
+  display: flex;
+  color: white;
+  text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.5);
+  box-shadow: inset 0 0 5rem rgba(0, 0, 0, 0.5);
 }
 
+/* backgrounds */
 .bg-midnightblue {
   background-color: midnightblue;
 }
@@ -30,14 +28,11 @@ body {
   background-color: lightsteelblue;
 }
 
-.bg-white {
-  background-color: white;
-}
-
 .text-midnightblue {
   color: midnightblue;
 }
 
+/* text */
 .text-royalblue {
   color: royalblue;
 }
@@ -50,10 +45,12 @@ body {
   color: lightsteelblue;
 }
 
+/* borders */
 .border-none {
   border: none;
 }
 
+/* custom containers */
 .fill-container {
   display: flex;
   flex-flow: column;
@@ -64,6 +61,7 @@ body {
   flex: 1 1 auto;
 }
 
+/* auto resizing img */
 .img {
   width: 125px;
   height: 125px;
@@ -72,23 +70,7 @@ body {
   display: block;
 }
 
-a:link {
-  color: midnightblue;
-}
-
-a:visited {
-  color: midnightblue;
-}
-
-a:hover {
-  color: midnightblue;
-}
-
-a:active {
-  color: midnightblue;
-}
-
-/* remove number input arrows */
+/* remove number spinner */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -97,4 +79,44 @@ input::-webkit-inner-spin-button {
 
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+/* anchors */
+a,
+a:focus,
+a:hover {
+  color: white;
+}
+
+/* buttons */
+.psa-btn-white,
+.psa-btn-white:hover,
+.psa-btn-white:focus {
+  text-shadow: none;
+  background-color: white;
+  border: 0.05rem solid white;
+}
+
+/* navs */
+.psa-nav .nav-link {
+  padding: 5px;
+  font-weight: 700;
+  color: lightsteelblue;
+  background-color: transparent;
+  border-bottom: 5px solid transparent;
+}
+
+.psa-nav .nav-link:hover,
+.psa-nav .nav-link:focus {
+  border-bottom-color: lightsteelblue;
+}
+
+.psa-nav .active {
+  color: white;
+  border-bottom-color: white;
+}
+
+/* cursors */
+.clickable {
+  cursor: pointer;
 }

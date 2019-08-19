@@ -33,6 +33,8 @@ import { RentalsEditComponent } from './components/rentals/rentals-edit/rentals-
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { PlayersEditComponent } from './components/players/players-edit/players-edit.component';
+import { TempComponent } from './components/temp/temp.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,8 @@ import { PlayersEditComponent } from './components/players/players-edit/players-
     HomeComponent,
     LoginComponent,
     PlayersEditComponent,
+    TempComponent,
+    ContactComponent,
   ],
   imports: [
     BrowserModule,

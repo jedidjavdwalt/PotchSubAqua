@@ -28,6 +28,10 @@ body {
   background-color: lightsteelblue;
 }
 
+.bg-white {
+  background-color: white;
+}
+
 .text-midnightblue {
   color: midnightblue;
 }
@@ -120,3 +124,30 @@ a:hover {
 .clickable {
   cursor: pointer;
 }
+
+/* sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100; /* Behind the navbar */
+  padding: 0;
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
+  background: midnightblue;
+}
+
+.sidebar .nav-link {
+  font-weight: 500;
+  color: lightsteelblue;
+}
+
+.sidebar .nav-link.active {
+  color: white;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+  color: white;
+}
+

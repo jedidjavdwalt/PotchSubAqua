@@ -554,7 +554,7 @@ export class DashboardComponent implements OnInit {
   sliceAppState() {
     this.store.select(usersSelectors.loggedInUser).subscribe(loggedInUser => {
       if (!loggedInUser) {
-        this.router.navigateByUrl('');
+        // this.router.navigateByUrl('');
       }
     });
 

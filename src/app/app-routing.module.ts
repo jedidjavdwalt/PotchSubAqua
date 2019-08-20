@@ -17,7 +17,7 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [AppRoutingGuard],
+    // canActivate: [AppRoutingGuard],
   },
   {
     path: '**',

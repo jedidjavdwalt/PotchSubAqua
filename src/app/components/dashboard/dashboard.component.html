@@ -1,37 +1,208 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-3 sidebar">
-            <div class="d-flex flex-row align-items-center p-3">
+            <div class="d-flex flex-row align-items-center p-2">
                 <img src="\assets\logo\logo-white.png" height="50">
                 <h5 class="ml-2">Potch Sub Aqua</h5>
             </div>
 
-            <nav class="nav flex-column collapsed">
-                <a class="nav-link" data-toggle="collapse" href="#collapsePlayers" role="button" aria-expanded="false"
-                    aria-controls="collapsePlayers">
+            <nav class="nav sidebar-nav flex-column">
+                <span class="nav-link" data-toggle="collapse" href="#collapsePlayers" role="button"
+                    aria-expanded="false" aria-controls="collapsePlayers" (click)="clickPlayerNavLink()"
+                    [class.active]="playerNavLink.active">
                     Players
-                </a>
+                </span>
 
                 <nav class="collapse pl-3" id="collapsePlayers">
-                    <a class="nav-link">U19</a>
-                    <a class="nav-link">U15</a>
+                    <span class="nav-link" data-toggle="collapse" href="#collapseU19" role="button"
+                        aria-expanded="false" aria-controls="collapseU19" (click)="clickU19NavLink()"
+                        [class.active]="u19NavLink.active">
+                        U19
+                    </span>
+
+                    <nav class="collapse pl-3" id="collapseU19">
+                        <span class="nav-link" (click)="clickU19WomenNavLink()" [class.active]="u19WomenNavLink.active">
+                            Women
+                        </span>
+
+                        <span class="nav-link" (click)="clickU19MenNavLink()" [class.active]="u19MenNavLink.active">
+                            Men
+                        </span>
+                    </nav>
+
+                    <span class="nav-link" data-toggle="collapse" href="#collapseU15" role="button"
+                        aria-expanded="false" aria-controls="collapseU15" (click)="clickU15NavLink()"
+                        [class.active]="u15NavLink.active">
+                        U15
+                    </span>
+
+                    <nav class="collapse pl-3" id="collapseU15">
+                        <span class="nav-link" (click)="clickU15WomenNavLink()" [class.active]="u15WomenNavLink.active">
+                            Women
+                        </span>
+
+                        <span class="nav-link" (click)="clickU15MenNavLink()" [class.active]="u15MenNavLink.active">
+                            Men
+                        </span>
+                    </nav>
+
+                    <span class="nav-link" data-toggle="collapse" href="#collapseU13" role="button"
+                        aria-expanded="false" aria-controls="collapseU13" (click)="clickU13NavLink()"
+                        [class.active]="u13NavLink.active">
+                        U13
+                    </span>
+
+                    <nav class="collapse pl-3" id="collapseU13">
+                        <span class="nav-link" (click)="clickU13WomenNavLink()" [class.active]="u13MenNavLink.active">
+                            Men
+                        </span>
+
+                        <span class="nav-link" (click)="clickU13WomenNavLink()" [class.active]="u13WomenNavLink.active">
+                            Women
+                        </span>
+                    </nav>
+
+                    <span class="nav-link" data-toggle="collapse" href="#collapseU10" role="button"
+                        aria-expanded="false" aria-controls="collapseU10" (click)="clickU10NavLink()"
+                        [class.active]="u10NavLink.active">
+                        U10
+                    </span>
+
+                    <nav class="collapse pl-3" id="collapseU10">
+                        <span class="nav-link" (click)="clickU10MenNavLink()" [class.active]="u10MenNavLink.active">
+                            Men
+                        </span>
+
+                        <span class="nav-link" (click)="clickU10WomenNavLink()" [class.active]="u10WomenNavLink.active">
+                            Women
+                        </span>
+                    </nav>
+
+                    <span class="nav-link" data-toggle="collapse" href="#collapsePlayerStatus" role="button"
+                        aria-expanded="false" aria-controls="collapsePlayerStatus" (click)="clickPlayerStatusNavLink()" [class.active]="playerStatusNavLink.active">
+                        Player Status
+                    </span>
+
+                    <nav class="collapse pl-3" id="collapsePlayerStatus">
+                        <span class="nav-link" (click)="clickActiveNavLink()" [class.active]="activeNavLink.active">
+                            Active
+                        </span>
+
+                        <span class="nav-link" (click)="clickBeginnerNavLink()" [class.active]="beginnerNavLink.active">
+                            Beginner
+                        </span>
+
+                        <span class="nav-link" (click)="clickInterestedNavLink()" [class.active]="interestedNavLink.active">
+                            Interested
+                        </span>
+
+                        <span class="nav-link" (click)="clickInactiveNavLink()" [class.active]="inactiveNavLink.active">
+                            Inactive
+                        </span>
+                    </nav>
+
+                    <span class="nav-link" (click)="clickAddPlayerNavLink()" [class.active]="addPlayerNavLink.active">
+                        Add
+                    </span>
                 </nav>
 
-                <a class="nav-link" href="#">
-                    Orders
-                </a>
-                <a class="nav-link" href="#">
-                    Products
-                </a>
-                <a class="nav-link" href="#">
-                    Customers
-                </a>
-                <a class="nav-link" href="#">
-                    Reports
-                </a>
-                <a class="nav-link" href="#">
-                    Integrations
-                </a>
+                <!-- <span class="nav-link" data-toggle="collapse" href="#collapseInventoryItems" role="button"
+                    aria-expanded="false" aria-controls="collapseInventoryItems">
+                    Inventory Items
+                </span>
+
+                <nav class="collapse pl-3" id="collapseInventoryItems">
+                    <span class="nav-link" data-toggle="collapse" href="#collapseInventoryItemStatus" role="button"
+                        aria-expanded="false" aria-controls="collapseInventoryItemStatus">
+                        Inventory Item Status
+                    </span>
+
+                    <nav class="collapse pl-3" id="collapseInventoryItemStatus">
+                        <span class="nav-link ">
+                            Available
+                        </span>
+
+                        <span class="nav-link ">
+                            Rented
+                        </span>
+                    </nav>
+
+                    <span class="nav-link" data-toggle="collapse" href="#collapseInventoryItemType" role="button"
+                        aria-expanded="false" aria-controls="collapseInventoryItemStatus">
+                        Inventory Item Type
+                    </span>
+
+                    <nav class="collapse pl-3" id="collapseInventoryItemStatus">
+                        <span class="nav-link ">
+                            Mask
+                        </span>
+
+                        <span class="nav-link ">
+                            Snorkel
+                        </span>
+
+                        <span class="nav-link ">
+                            Glove
+                        </span>
+
+                        <span class="nav-link ">
+                            Stick
+                        </span>
+
+                        <span class="nav-link ">
+                            Fins
+                        </span>
+                    </nav>
+
+                    <span class="nav-link ">
+                        Add
+                    </span>
+                </nav>
+
+                <span class="nav-link" data-toggle="collapse" href="#collapseRentals" role="button"
+                    aria-expanded="false" aria-controls="collapseRentals">
+                    Rentals
+                </span>
+
+                <nav class="collapse pl-3" id="collapseRentals">
+                    <span class="nav-link" data-toggle="collapse" href="#collapseActionRequired" role="button"
+                        aria-expanded="false" aria-controls="collapseActionRequired">
+                        Action Required
+                    </span>
+
+                    <nav class="collapse pl-3" id="collapseActionRequired">
+                        <span class="nav-link ">
+                            Admin
+                        </span>
+
+                        <span class="nav-link ">
+                            Player
+                        </span>
+                    </nav>
+
+                    <span class="nav-link" data-toggle="collapse" href="#collapseRentalType" role="button"
+                        aria-expanded="false" aria-controls="collapseRentalType">
+                        Rental Type
+                    </span>
+
+                    <nav class="collapse pl-3" id="collapseRentalType">
+                        <span class="nav-link ">
+                            Day
+                        </span>
+
+                        <span class="nav-link ">
+                            Beginner
+                        </span>
+
+                        <span class="nav-link ">
+                            Season
+                        </span>
+                    </nav>
+
+                    <span class="nav-link ">
+                        Add
+                    </span>
+                </nav> -->
             </nav>
         </div>
 

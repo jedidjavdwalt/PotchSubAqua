@@ -22,613 +22,154 @@ import * as usersSelectors from '../../store/selectors/users.selectors';
   templateUrl: './dashboard.component.html',
 })
 export class DashboardComponent implements OnInit {
-  primaryBtn = undefined;
-  secondaryBtn = undefined;
-  tertiaryBtn = undefined;
 
-  players = [];
-  selectedPlayer = null;
+  playerNavLink = { active: false, name: 'Players' };
+  u19NavLink = { active: false, name: 'U19' };
+  u19WomenNavLink = { active: false, name: 'Men' };
+  u19MenNavLink = { active: false, name: 'Women' };
+  u15NavLink = { active: false, name: 'U15' };
+  u15WomenNavLink = { active: false, name: 'Men' };
+  u15MenNavLink = { active: false, name: 'Women' };
+  u13NavLink = { active: false, name: 'U13' };
+  u13WomenNavLink = { active: false, name: 'Women' };
+  u13MenNavLink = { active: false, name: 'Men' };
+  u10NavLink = { active: false, name: 'U10' };
+  u10WomenNavLink = { active: false, name: 'Women' };
+  u10MenNavLink = { active: false, name: 'Men' };
+  playerStatusNavLink = { active: false, name: 'Status' };
+  addPlayerNavLink = { active: false, name: 'Add' };
+  activeNavLink = { active: false, name: 'Active' };
+  beginnerNavLink = { active: false, name: 'Beginner' };
+  interestedNavLink = { active: false, name: 'Interested' };
+  inactiveNavLink = { active: false, name: 'Inactive' };
 
-  inventoryItems = [];
-  selectedInventoryItem = null;
-
-  rentals = [];
-  selectedRental = null;
-  availableMasks = [];
-  availableSnorkels = [];
-  availableGloves = [];
-  availableSticks = [];
-  availableFins = [];
-
-  buttons = [
-    {
-      id: 'Players',
-      secondary: [
-        { id: 'Senior', tertiary: [{ id: 'Female' }, { id: 'Male' }] },
-        { id: 'U19', tertiary: [{ id: 'Female' }, { id: 'Male' }] },
-        { id: 'U15', tertiary: [{ id: 'Female' }, { id: 'Male' }] },
-        { id: 'U13', tertiary: [{ id: 'Female' }, { id: 'Male' }] },
-        { id: 'U10', tertiary: [{ id: 'Female' }, { id: 'Male' }] },
-        {
-          id: 'Player Status',
-          tertiary: [
-            { id: 'Active' },
-            { id: 'Beginner' },
-            { id: 'Interested' },
-            { id: 'Inactive' }
-          ]
-        },
-        { id: 'Add' }
-      ]
-    },
-    {
-      id: 'Inventory Items',
-      secondary: [
-        { id: 'Inventory Item Status', tertiary: [{ id: 'Available' }, { id: 'Rented' }] },
-        {
-          id: 'Inventory Item Type',
-          tertiary: [
-            { id: 'Mask' },
-            { id: 'Snorkel' },
-            { id: 'Glove' },
-            { id: 'Stick' },
-            { id: 'Fins' }
-          ]
-        },
-        { id: 'Add' }
-      ]
-    },
-    {
-      id: 'Rentals',
-      secondary: [
-        {
-          id: 'Action Required',
-          tertiary: [{ id: 'Admin' }, { id: 'Player' }]
-        },
-        {
-          id: 'Rental Type',
-          tertiary: [{ id: 'Day' }, { id: 'Beginner' }, { id: 'Season' }]
-        },
-        { id: 'Add' }
-      ]
-    }
-  ];
-
-  isEditingPlayer = false;
-  isEditingRental = false;
-
-  constructor(
-    private store: Store<AppState>,
-    private updateService: UpdateService,
-    private router: Router,
-  ) { }
-
-  logoutClicked() {
-    this.store.dispatch(new usersActions.RemoveUser());
-    this.store.dispatch(new usersActions.LogoutUser());
+  constructor() {
   }
 
-  primaryClicked(btn: string) {
-    this.primaryBtn = btn;
-    this.secondaryBtn = undefined;
-    this.tertiaryBtn = undefined;
-
-    this.isEditingPlayer = false;
-    this.isEditingRental = false;
-
-    switch (this.primaryBtn) {
-      case 'Players':
-        this.selectedInventoryItem = null;
-        this.selectedRental = null;
-        break;
-
-      case 'Inventory Items':
-        this.selectedPlayer = null;
-        this.selectedRental = null;
-        break;
-
-      case 'Rentals':
-        this.selectedPlayer = null;
-        this.selectedInventoryItem = null;
-        break;
-
-      default:
-        break;
-    }
+  deactivateAll() {
+    this.playerNavLink.active = false;
+    this.u19NavLink.active = false;
+    this.u19WomenNavLink.active = false;
+    this.u19MenNavLink.active = false;
+    this.u15NavLink.active = false;
+    this.u15WomenNavLink.active = false;
+    this.u15MenNavLink.active = false;
+    this.u13NavLink.active = false;
+    this.u13WomenNavLink.active = false;
+    this.u13MenNavLink.active = false;
+    this.u10NavLink.active = false;
+    this.u10WomenNavLink.active = false;
+    this.u10MenNavLink.active = false;
+    this.playerStatusNavLink.active = false;
+    this.addPlayerNavLink.active = false;
+    this.activeNavLink.active = false;
+    this.beginnerNavLink.active = false;
+    this.interestedNavLink.active = false;
+    this.inactiveNavLink.active = false;
   }
 
-  secondaryClicked(btn: string) {
-    this.secondaryBtn = btn;
-    this.tertiaryBtn = undefined;
-
-    this.secondaryBtn === 'Add' ? this.displayAdd() : this.displayList();
-
-    this.isEditingPlayer = false;
-    this.isEditingRental = false;
-
-    switch (this.secondaryBtn) {
-      case 'Senior':
-        this.selectedPlayer = null;
-        break;
-
-      case 'U19':
-        this.selectedPlayer = null;
-        break;
-
-      case 'U15':
-        this.selectedPlayer = null;
-        break;
-
-      case 'U13':
-        this.selectedPlayer = null;
-        break;
-
-      case 'U10':
-        this.selectedPlayer = null;
-        break;
-
-      case 'Player Status':
-        this.selectedPlayer = null;
-        break;
-
-      case 'Add':
-        this.selectedPlayer = null;
-        this.selectedInventoryItem = null;
-        this.selectedRental = null;
-        break;
-
-      case 'Inventory Item Status':
-        this.selectedInventoryItem = null;
-        break;
-
-      case 'Inventory Item Type':
-        this.selectedInventoryItem = null;
-        break;
-
-      case 'Action Required':
-        this.selectedRental = null;
-        break;
-
-      case 'Rental Type':
-        this.selectedRental = null;
-        break;
-
-      default:
-        break;
-    }
+  clickPlayerNavLink() {
+    this.deactivateAll();
+    this.playerNavLink.active = true;
   }
 
-  tertiaryClicked(btn: string) {
-    this.tertiaryBtn = btn;
-
-    this.displayList();
-
-    this.isEditingPlayer = false;
-    this.isEditingRental = false;
-
-    switch (this.tertiaryBtn) {
-      case 'Female':
-        this.selectedPlayer = null;
-        break;
-
-      case 'Male':
-        this.selectedPlayer = null;
-        break;
-
-      case 'Active':
-        this.selectedPlayer = null;
-        break;
-
-      case 'Beginner':
-        this.selectedPlayer = null;
-        break;
-
-      case 'Interested':
-        this.selectedPlayer = null;
-        break;
-
-      case 'Inactive':
-        this.selectedPlayer = null;
-        break;
-
-      case 'Available':
-        this.selectedInventoryItem = null;
-        break;
-
-      case 'Rented':
-        this.selectedInventoryItem = null;
-        break;
-
-      case 'Mask':
-        this.selectedInventoryItem = null;
-        break;
-
-      case 'Snorkel':
-        this.selectedInventoryItem = null;
-        break;
-
-      case 'Glove':
-        this.selectedInventoryItem = null;
-        break;
-
-      case 'Stick':
-        this.selectedInventoryItem = null;
-        break;
-
-      case 'Fins':
-        this.selectedInventoryItem = null;
-        break;
-
-      case 'Admin':
-        this.selectedRental = null;
-        break;
-
-      case 'Player':
-        this.selectedRental = null;
-        break;
-
-      case 'Day':
-        this.selectedRental = null;
-        break;
-
-      case 'Beginner':
-        this.selectedRental = null;
-        break;
-
-      case 'Season':
-        this.selectedRental = null;
-        break;
-
-      default:
-        break;
-    }
+  clickU19NavLink() {
+    this.deactivateAll();
+    this.u19NavLink.active = true;
   }
 
-  shouldDisplayBody(): boolean {
-    if (
-      this.shouldDisplayPlayersAdd() ||
-      this.shouldDisplayInventoryAdd() ||
-      this.shouldDisplayRentalsAdd() ||
-      this.shouldDisplayPlayersList() ||
-      this.shouldDisplayInventoryList() ||
-      this.shouldDisplayRentalsList() ||
-      this.shouldDisplayPlayersDetail() ||
-      this.shouldDisplayInventoryDetail() ||
-      this.shouldDisplayRentalsDetail() ||
-      this.shouldDisplayRentalsEdit() ||
-      this.shouldDisplayPlayersEdit()
-    ) {
-      return true;
-    }
-
-    return false;
+  clickU19MenNavLink() {
+    this.deactivateAll();
+    this.u19MenNavLink.active = true;
   }
 
-  shouldDisplayPlayersAdd(): boolean {
-    if (this.primaryBtn === 'Players' && this.secondaryBtn === 'Add') {
-      return true;
-    }
-
-    return false;
+  clickU19WomenNavLink() {
+    this.deactivateAll();
+    this.u19WomenNavLink.active = true;
   }
 
-  shouldDisplayInventoryAdd(): boolean {
-    if (this.primaryBtn === 'Inventory Items' && this.secondaryBtn === 'Add') {
-      return true;
-    }
-
-    return false;
+  clickU15NavLink() {
+    this.deactivateAll();
+    this.u15NavLink.active = true;
   }
 
-  shouldDisplayRentalsAdd(): boolean {
-    if (this.primaryBtn === 'Rentals' && this.secondaryBtn === 'Add') {
-      return true;
-    }
-
-    return false;
+  clickU15MenNavLink() {
+    this.deactivateAll();
+    this.u15MenNavLink.active = true;
   }
 
-  shouldDisplayPlayersList(): boolean {
-    if (
-      this.primaryBtn === 'Players' &&
-      this.secondaryBtn &&
-      (this.secondaryBtn !== 'Player Status' || (this.secondaryBtn === 'Player Status' && this.tertiaryBtn)) &&
-      this.secondaryBtn !== 'Add' &&
-      !this.isEditingPlayer &&
-      !this.isEditingRental
-    ) {
-      return true;
-    }
-
-    return false;
+  clickU15WomenNavLink() {
+    this.deactivateAll();
+    this.u15WomenNavLink.active = true;
   }
 
-  shouldDisplayInventoryList(): boolean {
-    if (
-      this.primaryBtn === 'Inventory Items' &&
-      this.secondaryBtn &&
-      this.secondaryBtn !== 'Add' &&
-      this.tertiaryBtn &&
-      !this.isEditingPlayer &&
-      !this.isEditingRental
-    ) {
-      return true;
-    }
-
-    return false;
+  clickU13NavLink() {
+    this.deactivateAll();
+    this.u13NavLink.active = true;
   }
 
-  shouldDisplayRentalsList(): boolean {
-    if (
-      this.primaryBtn === 'Rentals' &&
-      this.secondaryBtn &&
-      this.secondaryBtn !== 'Add' &&
-      this.tertiaryBtn &&
-      !this.isEditingPlayer &&
-      !this.isEditingRental
-    ) {
-      return true;
-    }
-
-    return false;
+  clickU13MenNavLink() {
+    this.deactivateAll();
+    this.u13MenNavLink.active = true;
   }
 
-  shouldDisplayPlayersDetail(): boolean {
-    if (this.selectedPlayer) {
-      return true;
-    }
-
-    return false;
+  clickU13WomenNavLink() {
+    this.deactivateAll();
+    this.u13WomenNavLink.active = true;
   }
 
-  shouldDisplayPlayersEdit() {
-    if (
-      this.primaryBtn === 'Players' &&
-      this.secondaryBtn &&
-      this.secondaryBtn !== 'Add' &&
-      this.isEditingPlayer
-    ) {
-      return true;
-    }
-
-    return false;
+  clickU10NavLink() {
+    this.deactivateAll();
+    this.u10NavLink.active = true;
   }
 
-  shouldDisplayInventoryDetail(): boolean {
-    if (this.selectedInventoryItem) {
-      return true;
-    }
-
-    return false;
+  clickU10MenNavLink() {
+    this.deactivateAll();
+    this.u10MenNavLink.active = true;
   }
 
-  shouldDisplayRentalsDetail(): boolean {
-    if (this.selectedRental) {
-      return true;
-    }
-
-    return false;
+  clickU10WomenNavLink() {
+    this.deactivateAll();
+    this.u10WomenNavLink.active = true;
   }
 
-  shouldDisplayRentalsEdit() {
-    if (
-      this.primaryBtn === 'Rentals' &&
-      this.secondaryBtn &&
-      this.secondaryBtn !== 'Add' &&
-      this.tertiaryBtn &&
-      this.isEditingRental
-    ) {
-      return true;
-    }
-
-    return false;
+  clickPlayerStatusNavLink() {
+    this.deactivateAll();
+    this.playerStatusNavLink.active = true;
   }
 
-  displayAdd() {
-    if (this.primaryBtn === 'Players') {
-      return 'Players';
-    }
-
-    if (this.primaryBtn === 'Inventory Items') {
-      return 'Inventory Items';
-    }
-
-    if (this.primaryBtn === 'Rentals') {
-      this.store.dispatch(new playersActions.RequestGetAllPlayers());
-
-      if (
-        !this.availableMasks ||
-        !this.availableMasks.length ||
-        this.availableMasks.length === 0
-      ) {
-        this.store.dispatch(new inventoryActions.RequestGetAvailableMasks());
-      }
-
-      if (
-        !this.availableSnorkels ||
-        !this.availableSnorkels.length ||
-        this.availableSnorkels.length === 0
-      ) {
-        this.store.dispatch(new inventoryActions.RequestGetAvailableSnorkels());
-      }
-
-      if (
-        !this.availableGloves ||
-        !this.availableGloves.length ||
-        this.availableGloves.length === 0
-      ) {
-        this.store.dispatch(new inventoryActions.RequestGetAvailableGloves());
-      }
-
-      if (
-        !this.availableSticks ||
-        !this.availableSticks.length ||
-        this.availableSticks.length === 0
-      ) {
-        this.store.dispatch(new inventoryActions.RequestGetAvailableSticks());
-      }
-
-      if (
-        !this.availableFins ||
-        !this.availableFins.length ||
-        this.availableFins.length === 0
-      ) {
-        this.store.dispatch(new inventoryActions.RequestGetAvailableFins());
-      }
-
-      return 'Rentals';
-    }
+  clickActiveNavLink() {
+    this.deactivateAll();
+    this.activeNavLink.active = true;
   }
 
-  displayList() {
-    if (this.primaryBtn === 'Players') {
-      this.secondaryBtn === 'Player Status' && this.tertiaryBtn
-        ? this.store.dispatch(
-          new playersActions.RequestGetPlayersByStatus(this.tertiaryBtn)
-        )
-        : !this.tertiaryBtn
-          ? this.store.dispatch(
-            new playersActions.RequestGetPlayersByAgeGroup(this.secondaryBtn)
-          )
-          : this.store.dispatch(
-            new playersActions.RequestGetPlayersByGender(
-              this.tertiaryBtn,
-              this.secondaryBtn
-            )
-          );
-
-      return 'Players';
-    }
-
-    if (this.primaryBtn === 'Inventory Items' && this.tertiaryBtn) {
-      this.secondaryBtn === 'Inventory Item Status'
-        ? this.store.dispatch(
-          new inventoryActions.RequestGetInventoryItemsByStatus(
-            this.tertiaryBtn
-          )
-        )
-        : this.store.dispatch(
-          new inventoryActions.RequestGetInventoryItemsByType(
-            this.tertiaryBtn
-          )
-        );
-
-      return 'Inventory Items';
-    }
-
-    if (this.primaryBtn === 'Rentals' && this.tertiaryBtn) {
-      this.secondaryBtn === 'Action Required'
-        ? this.store.dispatch(
-          new rentalsActions.RequestGetRentalsByActionRequired(
-            this.tertiaryBtn
-          )
-        )
-        : this.store.dispatch(
-          new rentalsActions.RequestGetRentalsByType(this.tertiaryBtn)
-        );
-
-      return 'Rentals';
-    }
+  clickBeginnerNavLink() {
+    this.deactivateAll();
+    this.beginnerNavLink.active = true;
   }
 
-  displayPlayersDetail(selectedPlayer: Player) {
-    this.store.dispatch(new playersActions.SetSelectedPlayer(selectedPlayer));
-    this.store.dispatch(new inventoryActions.ClearSelectedInventoryItem());
-    this.store.dispatch(new rentalsActions.ClearSelectedRental());
+  clickInterestedNavLink() {
+    this.deactivateAll();
+    this.interestedNavLink.active = true;
   }
 
-  displayInventoryDetail(selectedInventoryItem: InventoryItem) {
-    this.store.dispatch(
-      new inventoryActions.SetSelectedInventoryItem(selectedInventoryItem)
-    );
-    this.store.dispatch(new playersActions.ClearSelectedPlayer());
-    this.store.dispatch(new rentalsActions.ClearSelectedRental());
+  clickInactiveNavLink() {
+    this.deactivateAll();
+    this.inactiveNavLink.active = true;
   }
 
-  displayRentalsDetail(selectedRental: Rental) {
-    this.store.dispatch(new rentalsActions.SetSelectedRental(selectedRental));
-    this.store.dispatch(new playersActions.ClearSelectedPlayer());
-    this.store.dispatch(new inventoryActions.ClearSelectedInventoryItem());
-  }
-
-  sliceAppState() {
-    this.store.select(usersSelectors.loggedInUser).subscribe(loggedInUser => {
-      if (!loggedInUser) {
-        // this.router.navigateByUrl('');
-      }
-    });
-
-    this.store.select(playersSelectors.players).subscribe(players => {
-      this.players = players;
-    });
-
-    this.store
-      .select(playersSelectors.selectedPlayer)
-      .subscribe(selectedPlayer => {
-        this.selectedPlayer = selectedPlayer;
-      });
-
-    this.store
-      .select(inventorySelectors.inventoryItems)
-      .subscribe(inventoryItems => {
-        this.inventoryItems = inventoryItems;
-        this.inventoryItems.sort((a, b) => (a.number > b.number ? 1 : -1));
-      });
-
-    this.store
-      .select(inventorySelectors.selectedInventoryItem)
-      .subscribe(selectedInventoryItem => {
-        this.selectedInventoryItem = selectedInventoryItem;
-      });
-
-    this.store.select(rentalsSelectors.rentals).subscribe(rentals => {
-      this.rentals = rentals;
-    });
-
-    this.store
-      .select(rentalsSelectors.selectedRental)
-      .subscribe(selectedRental => {
-        this.selectedRental = selectedRental;
-      });
-
-    this.store
-      .select(inventorySelectors.availableMasks)
-      .subscribe(availableMasks => {
-        this.availableMasks = availableMasks;
-      });
-
-    this.store
-      .select(inventorySelectors.availableSnorkels)
-      .subscribe(availableSnorkels => {
-        this.availableSnorkels = availableSnorkels;
-      });
-
-    this.store
-      .select(inventorySelectors.availableGloves)
-      .subscribe(availableGloves => {
-        this.availableGloves = availableGloves;
-      });
-
-    this.store
-      .select(inventorySelectors.availableSticks)
-      .subscribe(availableSticks => {
-        this.availableSticks = availableSticks;
-      });
-
-    this.store
-      .select(inventorySelectors.availableFins)
-      .subscribe(availableFins => {
-        this.availableFins = availableFins;
-      });
+  clickAddPlayerNavLink() {
+    this.deactivateAll();
+    this.addPlayerNavLink.active = true;
   }
 
   ngOnInit() {
-    if (moment().dayOfYear() === 1) {
-      this.updateService.updatePlayersAgeGroups();
-    }
-
-    this.updateService.updateRentalsActionRequired();
-
-    this.sliceAppState();
   }
 }
+
+export class NavLink {
+  active: false;
+  name: string;
+}
+
+

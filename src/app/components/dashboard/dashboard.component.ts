@@ -23,7 +23,7 @@ import * as usersSelectors from '../../store/selectors/users.selectors';
 })
 export class DashboardComponent implements OnInit {
 
-  activeNavItem: string = null;
+  activeNavItem = 'Players';
 
   constructor() {
   }

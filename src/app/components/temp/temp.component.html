@@ -1,6 +1,5 @@
-<div class="container-fluid fill-container">
+<!-- <div class="container-fluid fill-container">
     <div class="row pb-3 fill-body">
-        <!-- menu -->
         <div class="col-12 col-lg-3 pt-3">
             <div class="card bg-lightsteelblue border-none h-100">
                 <div class="card-body fill-container">
@@ -35,26 +34,26 @@
             </div>
         </div>
 
-        <!-- body -->
+
         <div class="col-12 col-lg-9 pt-3">
             <div class="card bg-lightsteelblue border-none h-100">
                 <div class="card-body pb-0">
                     <span class="text-midnightblue" *ngIf="!shouldDisplayBody()">Make a selection</span>
 
-                    <!-- add -->
+
                     <div class="row">
 
-                        <!-- players add -->
+
                         <div class="col-12 mb-3" *ngIf="shouldDisplayPlayersAdd()">
                             <app-players-add></app-players-add>
                         </div>
 
-                        <!-- inventory add -->
+
                         <div class="col-12 mb-3" *ngIf="shouldDisplayInventoryAdd()">
                             <app-inventory-add></app-inventory-add>
                         </div>
 
-                        <!-- rentals add -->
+
                         <div class="col-12 mb-3" *ngIf="shouldDisplayRentalsAdd()">
                             <app-rentals-add [players]="players" [availableMasks]="availableMasks"
                                 [availableSnorkels]="availableSnorkels" [availableGloves]="availableGloves"
@@ -62,7 +61,7 @@
                         </div>
                     </div>
 
-                    <!-- players list -->
+
                     <div class="row" *ngIf="shouldDisplayPlayersList()">
                         <div class="col-12 col-lg-4 mb-3" *ngFor="let player of players">
                             <button class="btn btn-block bg-royalblue text-white"
@@ -76,7 +75,7 @@
                         </div>
                     </div>
 
-                    <!-- inventory list -->
+
                     <div class="row" *ngIf="shouldDisplayInventoryList()">
                         <div class="col-12 col-lg-4 mb-3" *ngFor="let inventoryItem of inventoryItems">
                             <button class="btn btn-block bg-royalblue text-white"
@@ -91,7 +90,7 @@
                         </div>
                     </div>
 
-                    <!-- rentals list -->
+
                     <div class="row" *ngIf="shouldDisplayRentalsList()">
                         <div class="col-12 col-lg-6 mb-3" *ngFor="let rental of rentals">
                             <button class="btn btn-block bg-royalblue text-white"
@@ -105,38 +104,38 @@
                         </div>
                     </div>
 
-                    <!-- detail -->
+
                     <div class="row">
 
-                        <!-- players detail -->
+
                         <div class="col-12 mb-3" *ngIf="shouldDisplayPlayersDetail()">
                             <app-players-detail [selectedPlayer]="selectedPlayer" [isEditing]="isEditingPlayer"
                                 (editClicked)="isEditingPlayer = true"></app-players-detail>
                         </div>
 
-                        <!-- inventory detail -->
+
                         <div class="col-12 mb-3" *ngIf="shouldDisplayInventoryDetail()">
                             <app-inventory-detail [selectedInventoryItem]="selectedInventoryItem">
                             </app-inventory-detail>
                         </div>
 
-                        <!-- rentals detail -->
+
                         <div class="col-12 mb-3" *ngIf="shouldDisplayRentalsDetail()">
                             <app-rentals-detail [selectedRental]="selectedRental" [isEditing]="isEditingRental"
                                 (editClicked)="isEditingRental = true"></app-rentals-detail>
                         </div>
                     </div>
 
-                    <!-- edit -->
+
                     <div class="row">
 
-                        <!-- players edit -->
+
                         <div class="col-12 mb-3" *ngIf="shouldDisplayPlayersEdit()">
                             <app-players-edit [selectedPlayer]="selectedPlayer" (saveClicked)="isEditingPlayer = false">
                             </app-players-edit>
                         </div>
 
-                        <!-- rentals edit -->
+
                         <div class="col-12 mb-3" *ngIf="shouldDisplayRentalsEdit()">
                             <app-rentals-edit [selectedRental]="selectedRental" (saveClicked)="isEditingRental = false">
                             </app-rentals-edit>
@@ -146,4 +145,105 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
+
+<nav class="nav sidebar-nav flex-column">
+    <!-- <span class="nav-link" data-toggle="collapse" href="#collapseInventoryItems" role="button"
+            aria-expanded="false" aria-controls="collapseInventoryItems" (click)="clickPlayerNavLink()"
+            [class.active]="playerNavLink.active">
+            Inventory Items
+        </span>
+
+        <nav class="collapse pl-3" id="collapseInventoryItems">
+            <span class="nav-link" data-toggle="collapse" href="#collapseInventoryItemStatus" role="button"
+                aria-expanded="false" aria-controls="collapseInventoryItemStatus">
+                Inventory Item Status
+            </span>
+
+            <nav class="collapse pl-3" id="collapseInventoryItemStatus">
+                <span class="nav-link ">
+                    Available
+                </span>
+
+                <span class="nav-link ">
+                    Rented
+                </span>
+            </nav>
+
+            <span class="nav-link" data-toggle="collapse" href="#collapseInventoryItemType" role="button"
+                aria-expanded="false" aria-controls="collapseInventoryItemStatus">
+                Inventory Item Type
+            </span>
+
+            <nav class="collapse pl-3" id="collapseInventoryItemStatus">
+                <span class="nav-link ">
+                    Mask
+                </span>
+
+                <span class="nav-link ">
+                    Snorkel
+                </span>
+
+                <span class="nav-link ">
+                    Glove
+                </span>
+
+                <span class="nav-link ">
+                    Stick
+                </span>
+
+                <span class="nav-link ">
+                    Fins
+                </span>
+            </nav>
+
+            <span class="nav-link ">
+                Add
+            </span>
+        </nav>
+
+        <span class="nav-link" data-toggle="collapse" href="#collapseRentals" role="button"
+            aria-expanded="false" aria-controls="collapseRentals">
+            Rentals
+        </span>
+
+        <nav class="collapse pl-3" id="collapseRentals">
+            <span class="nav-link" data-toggle="collapse" href="#collapseActionRequired" role="button"
+                aria-expanded="false" aria-controls="collapseActionRequired">
+                Action Required
+            </span>
+
+            <nav class="collapse pl-3" id="collapseActionRequired">
+                <span class="nav-link ">
+                    Admin
+                </span>
+
+                <span class="nav-link ">
+                    Player
+                </span>
+            </nav>
+
+            <span class="nav-link" data-toggle="collapse" href="#collapseRentalType" role="button"
+                aria-expanded="false" aria-controls="collapseRentalType">
+                Rental Type
+            </span>
+
+            <nav class="collapse pl-3" id="collapseRentalType">
+                <span class="nav-link ">
+                    Day
+                </span>
+
+                <span class="nav-link ">
+                    Beginner
+                </span>
+
+                <span class="nav-link ">
+                    Season
+                </span>
+            </nav>
+
+            <span class="nav-link ">
+                Add
+            </span>
+        </nav> -->
+</nav>

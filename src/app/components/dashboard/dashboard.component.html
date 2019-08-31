@@ -1,12 +1,12 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-3 sidebar">
-            <div class="d-flex flex-row align-items-center p-2">
+            <div class="d-flex flex-row align-items-center pt-3 pb-3 pl-3">
                 <img src="\assets\logo\logo-white.png" height="50">
                 <h5 class="ml-2">Potch Sub Aqua</h5>
             </div>
 
-            <nav id="sidebarNav" class="nav sidebar-nav flex-column accordion">
+            <nav id="sidebarNav" class="nav sidebar-nav flex-column accordion pb-3 pl-3" style="box-sizing: border-box">
                 <span id="headingPlayers" class="nav-link" data-toggle="collapse" data-target="#collapsePlayers"
                     aria-expanded="true" aria-controls="collapsePlayers" (click)="clickNavItem('Players')"
                     [class.active]="activeNavItem === 'Players'">
@@ -23,12 +23,12 @@
 
                     <nav id="collapseU19" class="collapse pl-3" aria-labelledby="headingU19"
                         data-parent="#collapsePlayers">
-                        <span class="nav-link" (click)="clickNavItem('U19 Ladies')"
+                        <span class="nav-link" (click)="clickNavItem('U19', 'Female')"
                             [class.active]="activeNavItem === 'U19 Ladies'">
                             Ladies
                         </span>
 
-                        <span class="nav-link" (click)="clickNavItem('U19 Men')"
+                        <span class="nav-link" (click)="clickNavItem('U19', 'Male')"
                             [class.active]="activeNavItem === 'U19 Men'">
                             Men
                         </span>
@@ -42,12 +42,12 @@
 
                     <nav id="collapseU15" class="collapse pl-3" aria-labelledby="headingU15"
                         data-parent="#collapsePlayers">
-                        <span class="nav-link" (click)="clickNavItem('U15 Ladies')"
+                        <span class="nav-link" (click)="clickNavItem('U15', 'Female')"
                             [class.active]="activeNavItem === 'U15 Ladies'">
                             Ladies
                         </span>
 
-                        <span class="nav-link" (click)="clickNavItem('U15 Men')"
+                        <span class="nav-link" (click)="clickNavItem('U15', 'Male')"
                             [class.active]="activeNavItem === 'U15 Men'">
                             Men
                         </span>
@@ -61,12 +61,12 @@
 
                     <nav id="collapseU13" class="collapse pl-3" aria-labelledby="headingU13"
                         data-parent="#collapsePlayers">
-                        <span class="nav-link" (click)="clickNavItem('U13 Ladies')"
+                        <span class="nav-link" (click)="clickNavItem('U13', 'Female')"
                             [class.active]="activeNavItem === 'U13 Ladies'">
                             Ladies
                         </span>
 
-                        <span class="nav-link" (click)="clickNavItem('U13 Men')"
+                        <span class="nav-link" (click)="clickNavItem('U13', 'Male')"
                             [class.active]="activeNavItem === 'U13 Men'">
                             Men
                         </span>
@@ -80,12 +80,12 @@
 
                     <nav id="collapseU10" class="collapse pl-3" aria-labelledby="headingU10"
                         data-parent="#collapsePlayers">
-                        <span class="nav-link" (click)="clickNavItem('U10 Ladies')"
+                        <span class="nav-link" (click)="clickNavItem('U10', 'Female')"
                             [class.active]="activeNavItem === 'U10 Ladies'">
                             Ladies
                         </span>
 
-                        <span class="nav-link" (click)="clickNavItem('U10 Men')"
+                        <span class="nav-link" (click)="clickNavItem('U10', 'Male')"
                             [class.active]="activeNavItem === 'U10 Men'">
                             Men
                         </span>
@@ -138,15 +138,21 @@
                     </span>
                 </nav>
 
-                <span id="headingRentals" class="nav-link" data-toggle="collapse" data-target="#collapseRentals" aria-expanded="false" aria-controls="collapseRentals">
+                <span id="headingRentals" class="nav-link" data-toggle="collapse" data-target="#collapseRentals"
+                    aria-expanded="false" aria-controls="collapseRentals">
                     Rentals
                 </span>
 
-                <nav id="collapseRentals" class="collapse pl-3 accordion" aria-labelledby="headingRentals" data-parent="#sidebarNav">
+                <nav id="collapseRentals" class="collapse pl-3 accordion" aria-labelledby="headingRentals"
+                    data-parent="#sidebarNav">
                     <span class="nav-link">
                         Type
                     </span>
                 </nav>
+
+                <span class="nav-link mt-auto" (click)="logoutClicked()">
+                    Logout
+                </span>
             </nav>
         </div>
 

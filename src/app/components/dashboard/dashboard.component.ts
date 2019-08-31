@@ -24,15 +24,116 @@ import * as usersSelectors from '../../store/selectors/users.selectors';
 export class DashboardComponent implements OnInit {
 
   activeNavItem = 'Players';
+  expandedNavItem = null;
 
-  constructor() {
+  players = [];
+
+  constructor(
+    private store: Store<AppState>,
+  ) { }
+
+  logoutClicked() {
+    this.store.dispatch(new usersActions.RemoveUser());
+    this.store.dispatch(new usersActions.LogoutUser());
   }
 
-  clickNavItem(navItem: string) {
-    this.activeNavItem === navItem ? this.activeNavItem = null : this.activeNavItem = navItem;
+  clickNavItem(navItem: string, navItemCont?: string) {
+    if (navItem === 'Players') {
+      $('#collapsePlayers').is('.collapse:not(.show)') ? this.activeNavItem = navItem : this.activeNavItem = null;
+    }
 
-    // switch (this.activeNavItem) {
+    if (
+      !navItemCont &&
+      navItem === 'U19' ||
+      navItem === 'U15' ||
+      navItem === 'U13' ||
+      navItem === 'U10'
+    ) {
+      $(`#collapse${navItem}`).is('.collapse:not(.show)') ? this.activeNavItem = navItem : this.activeNavItem = null;
+      this.store.dispatch(new playersActions.RequestGetPlayersByAgeGroup(navItem));
+    }
+
+    if (navItemCont) {
+      this.activeNavItem !== navItem ? this.activeNavItem = navItem : this.activeNavItem = null;
+      this.store.dispatch(new playersActions.RequestGetPlayersByGender(navItemCont, navItem));
+    }
+
+    // switch (navItem) {
     //   case 'Players':
+    //     $('#collapsePlayers').is('.collapse:not(.show)') ? this.activeNavItem = navItem : this.activeNavItem = null;
+    //     return;
+
+    //   case 'U19':
+    //     $('#collapseU19').is('.collapse:not(.show)') ? this.activeNavItem = navItem : this.activeNavItem = null;
+    //     return;
+
+    //   case 'U19 Ladies':
+    //     this.activeNavItem !== navItem ? this.activeNavItem = navItem : this.activeNavItem = null;
+    //     return;
+
+    //   case 'U19 Men':
+    //     this.activeNavItem !== navItem ? this.activeNavItem = navItem : this.activeNavItem = null;
+    //     return;
+
+    //   case 'U15':
+    //     $('#collapseU15').is('.collapse:not(.show)') ? this.activeNavItem = navItem : this.activeNavItem = null;
+    //     return;
+
+    //   case 'U15 Ladies':
+    //     this.activeNavItem !== navItem ? this.activeNavItem = navItem : this.activeNavItem = null;
+    //     return;
+
+    //   case 'U15 Men':
+    //     this.activeNavItem !== navItem ? this.activeNavItem = navItem : this.activeNavItem = null;
+    //     return;
+
+    //   case 'U13':
+    //     $('#collapseU13').is('.collapse:not(.show)') ? this.activeNavItem = navItem : this.activeNavItem = null;
+    //     return;
+
+    //   case 'U13 Ladies':
+    //     this.activeNavItem !== navItem ? this.activeNavItem = navItem : this.activeNavItem = null;
+    //     return;
+
+    //   case 'U13 Men':
+    //     this.activeNavItem !== navItem ? this.activeNavItem = navItem : this.activeNavItem = null;
+    //     return;
+
+    //   case 'U10':
+    //     $('#collapseU10').is('.collapse:not(.show)') ? this.activeNavItem = navItem : this.activeNavItem = null;
+    //     return;
+
+    //   case 'U10 Ladies':
+    //     this.activeNavItem !== navItem ? this.activeNavItem = navItem : this.activeNavItem = null;
+    //     return;
+
+    //   case 'U10 Men':
+    //     this.activeNavItem !== navItem ? this.activeNavItem = navItem : this.activeNavItem = null;
+    //     return;
+
+    //   case 'Player Status':
+    //     $('#collapsePlayerStatus').is('.collapse:not(.show)') ? this.activeNavItem = navItem : this.activeNavItem = null;
+    //     return;
+
+    //   case 'Active':
+    //     this.activeNavItem !== navItem ? this.activeNavItem = navItem : this.activeNavItem = null;
+    //     return;
+
+    //   case 'Beginner':
+    //     this.activeNavItem !== navItem ? this.activeNavItem = navItem : this.activeNavItem = null;
+    //     return;
+
+    //   case 'Interested':
+    //     this.activeNavItem !== navItem ? this.activeNavItem = navItem : this.activeNavItem = null;
+    //     return;
+
+    //   case 'Inactive':
+    //     this.activeNavItem !== navItem ? this.activeNavItem = navItem : this.activeNavItem = null;
+    //     return;
+
+    //   case 'Add Player':
+    //     this.activeNavItem !== navItem ? this.activeNavItem = navItem : this.activeNavItem = null;
+    //     return;
 
     //   default:
     //     return;

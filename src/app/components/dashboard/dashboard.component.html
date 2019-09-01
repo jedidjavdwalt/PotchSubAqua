@@ -24,12 +24,12 @@
                     <nav id="collapseU19" class="collapse pl-3" aria-labelledby="headingU19"
                         data-parent="#collapsePlayers">
                         <span class="nav-link" (click)="clickNavItem('U19', 'Female')"
-                            [class.active]="activeNavItem === 'U19 Ladies'">
+                            [class.active]="activeNavItem === 'U19 Female'">
                             Ladies
                         </span>
 
                         <span class="nav-link" (click)="clickNavItem('U19', 'Male')"
-                            [class.active]="activeNavItem === 'U19 Men'">
+                            [class.active]="activeNavItem === 'U19 Male'">
                             Men
                         </span>
                     </nav>
@@ -43,12 +43,12 @@
                     <nav id="collapseU15" class="collapse pl-3" aria-labelledby="headingU15"
                         data-parent="#collapsePlayers">
                         <span class="nav-link" (click)="clickNavItem('U15', 'Female')"
-                            [class.active]="activeNavItem === 'U15 Ladies'">
+                            [class.active]="activeNavItem === 'U15 Female'">
                             Ladies
                         </span>
 
                         <span class="nav-link" (click)="clickNavItem('U15', 'Male')"
-                            [class.active]="activeNavItem === 'U15 Men'">
+                            [class.active]="activeNavItem === 'U15 Male'">
                             Men
                         </span>
                     </nav>
@@ -62,12 +62,12 @@
                     <nav id="collapseU13" class="collapse pl-3" aria-labelledby="headingU13"
                         data-parent="#collapsePlayers">
                         <span class="nav-link" (click)="clickNavItem('U13', 'Female')"
-                            [class.active]="activeNavItem === 'U13 Ladies'">
+                            [class.active]="activeNavItem === 'U13 Female'">
                             Ladies
                         </span>
 
                         <span class="nav-link" (click)="clickNavItem('U13', 'Male')"
-                            [class.active]="activeNavItem === 'U13 Men'">
+                            [class.active]="activeNavItem === 'U13 Male'">
                             Men
                         </span>
                     </nav>
@@ -81,18 +81,18 @@
                     <nav id="collapseU10" class="collapse pl-3" aria-labelledby="headingU10"
                         data-parent="#collapsePlayers">
                         <span class="nav-link" (click)="clickNavItem('U10', 'Female')"
-                            [class.active]="activeNavItem === 'U10 Ladies'">
+                            [class.active]="activeNavItem === 'U10 Female'">
                             Ladies
                         </span>
 
                         <span class="nav-link" (click)="clickNavItem('U10', 'Male')"
-                            [class.active]="activeNavItem === 'U10 Men'">
+                            [class.active]="activeNavItem === 'U10 Male'">
                             Men
                         </span>
                     </nav>
 
                     <span id="headingPlayerStatus" class="nav-link" data-toggle="collapse"
-                        data-target="#collapsePlayerStatus" aria-expanded="true" aria-controls="collapsePlayers"
+                        data-target="#collapsePlayerStatus" aria-expanded="false" aria-controls="collapsePlayers"
                         (click)="clickNavItem('Player Status')" [class.active]="activeNavItem === 'Player Status'">
                         Status
                     </span>
@@ -133,8 +133,61 @@
 
                 <nav id="collapseInventory" class="collapse pl-3 accordion" aria-labelledby="headingInventory"
                     data-parent="#sidebarNav">
-                    <span class="nav-link">
+                    <span id="headingInventoryType" class="nav-link" data-toggle="collapse"
+                        data-target="#collapseInventoryType" aria-expanded="false" aria-controls="collapsePlayers"
+                        (click)="clickNavItem('Inventory Type')" [class.active]="activeNavItem === 'Inventory Type'">
                         Type
+                    </span>
+
+                    <nav id="collapseInventoryType" class="collapse pl-3" aria-labelledby="headingInventoryType"
+                        data-parent="#collapseInventory">
+                        <span class="nav-link" (click)="clickNavItem('Mask')" [class.active]="activeNavItem === 'Mask'">
+                            Mask
+                        </span>
+
+                        <span class="nav-link" (click)="clickNavItem('Snorkel')"
+                            [class.active]="activeNavItem === 'Snorkel'">
+                            Snorkel
+                        </span>
+
+                        <span class="nav-link" (click)="clickNavItem('Glove')"
+                            [class.active]="activeNavItem === 'Glove'">
+                            Glove
+                        </span>
+
+                        <span class="nav-link" (click)="clickNavItem('Stick')"
+                            [class.active]="activeNavItem === 'Stick'">
+                            Stick
+                        </span>
+
+                        <span class="nav-link" (click)="clickNavItem('Fins')" [class.active]="activeNavItem === 'Fins'">
+                            Fins
+                        </span>
+                    </nav>
+
+                    <span id="headingInventoryStatus" class="nav-link" data-toggle="collapse"
+                        data-target="#collapseInventoryStatus" aria-expanded="false" aria-controls="collapsePlayers"
+                        (click)="clickNavItem('Inventory Status')"
+                        [class.active]="activeNavItem === 'Inventory Status'">
+                        Status
+                    </span>
+
+                    <nav id="collapseInventoryStatus" class="collapse pl-3" aria-labelledby="headingInventoryStatus"
+                        data-parent="#collapseInventory">
+                        <span class="nav-link" (click)="clickNavItem('Available')"
+                            [class.active]="activeNavItem === 'Available'">
+                            Available
+                        </span>
+
+                        <span class="nav-link" (click)="clickNavItem('Rented')"
+                            [class.active]="activeNavItem === 'Rented'">
+                            Rented
+                        </span>
+                    </nav>
+
+                    <span class="nav-link" (click)="clickNavItem('Add Inventory')"
+                        [class.active]="activeNavItem === 'Add Inventory'">
+                        Add
                     </span>
                 </nav>
 
@@ -145,8 +198,52 @@
 
                 <nav id="collapseRentals" class="collapse pl-3 accordion" aria-labelledby="headingRentals"
                     data-parent="#sidebarNav">
-                    <span class="nav-link">
+                    <span id="headingRentalType" class="nav-link" data-toggle="collapse"
+                        data-target="#collapseRentalType" aria-expanded="false" aria-controls="collapsePlayers"
+                        (click)="clickNavItem('Rental Type')"
+                        [class.active]="activeNavItem === 'Rental Type'">
                         Type
+                    </span>
+
+                    <nav id="collapseRentalType" class="collapse pl-3" aria-labelledby="headingRentalType"
+                        data-parent="#collapseRentals">
+                        <span class="nav-link" (click)="clickNavItem('Day')"
+                            [class.active]="activeNavItem === 'Day'">
+                            Day
+                        </span>
+
+                        <span class="nav-link" (click)="clickNavItem('Beginner')"
+                            [class.active]="activeNavItem === 'Beginner'">
+                            Beginner
+                        </span>
+
+                        <span class="nav-link" (click)="clickNavItem('Season')"
+                            [class.active]="activeNavItem === 'Season'">
+                            Season
+                        </span>
+                    </nav>
+
+                    <span id="headingActionRequired" class="nav-link" data-toggle="collapse"
+                        data-target="#collapseActionRequired" aria-expanded="false" aria-controls="collapsePlayers"
+                        (click)="clickNavItem('Action Required')" [class.active]="activeNavItem === 'Action Required'">
+                        Action Required
+                    </span>
+
+                    <nav id="collapseActionRequired" class="collapse pl-3" aria-labelledby="headingActionRequired"
+                        data-parent="#collapseRentals">
+                        <span class="nav-link" (click)="clickNavItem('Admin')" [class.active]="activeNavItem === 'Admin'">
+                            Admin
+                        </span>
+
+                        <span class="nav-link" (click)="clickNavItem('Player')"
+                            [class.active]="activeNavItem === 'Player'">
+                            Player
+                        </span>
+                    </nav>
+
+                    <span class="nav-link" (click)="clickNavItem('Add Rental')"
+                        [class.active]="activeNavItem === 'Add Rental'">
+                        Add
                     </span>
                 </nav>
 

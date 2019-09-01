@@ -54,90 +54,33 @@ export class DashboardComponent implements OnInit {
     }
 
     if (navItemCont) {
-      this.activeNavItem !== navItem ? this.activeNavItem = navItem : this.activeNavItem = null;
+      if (this.activeNavItem === `${navItem} ${navItemCont}`) {
+        return;
+      }
+      this.activeNavItem = `${navItem} ${navItemCont}`;
       this.store.dispatch(new playersActions.RequestGetPlayersByGender(navItemCont, navItem));
     }
 
-    // switch (navItem) {
-    //   case 'Players':
-    //     $('#collapsePlayers').is('.collapse:not(.show)') ? this.activeNavItem = navItem : this.activeNavItem = null;
-    //     return;
+    if (navItem === 'Player Status') {
+      $(`#collapsePlayerStatus`).is('.collapse:not(.show)') ? this.activeNavItem = navItem : this.activeNavItem = null;
+    }
 
-    //   case 'U19':
-    //     $('#collapseU19').is('.collapse:not(.show)') ? this.activeNavItem = navItem : this.activeNavItem = null;
-    //     return;
+    if (
+      navItem === 'Active' ||
+      navItem === 'Beginner' ||
+      navItem === 'Interested' ||
+      navItem === 'Inactive'
+    ) {
+      if (this.activeNavItem === navItem) {
+        return;
+      }
+      this.activeNavItem = navItem;
+      this.store.dispatch(new playersActions.RequestGetPlayersByStatus(this.activeNavItem));
+    }
 
-    //   case 'U19 Ladies':
-    //     this.activeNavItem !== navItem ? this.activeNavItem = navItem : this.activeNavItem = null;
-    //     return;
-
-    //   case 'U19 Men':
-    //     this.activeNavItem !== navItem ? this.activeNavItem = navItem : this.activeNavItem = null;
-    //     return;
-
-    //   case 'U15':
-    //     $('#collapseU15').is('.collapse:not(.show)') ? this.activeNavItem = navItem : this.activeNavItem = null;
-    //     return;
-
-    //   case 'U15 Ladies':
-    //     this.activeNavItem !== navItem ? this.activeNavItem = navItem : this.activeNavItem = null;
-    //     return;
-
-    //   case 'U15 Men':
-    //     this.activeNavItem !== navItem ? this.activeNavItem = navItem : this.activeNavItem = null;
-    //     return;
-
-    //   case 'U13':
-    //     $('#collapseU13').is('.collapse:not(.show)') ? this.activeNavItem = navItem : this.activeNavItem = null;
-    //     return;
-
-    //   case 'U13 Ladies':
-    //     this.activeNavItem !== navItem ? this.activeNavItem = navItem : this.activeNavItem = null;
-    //     return;
-
-    //   case 'U13 Men':
-    //     this.activeNavItem !== navItem ? this.activeNavItem = navItem : this.activeNavItem = null;
-    //     return;
-
-    //   case 'U10':
-    //     $('#collapseU10').is('.collapse:not(.show)') ? this.activeNavItem = navItem : this.activeNavItem = null;
-    //     return;
-
-    //   case 'U10 Ladies':
-    //     this.activeNavItem !== navItem ? this.activeNavItem = navItem : this.activeNavItem = null;
-    //     return;
-
-    //   case 'U10 Men':
-    //     this.activeNavItem !== navItem ? this.activeNavItem = navItem : this.activeNavItem = null;
-    //     return;
-
-    //   case 'Player Status':
-    //     $('#collapsePlayerStatus').is('.collapse:not(.show)') ? this.activeNavItem = navItem : this.activeNavItem = null;
-    //     return;
-
-    //   case 'Active':
-    //     this.activeNavItem !== navItem ? this.activeNavItem = navItem : this.activeNavItem = null;
-    //     return;
-
-    //   case 'Beginner':
-    //     this.activeNavItem !== navItem ? this.activeNavItem = navItem : this.activeNavItem = null;
-    //     return;
-
-    //   case 'Interested':
-    //     this.activeNavItem !== navItem ? this.activeNavItem = navItem : this.activeNavItem = null;
-    //     return;
-
-    //   case 'Inactive':
-    //     this.activeNavItem !== navItem ? this.activeNavItem = navItem : this.activeNavItem = null;
-    //     return;
-
-    //   case 'Add Player':
-    //     this.activeNavItem !== navItem ? this.activeNavItem = navItem : this.activeNavItem = null;
-    //     return;
-
-    //   default:
-    //     return;
-    // }
+    if (navItem === 'Add Player') {
+      this.activeNavItem = navItem;
+    }
   }
 
   ngOnInit() {

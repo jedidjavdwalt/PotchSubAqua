@@ -8,7 +8,7 @@
 
             <nav id="sidebarNav" class="nav sidebar-nav flex-column accordion pb-3 pl-3" style="box-sizing: border-box">
                 <span id="headingPlayers" class="nav-link" data-toggle="collapse" data-target="#collapsePlayers"
-                    aria-expanded="true" aria-controls="collapsePlayers" (click)="clickNavItem('Players')"
+                    aria-expanded="true" aria-controls="collapsePlayers" (click)="playersNavLinkClicked('Players')"
                     [class.active]="activeNavItem === 'Players'">
                     Players
                 </span>
@@ -16,76 +16,76 @@
                 <nav id="collapsePlayers" class="collapse show pl-3 accordion" aria-labelledby="headingPlayers"
                     data-parent="#sidebarNav">
                     <span id="headingU19" class="nav-link" data-toggle="collapse" data-target="#collapseU19"
-                        aria-expanded="false" aria-controls="collapsePlayers" (click)="clickNavItem('U19')"
+                        aria-expanded="false" aria-controls="collapsePlayers" (click)="playersNavLinkClicked('U19')"
                         [class.active]="activeNavItem === 'U19'">
                         U19
                     </span>
 
                     <nav id="collapseU19" class="collapse pl-3" aria-labelledby="headingU19"
                         data-parent="#collapsePlayers">
-                        <span class="nav-link" (click)="clickNavItem('U19', 'Female')"
+                        <span class="nav-link" (click)="playersNavLinkClicked('U19', 'Female')"
                             [class.active]="activeNavItem === 'U19 Female'">
                             Ladies
                         </span>
 
-                        <span class="nav-link" (click)="clickNavItem('U19', 'Male')"
+                        <span class="nav-link" (click)="playersNavLinkClicked('U19', 'Male')"
                             [class.active]="activeNavItem === 'U19 Male'">
                             Men
                         </span>
                     </nav>
 
                     <span id="headingU15" class="nav-link" data-toggle="collapse" data-target="#collapseU15"
-                        aria-expanded="false" aria-controls="collapsePlayers" (click)="clickNavItem('U15')"
+                        aria-expanded="false" aria-controls="collapsePlayers" (click)="playersNavLinkClicked('U15')"
                         [class.active]="activeNavItem === 'U15'">
                         U15
                     </span>
 
                     <nav id="collapseU15" class="collapse pl-3" aria-labelledby="headingU15"
                         data-parent="#collapsePlayers">
-                        <span class="nav-link" (click)="clickNavItem('U15', 'Female')"
+                        <span class="nav-link" (click)="playersNavLinkClicked('U15', 'Female')"
                             [class.active]="activeNavItem === 'U15 Female'">
                             Ladies
                         </span>
 
-                        <span class="nav-link" (click)="clickNavItem('U15', 'Male')"
+                        <span class="nav-link" (click)="playersNavLinkClicked('U15', 'Male')"
                             [class.active]="activeNavItem === 'U15 Male'">
                             Men
                         </span>
                     </nav>
 
                     <span id="headingU13" class="nav-link" data-toggle="collapse" data-target="#collapseU13"
-                        aria-expanded="true" aria-controls="collapsePlayers" (click)="clickNavItem('U13')"
+                        aria-expanded="true" aria-controls="collapsePlayers" (click)="playersNavLinkClicked('U13')"
                         [class.active]="activeNavItem === 'U13'">
                         U13
                     </span>
 
                     <nav id="collapseU13" class="collapse pl-3" aria-labelledby="headingU13"
                         data-parent="#collapsePlayers">
-                        <span class="nav-link" (click)="clickNavItem('U13', 'Female')"
+                        <span class="nav-link" (click)="playersNavLinkClicked('U13', 'Female')"
                             [class.active]="activeNavItem === 'U13 Female'">
                             Ladies
                         </span>
 
-                        <span class="nav-link" (click)="clickNavItem('U13', 'Male')"
+                        <span class="nav-link" (click)="playersNavLinkClicked('U13', 'Male')"
                             [class.active]="activeNavItem === 'U13 Male'">
                             Men
                         </span>
                     </nav>
 
                     <span id="heading10" class="nav-link" data-toggle="collapse" data-target="#collapseU10"
-                        aria-expanded="true" aria-controls="collapsePlayers" (click)="clickNavItem('U10')"
+                        aria-expanded="true" aria-controls="collapsePlayers" (click)="playersNavLinkClicked('U10')"
                         [class.active]="activeNavItem === 'U10'">
                         U10
                     </span>
 
                     <nav id="collapseU10" class="collapse pl-3" aria-labelledby="headingU10"
                         data-parent="#collapsePlayers">
-                        <span class="nav-link" (click)="clickNavItem('U10', 'Female')"
+                        <span class="nav-link" (click)="playersNavLinkClicked('U10', 'Female')"
                             [class.active]="activeNavItem === 'U10 Female'">
                             Ladies
                         </span>
 
-                        <span class="nav-link" (click)="clickNavItem('U10', 'Male')"
+                        <span class="nav-link" (click)="playersNavLinkClicked('U10', 'Male')"
                             [class.active]="activeNavItem === 'U10 Male'">
                             Men
                         </span>
@@ -93,41 +93,42 @@
 
                     <span id="headingPlayerStatus" class="nav-link" data-toggle="collapse"
                         data-target="#collapsePlayerStatus" aria-expanded="false" aria-controls="collapsePlayers"
-                        (click)="clickNavItem('Player Status')" [class.active]="activeNavItem === 'Player Status'">
+                        (click)="playersNavLinkClicked('Player Status')" [class.active]="activeNavItem === 'Player Status'">
                         Status
                     </span>
 
                     <nav id="collapsePlayerStatus" class="collapse pl-3" aria-labelledby="headingPlayerStatus"
                         data-parent="#collapsePlayers">
-                        <span class="nav-link" (click)="clickNavItem('Active')"
+                        <span class="nav-link" (click)="playersNavLinkClicked('Active')"
                             [class.active]="activeNavItem === 'Active'">
                             Active
                         </span>
 
-                        <span class="nav-link" (click)="clickNavItem('Beginner')"
+                        <span class="nav-link" (click)="playersNavLinkClicked('Beginner')"
                             [class.active]="activeNavItem === 'Beginner'">
                             Beginner
                         </span>
 
-                        <span class="nav-link" (click)="clickNavItem('Interested')"
+                        <span class="nav-link" (click)="playersNavLinkClicked('Interested')"
                             [class.active]="activeNavItem === 'Interested'">
                             Interested
                         </span>
 
-                        <span class="nav-link" (click)="clickNavItem('Inactive')"
+                        <span class="nav-link" (click)="playersNavLinkClicked('Inactive')"
                             [class.active]="activeNavItem === 'Inactive'">
                             Inactive
                         </span>
                     </nav>
 
-                    <span class="nav-link" (click)="clickNavItem('Add Player')"
+                    <span class="nav-link" (click)="playersNavLinkClicked('Add Player')"
                         [class.active]="activeNavItem === 'Add Player'">
                         Add
                     </span>
                 </nav>
 
                 <span id="headingInventory" class="nav-link" data-toggle="collapse" data-target="#collapseInventory"
-                    aria-expanded="false" aria-controls="collapseInventory">
+                    aria-expanded="false" aria-controls="collapseInventory" (click)="inventoryNavLinkClicked('Inventory')"
+                    [class.active]="activeNavItem === 'Inventory'">
                     Inventory
                 </span>
 
@@ -135,64 +136,65 @@
                     data-parent="#sidebarNav">
                     <span id="headingInventoryType" class="nav-link" data-toggle="collapse"
                         data-target="#collapseInventoryType" aria-expanded="false" aria-controls="collapsePlayers"
-                        (click)="clickNavItem('Inventory Type')" [class.active]="activeNavItem === 'Inventory Type'">
+                        (click)="inventoryNavLinkClicked('Inventory Type')" [class.active]="activeNavItem === 'Inventory Type'">
                         Type
                     </span>
 
                     <nav id="collapseInventoryType" class="collapse pl-3" aria-labelledby="headingInventoryType"
                         data-parent="#collapseInventory">
-                        <span class="nav-link" (click)="clickNavItem('Mask')" [class.active]="activeNavItem === 'Mask'">
+                        <span class="nav-link" (click)="inventoryNavLinkClicked('Mask')" [class.active]="activeNavItem === 'Mask'">
                             Mask
                         </span>
 
-                        <span class="nav-link" (click)="clickNavItem('Snorkel')"
+                        <span class="nav-link" (click)="inventoryNavLinkClicked('Snorkel')"
                             [class.active]="activeNavItem === 'Snorkel'">
                             Snorkel
                         </span>
 
-                        <span class="nav-link" (click)="clickNavItem('Glove')"
+                        <span class="nav-link" (click)="inventoryNavLinkClicked('Glove')"
                             [class.active]="activeNavItem === 'Glove'">
                             Glove
                         </span>
 
-                        <span class="nav-link" (click)="clickNavItem('Stick')"
+                        <span class="nav-link" (click)="inventoryNavLinkClicked('Stick')"
                             [class.active]="activeNavItem === 'Stick'">
                             Stick
                         </span>
 
-                        <span class="nav-link" (click)="clickNavItem('Fins')" [class.active]="activeNavItem === 'Fins'">
+                        <span class="nav-link" (click)="inventoryNavLinkClicked('Fins')" [class.active]="activeNavItem === 'Fins'">
                             Fins
                         </span>
                     </nav>
 
                     <span id="headingInventoryStatus" class="nav-link" data-toggle="collapse"
                         data-target="#collapseInventoryStatus" aria-expanded="false" aria-controls="collapsePlayers"
-                        (click)="clickNavItem('Inventory Status')"
+                        (click)="inventoryNavLinkClicked('Inventory Status')"
                         [class.active]="activeNavItem === 'Inventory Status'">
                         Status
                     </span>
 
                     <nav id="collapseInventoryStatus" class="collapse pl-3" aria-labelledby="headingInventoryStatus"
                         data-parent="#collapseInventory">
-                        <span class="nav-link" (click)="clickNavItem('Available')"
+                        <span class="nav-link" (click)="inventoryNavLinkClicked('Available')"
                             [class.active]="activeNavItem === 'Available'">
                             Available
                         </span>
 
-                        <span class="nav-link" (click)="clickNavItem('Rented')"
+                        <span class="nav-link" (click)="inventoryNavLinkClicked('Rented')"
                             [class.active]="activeNavItem === 'Rented'">
                             Rented
                         </span>
                     </nav>
 
-                    <span class="nav-link" (click)="clickNavItem('Add Inventory')"
+                    <span class="nav-link" (click)="inventoryNavLinkClicked('Add Inventory')"
                         [class.active]="activeNavItem === 'Add Inventory'">
                         Add
                     </span>
                 </nav>
 
                 <span id="headingRentals" class="nav-link" data-toggle="collapse" data-target="#collapseRentals"
-                    aria-expanded="false" aria-controls="collapseRentals">
+                    aria-expanded="false" aria-controls="collapseRentals" (click)="rentalsNavLinkClicked('Rentals')"
+                    [class.active]="activeNavItem === 'Rentals'">
                     Rentals
                 </span>
 
@@ -200,24 +202,23 @@
                     data-parent="#sidebarNav">
                     <span id="headingRentalType" class="nav-link" data-toggle="collapse"
                         data-target="#collapseRentalType" aria-expanded="false" aria-controls="collapsePlayers"
-                        (click)="clickNavItem('Rental Type')"
-                        [class.active]="activeNavItem === 'Rental Type'">
+                        (click)="rentalsNavLinkClicked('Rental Type')" [class.active]="activeNavItem === 'Rental Type'">
                         Type
                     </span>
 
                     <nav id="collapseRentalType" class="collapse pl-3" aria-labelledby="headingRentalType"
                         data-parent="#collapseRentals">
-                        <span class="nav-link" (click)="clickNavItem('Day')"
+                        <span class="nav-link" (click)="rentalsNavLinkClicked('Day')"
                             [class.active]="activeNavItem === 'Day'">
                             Day
                         </span>
 
-                        <span class="nav-link" (click)="clickNavItem('Beginner')"
+                        <span class="nav-link" (click)="rentalsNavLinkClicked('Beginner')"
                             [class.active]="activeNavItem === 'Beginner'">
                             Beginner
                         </span>
 
-                        <span class="nav-link" (click)="clickNavItem('Season')"
+                        <span class="nav-link" (click)="rentalsNavLinkClicked('Season')"
                             [class.active]="activeNavItem === 'Season'">
                             Season
                         </span>
@@ -225,23 +226,25 @@
 
                     <span id="headingActionRequired" class="nav-link" data-toggle="collapse"
                         data-target="#collapseActionRequired" aria-expanded="false" aria-controls="collapsePlayers"
-                        (click)="clickNavItem('Action Required')" [class.active]="activeNavItem === 'Action Required'">
+                        (click)="rentalsNavLinkClicked('Action Required')"
+                        [class.active]="activeNavItem === 'Action Required'">
                         Action Required
                     </span>
 
                     <nav id="collapseActionRequired" class="collapse pl-3" aria-labelledby="headingActionRequired"
                         data-parent="#collapseRentals">
-                        <span class="nav-link" (click)="clickNavItem('Admin')" [class.active]="activeNavItem === 'Admin'">
+                        <span class="nav-link" (click)="rentalsNavLinkClicked('Admin')"
+                            [class.active]="activeNavItem === 'Admin'">
                             Admin
                         </span>
 
-                        <span class="nav-link" (click)="clickNavItem('Player')"
+                        <span class="nav-link" (click)="rentalsNavLinkClicked('Player')"
                             [class.active]="activeNavItem === 'Player'">
                             Player
                         </span>
                     </nav>
 
-                    <span class="nav-link" (click)="clickNavItem('Add Rental')"
+                    <span class="nav-link" (click)="rentalsNavLinkClicked('Add Rental')"
                         [class.active]="activeNavItem === 'Add Rental'">
                         Add
                     </span>

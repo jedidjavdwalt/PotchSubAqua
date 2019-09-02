@@ -37,49 +37,133 @@ export class DashboardComponent implements OnInit {
     this.store.dispatch(new usersActions.LogoutUser());
   }
 
-  clickNavItem(navItem: string, navItemCont?: string) {
-    if (navItem === 'Players') {
-      $('#collapsePlayers').is('.collapse:not(.show)') ? this.activeNavItem = navItem : this.activeNavItem = null;
+  playersNavLinkClicked(navLink: string, navItemCont?: string) {
+    if (navLink === 'Players') {
+      $(`#collapsePlayers`).is('.collapse:not(.show)') ? this.activeNavItem = navLink : this.activeNavItem = null;
     }
 
     if (
       !navItemCont &&
-      navItem === 'U19' ||
-      navItem === 'U15' ||
-      navItem === 'U13' ||
-      navItem === 'U10'
+      navLink === 'U19' ||
+      navLink === 'U15' ||
+      navLink === 'U13' ||
+      navLink === 'U10'
     ) {
-      $(`#collapse${navItem}`).is('.collapse:not(.show)') ? this.activeNavItem = navItem : this.activeNavItem = null;
-      this.store.dispatch(new playersActions.RequestGetPlayersByAgeGroup(navItem));
+      $(`#collapse${navLink}`).is('.collapse:not(.show)') ? this.activeNavItem = navLink : this.activeNavItem = null;
+      this.store.dispatch(new playersActions.RequestGetPlayersByAgeGroup(navLink));
     }
 
     if (navItemCont) {
-      if (this.activeNavItem === `${navItem} ${navItemCont}`) {
+      if (this.activeNavItem === `${navLink} ${navItemCont}`) {
         return;
       }
-      this.activeNavItem = `${navItem} ${navItemCont}`;
-      this.store.dispatch(new playersActions.RequestGetPlayersByGender(navItemCont, navItem));
+      this.activeNavItem = `${navLink} ${navItemCont}`;
+      this.store.dispatch(new playersActions.RequestGetPlayersByGender(navItemCont, navLink));
     }
 
-    if (navItem === 'Player Status') {
-      $(`#collapsePlayerStatus`).is('.collapse:not(.show)') ? this.activeNavItem = navItem : this.activeNavItem = null;
+    if (navLink === 'Player Status') {
+      $(`#collapsePlayerStatus`).is('.collapse:not(.show)') ? this.activeNavItem = navLink : this.activeNavItem = null;
     }
 
     if (
-      navItem === 'Active' ||
-      navItem === 'Beginner' ||
-      navItem === 'Interested' ||
-      navItem === 'Inactive'
+      navLink === 'Active' ||
+      navLink === 'Beginner' ||
+      navLink === 'Interested' ||
+      navLink === 'Inactive'
     ) {
-      if (this.activeNavItem === navItem) {
+      if (this.activeNavItem === navLink) {
         return;
       }
-      this.activeNavItem = navItem;
+      this.activeNavItem = navLink;
       this.store.dispatch(new playersActions.RequestGetPlayersByStatus(this.activeNavItem));
     }
 
-    if (navItem === 'Add Player') {
-      this.activeNavItem = navItem;
+    if (navLink === 'Add Player') {
+      this.activeNavItem = navLink;
+    }
+  }
+
+  inventoryNavLinkClicked(navLink: string) {
+    if (navLink === 'Inventory') {
+      $(`#collapseInventory`).is('.collapse:not(.show)') ? this.activeNavItem = navLink : this.activeNavItem = null;
+    }
+
+    if (navLink === 'Inventory Type') {
+      $(`#collapseInventoryType`).is('.collapse:not(.show)') ? this.activeNavItem = navLink : this.activeNavItem = null;
+    }
+
+    if (navLink === 'Inventory Status') {
+      $(`#collapseInventoryStatus`).is('.collapse:not(.show)') ? this.activeNavItem = navLink : this.activeNavItem = null;
+    }
+
+    if (
+      navLink === 'Mask' ||
+      navLink === 'Snorkel' ||
+      navLink === 'Glove' ||
+      navLink === 'Stick' ||
+      navLink === 'Fins'
+    ) {
+      if (this.activeNavItem === navLink) {
+        return;
+      }
+      this.activeNavItem = navLink;
+      this.store.dispatch(new inventoryActions.RequestGetInventoryItemsByType(this.activeNavItem));
+    }
+
+    if (
+      navLink === 'Available' ||
+      navLink === 'Rented'
+    ) {
+      if (this.activeNavItem === navLink) {
+        return;
+      }
+      this.activeNavItem = navLink;
+      this.store.dispatch(new inventoryActions.RequestGetInventoryItemsByStatus(this.activeNavItem));
+    }
+
+    if (navLink === 'Add Inventory') {
+      this.activeNavItem = navLink;
+    }
+  }
+
+  rentalsNavLinkClicked(navLink: string) {
+    if (navLink === 'Rentals') {
+      $(`#collapseRentals`).is('.collapse:not(.show)') ? this.activeNavItem = navLink : this.activeNavItem = null;
+    }
+
+    if (navLink === 'Action Required') {
+      $(`#collapseActionRequired`).is('.collapse:not(.show)') ? this.activeNavItem = navLink : this.activeNavItem = null;
+    }
+
+    if (navLink === 'Rental Type') {
+      $(`#collapseRentalType`).is('.collapse:not(.show)') ? this.activeNavItem = navLink : this.activeNavItem = null;
+    }
+
+    if (
+      navLink === 'Admin' ||
+      navLink === 'Player'
+    ) {
+      if (this.activeNavItem === navLink) {
+        return;
+      }
+      this.activeNavItem = navLink;
+      this.store.dispatch(new rentalsActions.RequestGetRentalsByActionRequired(this.activeNavItem));
+    }
+
+    if (
+      navLink === 'Day' ||
+      navLink === 'Beginner' ||
+      navLink === 'Season'
+    ) {
+      if (this.activeNavItem === navLink) {
+        return;
+      }
+      this.activeNavItem = navLink;
+      this.store.dispatch(new rentalsActions.RequestGetRentalsByType(this.activeNavItem));
+    }
+
+    if (navLink === 'Add Rental') {
+      this.activeNavItem = navLink;
     }
   }
 

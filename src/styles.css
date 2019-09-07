@@ -7,7 +7,7 @@ body {
   display: -ms-flexbox;
   display: flex;
   color: white;
-  text-shadow: 0 0.05rem 0.1rem rgba(0, 0, 0, 0.5);
+  font-weight: 400;
 }
 
 .box-shadow {
@@ -99,14 +99,14 @@ a:hover {
 .btn-dark:hover,
 .btn-dark:focus {
   background-color: white;
-  color: lightsteelblue !important;
+  color: royalblue !important;
   border: 0.05rem solid white;
 }
 
 .btn-primary {
   text-shadow: none;
   background-color: white;
-  color: royalblue;
+  color: cornflowerblue;
   border: 0.05rem solid white;
   font-weight: 700;
 }
@@ -160,13 +160,14 @@ a:hover {
   top: 0;
   bottom: 0;
   left: 0;
-  z-index: 100; /* Behind the navbar */
+  z-index: 100;
   padding: 0;
-  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
-  background: midnightblue;
+  /* box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1); */
+  background: royalblue;
   display: flex;
   flex-flow: column;
   height: 100%;
+  border-right: 1px solid lightsteelblue;
 }
 
 .sidebar-nav {

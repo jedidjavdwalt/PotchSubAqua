@@ -26,17 +26,45 @@ export class DashboardComponent implements OnInit {
   activeNavItem = 'Players';
   expandedNavItem = null;
 
-  players = [];
-  inventory = [];
-  rentals = [];
+  players: Player[] = [];
+  inventory: InventoryItem[] = [];
+  rentals: Rental[] = [];
+
+  selectedPlayer = {} as Player;
+
+  editing = false;
 
   constructor(
     private store: Store<AppState>,
   ) { }
 
+  editPlayerClicked(player: Player) {
+    this.selectedPlayer = player;
+    this.editing = true;
+  }
+
   logoutClicked() {
     this.store.dispatch(new usersActions.RemoveUser());
     this.store.dispatch(new usersActions.LogoutUser());
+  }
+
+  shouldEditPlayer(player: Player) {
+    return this.selectedPlayer.docId === player.docId && this.editing;
+  }
+
+  shouldDisplayPlayers() {
+    return this.activeNavItem === 'U19' ||
+      this.activeNavItem === 'U19 Female' ||
+      this.activeNavItem === 'U19 Male' ||
+      this.activeNavItem === 'U15' ||
+      this.activeNavItem === 'U15 Female' ||
+      this.activeNavItem === 'U15 Male' ||
+      this.activeNavItem === 'U13' ||
+      this.activeNavItem === 'U13 Female' ||
+      this.activeNavItem === 'U13 Male' ||
+      this.activeNavItem === 'U10' ||
+      this.activeNavItem === 'U10 Female' ||
+      this.activeNavItem === 'U10 Male';
   }
 
   playersNavLinkClicked(navLink: string, navItemCont?: string) {

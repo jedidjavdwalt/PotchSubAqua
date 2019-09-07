@@ -1,12 +1,13 @@
-<div class="d-flex flex-column w-100 h-100 p-3 bg-royalblue">
+<div class="d-flex flex-column w-100 h-100 p-3 fullscreen bg-royalblue">
     <div class="row justify-content-center mb-auto">
-        <div class="col-12 col-md-6 text-center">
-            <div class="row align-items-center">
+        <div class="col-12 col-lg-6 col-md-8 col-sm-10 text-center">
+            <div class="d-flex flex-row align-items-center">
                 <img src="\assets\logo\logo-white.png" height="50">
-                <h3 class="ml-2">Potch Sub Aqua</h3>
+                <h3 class="ml-2 d-none d-sm-block">Potch Sub Aqua</h3>
 
                 <nav class="nav psa-nav justify-content-center ml-auto">
-                    <span class="nav-link clickable" [class.active]="activeNavItem === 'Home'" (click)="navigateHome()">Home</span>
+                    <span class="nav-link clickable" [class.active]="activeNavItem === 'Home'"
+                        (click)="navigateHome()">Home</span>
                     <span class="nav-link ml-2 clickable" [class.active]="activeNavItem === 'Contact'">Contact</span>
                     <span class="nav-link ml-2 clickable" (click)="loginClicked()">Login</span>
                 </nav>
@@ -14,8 +15,8 @@
         </div>
     </div>
 
-    <div role="main" class="row justify-content-center">
-        <div class="col-12 col-md-6 text-center">
+    <div role="main" class="row justify-content-center pt-5 pb-5">
+        <div class="col-12 col-lg-6 col-md-8 col-sm-10 text-center">
             <h1>Contact us / Kontak ons...</h1>
             <p class="lead">
                 We welcome any new players... Please call<a>082 771 5777 (Pamela Mackor)</a> or <a>078 203 1836
@@ -38,8 +39,8 @@
     </div>
 
     <div class="row justify-content-center text-lightsteelblue mt-auto">
-        <div class="col-12 col-md-6 text-center">
-            <p>Website by <a href="#">Jedidja van der Walt</a>.</p>
+        <div class="col-12 col-lg-6 col-md-8 col-sm-10 text-center">
+            <!-- <p>Website by <a href="#">Jedidja van der Walt</a>.</p> -->
         </div>
     </div>
 </div>

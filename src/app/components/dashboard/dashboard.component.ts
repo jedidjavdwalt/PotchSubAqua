@@ -27,6 +27,8 @@ export class DashboardComponent implements OnInit {
   expandedNavItem = null;
 
   players = [];
+  inventory = [];
+  rentals = [];
 
   constructor(
     private store: Store<AppState>,
@@ -168,6 +170,30 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.sliceAppState();
+  }
+
+  private sliceAppState() {
+    this.store.select(usersSelectors.loggedInUser).subscribe(loggedInUser => {
+      if (!loggedInUser) {
+        // this.router.navigateByUrl('');
+      }
+    });
+
+    this.store.select(playersSelectors.players).subscribe(players => {
+      this.players = players;
+    });
+
+    this.store
+      .select(inventorySelectors.inventoryItems)
+      .subscribe(inventory => {
+        this.inventory = inventory;
+        this.inventory.sort((a, b) => (a.number > b.number ? 1 : -1));
+      });
+
+    this.store.select(rentalsSelectors.rentals).subscribe(rentals => {
+      this.rentals = rentals;
+    });
   }
 }
 

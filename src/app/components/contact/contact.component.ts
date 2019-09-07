@@ -12,12 +12,15 @@ import * as usersSelectors from '../../store/selectors/users.selectors';
 })
 export class ContactComponent implements OnInit {
 
+  activeNavItem = 'Contact';
+
   constructor(
     private store: Store<AppState>,
     private router: Router,
   ) { }
 
   navigateHome() {
+    this.activeNavItem = 'Home';
     this.router.navigateByUrl('home');
   }
 

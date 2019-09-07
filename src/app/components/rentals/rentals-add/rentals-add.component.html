@@ -1,4 +1,4 @@
-<div class="card bg-cornflowerblue border-none">
+<div class="card secondary-bg border-none">
   <div class="card-body text-white">
 
     <!-- rentalForm -->
@@ -45,7 +45,7 @@
       </div>
     </form>
 
-    <div class="card bg-royalblue border-none mt-3">
+    <div class="card primary-bg border-none mt-3">
       <div class="card-body">
 
         <!-- inventoryItemsForm -->
@@ -121,7 +121,7 @@
       </div>
     </div>
 
-    <button class="btn btn-block bg-midnightblue text-white mt-3"
+    <button class="btn btn-block dark-bg text-white mt-3"
       [disabled]="rentalForm.invalid || (!selectedMask.value && !selectedSnorkel.value && !selectedGlove.value && !selectedStick.value && !selectedFins.value)"
       (click)="onAddClick()">
       Add

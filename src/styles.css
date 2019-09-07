@@ -89,12 +89,30 @@ a:hover {
 }
 
 /* buttons */
-.psa-btn-white,
-.psa-btn-white:hover,
-.psa-btn-white:focus {
+.dark-btn {
   text-shadow: none;
   background-color: white;
   border: 0.05rem solid white;
+  font-weight: 700;
+  color: midnightblue;
+}
+
+.dark-btn:hover,
+.dark-btn:focus {
+  color: royalblue;
+}
+
+.primary-btn {
+  text-shadow: none;
+  background-color: white;
+  border: 0.05rem solid white;
+  font-weight: 700;
+  color: royalblue;
+}
+
+.primary-btn:hover,
+.primary-btn:focus {
+  color: cornflowerblue;
 }
 
 /* navs */
@@ -108,7 +126,7 @@ a:hover {
 
 .psa-nav .nav-link:hover,
 .psa-nav .nav-link:focus {
-  border-bottom-color: lightsteelblue;
+  color: white;
 }
 
 .psa-nav .active {

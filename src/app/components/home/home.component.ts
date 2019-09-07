@@ -12,12 +12,15 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
+  activeNavItem = 'Home';
+
   constructor(
     private store: Store<AppState>,
     private router: Router,
   ) { }
 
   navigateContact() {
+    this.activeNavItem = 'Contact';
     this.router.navigateByUrl('contact');
   }
 

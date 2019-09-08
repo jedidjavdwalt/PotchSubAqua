@@ -31,9 +31,7 @@ import { RentalsAddComponent } from './components/rentals/rentals-add/rentals-ad
 import { RentalsDetailComponent } from './components/rentals/rentals-detail/rentals-detail.component';
 import { RentalsEditComponent } from './components/rentals/rentals-edit/rentals-edit.component';
 import { HomeComponent } from './components/home/home.component';
-import { LoginComponent } from './components/login/login.component';
 import { PlayersEditComponent } from './components/players/players-edit/players-edit.component';
-import { TempComponent } from './components/temp/temp.component';
 import { ContactComponent } from './components/contact/contact.component';
 
 @NgModule({
@@ -48,9 +46,7 @@ import { ContactComponent } from './components/contact/contact.component';
     RentalsDetailComponent,
     RentalsEditComponent,
     HomeComponent,
-    LoginComponent,
     PlayersEditComponent,
-    TempComponent,
     ContactComponent,
   ],
   imports: [

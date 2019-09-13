@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { InventoryItem } from 'src/app/models/InventoryItem';
 
 @Component({
@@ -8,8 +8,15 @@ import { InventoryItem } from 'src/app/models/InventoryItem';
 export class InventoryDetailComponent implements OnInit {
 
   @Input() selectedInventoryItem: InventoryItem;
+  @Input() isEditing: boolean;
+
+  @Output() editClicked = new EventEmitter();
 
   constructor() { }
+
+  onEditClick() {
+    this.editClicked.emit();
+  }
 
   ngOnInit() {
   }

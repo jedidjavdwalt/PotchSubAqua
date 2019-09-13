@@ -95,6 +95,7 @@ export class DashboardComponent implements OnInit {
   ];
 
   isEditingPlayer = false;
+  isEditingInventoryItem = false;
   isEditingRental = false;
 
   constructor(
@@ -114,6 +115,7 @@ export class DashboardComponent implements OnInit {
     this.tertiaryBtn = undefined;
 
     this.isEditingPlayer = false;
+    this.isEditingInventoryItem = false;
     this.isEditingRental = false;
 
     switch (this.primaryBtn) {
@@ -144,6 +146,7 @@ export class DashboardComponent implements OnInit {
     this.secondaryBtn === 'Add' ? this.displayAdd() : this.displayList();
 
     this.isEditingPlayer = false;
+    this.isEditingInventoryItem = false;
     this.isEditingRental = false;
 
     switch (this.secondaryBtn) {
@@ -204,6 +207,7 @@ export class DashboardComponent implements OnInit {
     this.displayList();
 
     this.isEditingPlayer = false;
+    this.isEditingInventoryItem = false;
     this.isEditingRental = false;
 
     switch (this.tertiaryBtn) {
@@ -335,6 +339,7 @@ export class DashboardComponent implements OnInit {
       (this.secondaryBtn !== 'Player Status' || (this.secondaryBtn === 'Player Status' && this.tertiaryBtn)) &&
       this.secondaryBtn !== 'Add' &&
       !this.isEditingPlayer &&
+      !this.isEditingInventoryItem &&
       !this.isEditingRental
     ) {
       return true;
@@ -350,6 +355,7 @@ export class DashboardComponent implements OnInit {
       this.secondaryBtn !== 'Add' &&
       this.tertiaryBtn &&
       !this.isEditingPlayer &&
+      !this.isEditingInventoryItem &&
       !this.isEditingRental
     ) {
       return true;
@@ -365,6 +371,7 @@ export class DashboardComponent implements OnInit {
       this.secondaryBtn !== 'Add' &&
       this.tertiaryBtn &&
       !this.isEditingPlayer &&
+      !this.isEditingInventoryItem &&
       !this.isEditingRental
     ) {
       return true;
@@ -396,6 +403,19 @@ export class DashboardComponent implements OnInit {
 
   shouldDisplayInventoryDetail(): boolean {
     if (this.selectedInventoryItem) {
+      return true;
+    }
+
+    return false;
+  }
+
+  shouldDisplayInventoryEdit() {
+    if (
+      this.primaryBtn === 'Inventory Items' &&
+      this.secondaryBtn &&
+      this.secondaryBtn !== 'Add' &&
+      this.isEditingInventoryItem
+    ) {
       return true;
     }
 

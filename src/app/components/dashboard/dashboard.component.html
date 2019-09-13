@@ -61,6 +61,28 @@
                 [availableSticks]="availableSticks" [availableFins]="availableFins"></app-rentals-add>
             </div>
           </div>
+          
+          <!-- detail -->
+          <div class="row">
+
+            <!-- players detail -->
+            <div class="col-12 mb-3" *ngIf="shouldDisplayPlayersDetail()">
+              <app-players-detail [selectedPlayer]="selectedPlayer" [isEditing]="isEditingPlayer"
+                (editClicked)="isEditingPlayer = true"></app-players-detail>
+            </div>
+
+            <!-- inventory detail -->
+            <div class="col-12 mb-3" *ngIf="shouldDisplayInventoryDetail()">
+              <app-inventory-detail [selectedInventoryItem]="selectedInventoryItem" [isEditing]="isEditingInventoryItem" (editClicked)="isEditingInventoryItem = true">
+              </app-inventory-detail>
+            </div>
+
+            <!-- rentals detail -->
+            <div class="col-12 mb-3" *ngIf="shouldDisplayRentalsDetail()">
+              <app-rentals-detail [selectedRental]="selectedRental" [isEditing]="isEditingRental"
+                (editClicked)="isEditingRental = true"></app-rentals-detail>
+            </div>
+          </div>
 
           <!-- players list -->
           <div class="row" *ngIf="shouldDisplayPlayersList()">
@@ -101,34 +123,17 @@
             </div>
           </div>
 
-          <!-- detail -->
-          <div class="row">
-
-            <!-- players detail -->
-            <div class="col-12 mb-3" *ngIf="shouldDisplayPlayersDetail()">
-              <app-players-detail [selectedPlayer]="selectedPlayer" [isEditing]="isEditingPlayer"
-                (editClicked)="isEditingPlayer = true"></app-players-detail>
-            </div>
-
-            <!-- inventory detail -->
-            <div class="col-12 mb-3" *ngIf="shouldDisplayInventoryDetail()">
-              <app-inventory-detail [selectedInventoryItem]="selectedInventoryItem">
-              </app-inventory-detail>
-            </div>
-
-            <!-- rentals detail -->
-            <div class="col-12 mb-3" *ngIf="shouldDisplayRentalsDetail()">
-              <app-rentals-detail [selectedRental]="selectedRental" [isEditing]="isEditingRental"
-                (editClicked)="isEditingRental = true"></app-rentals-detail>
-            </div>
-          </div>
-
           <!-- edit -->
           <div class="row">
 
             <!-- players edit -->
             <div class="col-12 mb-3" *ngIf="shouldDisplayPlayersEdit()">
               <app-players-edit [selectedPlayer]="selectedPlayer" (saveClicked)="isEditingPlayer = false"></app-players-edit>
+            </div>
+
+            <!-- inventory edit -->
+            <div class="col-12 mb-3" *ngIf="shouldDisplayInventoryEdit()">
+              <app-inventory-edit [selectedInventoryItem]="selectedInventoryItem" (saveClicked)="isEditingInventoryItem = false"></app-inventory-edit>
             </div>
 
             <!-- rentals edit -->

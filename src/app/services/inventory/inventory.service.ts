@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { InventoryItem } from 'src/app/models/InventoryItem';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.state';
+import * as inventoryActions from '../../store/actions/inventory.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +12,7 @@ export class InventoryService {
 
   constructor(
     private angularFirestore: AngularFirestore,
+    private store: Store<AppState>,
   ) { }
 
   createInventoryItemToAdd(inventoryItemToAdd: InventoryItem) {
@@ -49,5 +53,22 @@ export class InventoryService {
           });
         }
       });
+  }
+
+  createInventoryItemToEdit(inventoryItemToEdit: InventoryItem) {
+    let inventoryItem = {} as InventoryItem;
+
+    inventoryItem = inventoryItemToEdit;
+
+    this.editInventoryItem(inventoryItem);
+  }
+
+  editInventoryItem(inventoryItem: InventoryItem) {
+    this.angularFirestore.collection('/inventory/').doc(inventoryItem.docId).update(inventoryItem.toData()).then(() => {
+      alert(inventoryItem.displayId + ' saved');
+      this.store.dispatch(new inventoryActions.SetSelectedInventoryItem(inventoryItem));
+    }).catch(error => {
+      alert(error);
+    });
   }
 }
